@@ -70,18 +70,6 @@ $('.safety').click(function () {
     $('#modal-safety').modal();
 });
 
-$('.modal-add-bot').submit(function () {
-    var botname = $('input[name="bot-name"]').val();
-
-    if(botname !== "") {
-        console.log('add-bot');
-        console.log(botname);
-    }
-    else
-        alert('이름을 입력해주세요.');
-});
-
-
 $('.bot-list #bot-alarm').click(function () {
     console.log($('.bot-list #bot-alarm').is(":checked"));
 });
