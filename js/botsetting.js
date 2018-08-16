@@ -1,13 +1,13 @@
-$('.bot-data').change(function () {
+$(document).on('click', '.bot-data', function () {
     console.log('changed');
     $('.box-save').css('display', 'block');
 });
 
-$('.strategy-setting').click(function () {
+$(document).on('click', '.strategy-setting', function () {
     $('#bot-setting').modal();
 });
 
-$('.order-quantity').click(function () {
+$(document).on('click', '.order-quantity', function () {
     var coinname = $('#bot-coin option:selected').val();
 
     $('#modal-order-quantity .order-quantity-coin').text(coinname);
@@ -19,8 +19,7 @@ $('.order-quantity').click(function () {
     $('#modal-order-quantity').modal();
 });
 
-$('#modal-order-quantity button[type="submit"]').click(function () {
-
+$(document).on('click', '#modal-order-quantity button[type="submit"]', function () {
     var coinname = $('#bot-coin option:selected').val();
 
     console.log('Success Order Quantity');
@@ -66,31 +65,31 @@ $('#modal-order-quantity button[type="submit"]').click(function () {
     $('#modal-order-quantity').modal('hide');
 });
 
-$('.safety').click(function () {
+$(document).on('click', '.safety', function () {
     $('#modal-safety').modal();
 });
 
-$('.bot-list #bot-alarm').click(function () {
+$(document).on('click', '.bot-list #bot-alarm', function () {
     console.log($('.bot-list #bot-alarm').is(":checked"));
 });
 
-$('.bot-list #auto-trade').click(function () {
+$(document).on('click', '.bot-list #auto-trade', function () {
     console.log($('.bot-list #auto-trade').is(":checked"));
 });
 
 
-$('.bot-list .save-bot-setting').click(function () {
+$(document).on('click', '.bot-list .save-bot-setting', function () {
     console.log('save-bot-setting');
     saveBotSetting();
 });
 
-$('.bot-list .backtest').click(function () {
+$(document).on('click', '.bot-list .backtest', function () {
     console.log('backtest');
 
     $('#modal-backtest-setting').modal();
 });
 
-$('#modal-backtest-setting button[type="submit"]').click(function () {
+$(document).on('click', '#modal-backtest-setting button[type="submit"]', function () {
     console.log('start backtest');
 
     var backtestSettingInfo = new Object();
@@ -126,7 +125,7 @@ $('#modal-backtest-setting button[type="submit"]').click(function () {
     console.log(backtestSettingInfo);
 });
 
-$('.bot-list .bot-start').click(function () {
+$(document).on('click', '.bot-list .bot-start', function () {
     console.log('bot-start');
     saveBotSetting();
 });

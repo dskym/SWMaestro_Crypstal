@@ -34,7 +34,7 @@ $(function () {
             '                    <div class="box-body">\n' +
             '                      <div class="form-group">\n' +
             '                        <label>계정</label>\n' +
-            '                        <select class="form-control select2 exchange">\n' +
+            '                        <select id="bot-exchange" class="form-control select2 exchange bot-data" data-minimum-results-for-search="Infinity">\n' +
             '                          <option value="Bithumb">Bithumb</option>\n' +
             '                          <option value="Upbit">Upbit</option>\n' +
             '                          <option value="Coinone">Coinone</option>\n' +
@@ -43,7 +43,7 @@ $(function () {
             '\n' +
             '                      <div class="form-group">\n' +
             '                        <label>코인</label>\n' +
-            '                        <select class="form-control select2 coin">\n' +
+            '                        <select id="bot-coin" class="form-control select2 coin bot-data" data-minimum-results-for-search="Infinity">\n' +
             '                          <option value="BTC">BTC</option>\n' +
             '                          <option value="ETH">ETH</option>\n' +
             '                          <option value="XRP">XRP</option>\n' +
@@ -52,7 +52,7 @@ $(function () {
             '\n' +
             '                      <div class="form-group">\n' +
             '                        <label>주기</label>\n' +
-            '                        <select class="form-control select2 period">\n' +
+            '                        <select id="bot-period" class="form-control select2 period bot-data" data-minimum-results-for-search="Infinity">\n' +
             '                          <option value="5m">5m</option>\n' +
             '                          <option value="15m">15m</option>\n' +
             '                          <option value="30m">30m</option>\n' +
@@ -63,7 +63,11 @@ $(function () {
             '\n' +
             '                      <div class="b-1 h-30px"></div><br>\n' +
             '\n' +
-            '                      <button class="btn btn-info">수정하기</button>\n' +
+            '                      <div class="strategy-setting">\n' +
+            '                        <h2>바보</h2>\n' +
+            '                        <p>아무것도 못함</p>\n' +
+            '                        <button class="btn btn-info">수정하기</button>\n' +
+            '                      </div>\n' +
             '                    </div>\n' +
             '                  </div>\n' +
             '\n' +
@@ -76,30 +80,36 @@ $(function () {
             '                    </div>\n' +
             '\n' +
             '                    <div class="box-body">\n' +
-            '                      <p>주문 수량</p>\n' +
-            '                      <p><span class="badge badge-success mr-10">매수</span>100%(All-in)</p>\n' +
-            '                      <p><span class="badge badge-danger mr-10">매도</span>100%(All-in)</p>\n' +
-            '                      <button class="btn btn-info">수정하기</button>\n' +
-            '                    </div>\n' +
+            '                      <div class="order-quantity">\n' +
+            '                        <p>주문 수량</p>\n' +
+            '                        <p><span class="badge badge-success mr-10">매수</span><span class="order-quantity-buy" >100% (All-in)</span></p>\n' +
+            '                        <p><span class="badge badge-danger mr-10">매도</span><span class="order-quantity-sell" >100% (All-in)</span></p>\n' +
+            '                        <button class="btn btn-info">수정하기</button>\n' +
+            '                      </div>\n' +
             '\n' +
-            '                    <div class="box-footer">\n' +
-            '                      <p>Safety</p>\n' +
-            '                      <button class="btn btn-info">수정하기</button>\n' +
-            '                    </div>\n' +
+            '                      <div className="b-1 h-30px"></div>\n' +
             '\n' +
+            '                      <div class="safety">\n' +
+            '                        <p>Safety</p>\n' +
+            '                        <button class="btn btn-info">수정하기</button>\n' +
+            '                      </div>\n' +
+            '                    </div>\n' +
             '                  </div>\n' +
             '\n' +
             '                  <div>\n' +
-            '                    <input type="checkbox" id="basic_checkbox_3" class="filled-in bot-alarm"/>\n' +
-            '                    <label for="basic_checkbox_3">챗봇 알림 받기</label>\n' +
+            '                    <input type="checkbox" id="bot-alarm" class="filled-in bot-alarm bot-data"/>\n' +
+            '                    <label for="bot-alarm">챗봇 알림 받기</label>\n' +
             '                  </div>\n' +
             '                  <div>\n' +
-            '                    <input type="checkbox" id="basic_checkbox_4" class="filled-in auto-trade"/>\n' +
-            '                    <label for="basic_checkbox_4">자동 거래</label>\n' +
+            '                    <input type="checkbox" id="auto-trade" class="filled-in auto-trade bot-data"/>\n' +
+            '                    <label for="auto-trade">자동 거래</label>\n' +
+            '                  </div>\n' +
+            '                  <div class="box-save">\n' +
+            '                    <button class="btn btn-info save-bot-setting">현재 봇 설정 저장</button>\n' +
             '                  </div>\n' +
             '                  <div class="box-submit">\n' +
-            '                    <button class="btn btn-info">백테스팅</button>\n' +
-            '                    <button class="btn btn-info">봇 시작</button>\n' +
+            '                    <button class="btn btn-info backtest">백테스팅</button>\n' +
+            '                    <button class="btn btn-info bot-start">봇 시작</button>\n' +
             '                  </div>\n' +
             '                </div>';
 
@@ -119,7 +129,6 @@ $(function () {
             $.each($botCoin.children(), function() {
                 if ($(this).text().toUpperCase() === bot['cryptoCurrency'].toUpperCase()) {
                     $(this).prop('selected', true);
-                    console.log($(this));
                 }
             });
 
