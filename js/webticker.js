@@ -13,6 +13,20 @@ $(function () {
 });
 
 function init() {
+    var coinMapping = {
+        'btc' : 'BTC',
+        'eth' : 'ETH',
+        'game' : 'GAME',
+        'lbc' : 'LBC',
+        'neo' : 'NEO',
+        'ste' : 'STEEM',
+        'lit' : 'LTC',
+        'note' : 'NOTE',
+        'mint' : 'MINT',
+        'iot' : 'IOTA',
+        'das' : 'DASH',
+    }
+
     var webTickerData = new Object();
 
     var coinData = new Object();
@@ -32,10 +46,7 @@ function init() {
     webTickerData.exchange = 'upbit';
     webTickerData.coin = coinData;
 
-    console.log(webTickerData);
-    console.log(webTickerData['exchange']);
-    console.log(webTickerData['coin']);
     $.each(webTickerData['coin'], function(key, value) {
-        $("#webticker").append('<li><i class=\"cc BTC\"></i> ' + key + ' <span class=\"text-yellow\"> ' + value + '</span></li>');
+        $("#webticker").append('<li><i class=\"cc ' + coinMapping[key] + '\"></i> ' + key.toUpperCase() + ' <span class=\"text-yellow\"> ' + value + '</span></li>');
     });
 }
