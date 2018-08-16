@@ -1113,13 +1113,13 @@
           <div class="tab-content">
             <div class="tab-pane active" id="buy-allin" role="tabpanel">거래시점의 잔고 100% 매수(all-in 매수)</div>
             <div class="tab-pane pad" id="buy-krw" role="tabpanel">
-              <p>지정한 자산만큼 매수</p>
+              <label>지정한 자산만큼 매수</label>
               <div class="form-element">
                 <input class="form-control" type="text" name="buy-krw">
               </div>
             </div>
             <div class="tab-pane pad" id="buy-coin" role="tabpanel">
-              <p>지정한 코인 수량만큼 매수</p>
+              <label>지정한 코인 수량만큼 매수</label>
               <div class="form-element">
                 <input class="form-control" type="text" name="buy-coin">
               </div>
@@ -1137,13 +1137,13 @@
           <div class="tab-content">
             <div class="tab-pane active" id="sell-allin" role="tabpanel">거래시점의 잔고 100% 매도(all-in 매도)</div>
             <div class="tab-pane pad" id="sell-krw" role="tabpanel">
-              <p>지정한 자산만큼 매수</p>
+              <label>지정한 자산만큼 매도</label>
               <div class="form-element">
                 <input class="form-control" type="text" name="sell-krw">
               </div>
             </div>
             <div class="tab-pane pad" id="sell-coin" role="tabpanel">
-              <p>지정한 코인 수량만큼 매수</p>
+              <label>지정한 코인 수량만큼 매도</label>
               <div class="form-element">
                 <input class="form-control" type="text" name="sell-coin">
               </div>
@@ -1172,40 +1172,100 @@
 <!-- /.modal -->
 
 <!-- safety modal -->
-<form action="#" method="post" onsubmit="return false;">
-  <div id="safety" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="safety-label">Safety</h4>
+<div id="safety" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="safety-label">Safety</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <p>아아아</p>
+          <div class="controls">
+            <input type="text" name="bot-name" class="form-control" placeholder="ex) Crypstal"> </div>
         </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <p>아아아</p>
-            <div class="controls">
-              <input type="text" name="bot-name" class="form-control" placeholder="ex) Crypstal"> </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div class="form-group row mb-0">
-            <div class="col-12">
-              <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
-                취소하기
-              </button>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group row mb-0">
+          <div class="col-12">
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+              취소하기
+            </button>
 
-              <button type="submit" class="btn btn-default">
-                생성하기
-              </button>
-            </div>
+            <button type="submit" class="btn btn-default">
+              생성하기
+            </button>
           </div>
         </div>
       </div>
-      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal-content -->
   </div>
-  <!-- /.modal -->
-</form>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- backtest setting modal -->
+<div id="modal-backtest-setting" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="label-backtest-setting">Backtest</h4>
+      </div>
+      <div class="modal-body">
+        <div class="backtest-date">
+          <!-- Date -->
+          <div class="form-group">
+            <label>시작 날짜 - 종료 날짜</label>
+
+            <div class="input-group">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <input type="text" class="form-control pull-right" id="reservation">
+            </div>
+            <!-- /.input group -->
+          </div>
+          <!-- /.form group -->
+        </div>
+        <div class="backtest-amount">
+          <label>테스트 금액 (KRW)</label>
+          <div class="form-element">
+            <input class="form-control" type="text" name="backtest-amount" placeholder="1,000,000 KRW">
+          </div>
+        </div>
+        <div class="backtest-fee">
+          <label>거래소 수수료(%)</label>
+          <div class="form-element">
+            <input class="form-control" type="text" name="backtest-fee" placeholder="0.1%">
+          </div>
+        </div>
+        <div class="backtest-slippage">
+          <label>슬리피지 비율(%)</label>
+          <div class="form-element">
+            <input class="form-control" type="text" name="backtest-slippage" placeholder="0.4%">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group row mb-0">
+          <div class="col-12">
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+              취소하기
+            </button>
+
+            <button type="submit" class="btn btn-default">
+              결과보기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <!-- jQuery 3 -->
 <script src="../assets/vendor_components/jquery/dist/jquery.js"></script>
@@ -1264,21 +1324,13 @@
 <!-- webticker -->
 <script src="../assets/vendor_components/Web-Ticker-master/jquery.webticker.min.js"></script>
 
-<!-- EChartJS JavaScript -->
-<script src="../assets/vendor_components/echarts-master/dist/echarts-en.min.js"></script>
-<script src="../assets/vendor_components/echarts-liquidfill-master/dist/echarts-liquidfill.min.js"></script>
-
-<!-- This is data table -->
-<script src="../assets/vendor_plugins/DataTables-1.10.15/media/js/jquery.dataTables.min.js"></script>
-
 <!-- Crypto_Admin App -->
+<!-- 스크롤 때문에 -->
 <script src="js/template.js"></script>
-<script src="js/pages/web-ticker.js"></script>
+
 
 <script src="js/webticker.js"></script>
-
 <script src="js/livechart.js"></script>
-
 <script src="js/botsetting.js"></script>
 
 </body>

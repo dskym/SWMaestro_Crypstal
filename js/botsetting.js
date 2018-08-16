@@ -98,6 +98,44 @@ $('.bot-list .save-bot-setting').click(function () {
 
 $('.bot-list .backtest').click(function () {
     console.log('backtest');
+
+    $('#modal-backtest-setting').modal();
+});
+
+$('#modal-backtest-setting button[type="submit"]').click(function () {
+    console.log('start backtest');
+
+    var backtestSettingInfo = new Object();
+
+    backtestSettingInfo.startDate = 0;
+    backtestSettingInfo.endDate = 0;
+
+
+    var amount = $('input[name="backtest-amount"]').val();
+
+    if(amount !== "")
+        backtestSettingInfo.amount = parseInt(amount);
+    else
+        backtestSettingInfo.amount = 1000000;
+
+
+    var fee = $('input[name="backtest-fee"]').val();
+
+    if(fee !== "")
+        backtestSettingInfo.fee = fee * 0.01;
+    else
+        backtestSettingInfo.fee = 0.001;
+
+
+    var slippage = $('input[name="backtest-slippage"]').val();
+
+    if(slippage !== "")
+        backtestSettingInfo.slippage = slippage * 0.01;
+    else
+        backtestSettingInfo.slippage = 0.004;
+
+
+    console.log(backtestSettingInfo);
 });
 
 $('.bot-list .bot-start').click(function () {
