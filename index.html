@@ -372,15 +372,14 @@
                         <p><span class="badge badge-danger mr-10">매도</span><span class="order-quantity-sell">100% (All-in)</span></p>
                         <button class="btn btn-info">수정하기</button>
                       </div>
-                    </div>
 
-                    <div class="box-footer">
+                      <div class="b-1 h-30px"></div>
+
                       <div class="safety">
                         <p>Safety</p>
                         <button class="btn btn-info">수정하기</button>
                       </div>
                     </div>
-
                   </div>
 
                   <div>
@@ -1067,10 +1066,34 @@
           <h4 class="modal-title" id="bot-setting-label">전략 생성</h4>
         </div>
         <div class="modal-body">
-          <div class="form-group">
-            <p>아아아</p>
-            <div class="controls">
-              <input type="text" name="bot-name" class="form-control" placeholder="ex) Crypstal"> </div>
+          <ul class="nav nav-tabs customtab" role="tablist">
+            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#basic-indicator" role="tab">기본 지표</a> </li>
+            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#my-strategy" role="tab">내 전략</a></li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active" id="basic-indicator" role="tabpanel">
+            </div>
+            <div class="tab-pane pad" id="my-strategy" role="tabpanel">
+              <div class="box">
+                <div class="box-header with-border">
+                  <h6 class="box-title">템플릿</h6>
+                  <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide"  href="#"></a></li>
+                  </ul>
+                </div>
+                <div class="box-body">
+                  <ul>
+                    <li>
+                      전략 1
+                    </li>
+                    <li>
+                      전략 2
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -1081,7 +1104,7 @@
               </button>
 
               <button type="submit" class="btn btn-default">
-                생성하기
+                저장하기
               </button>
             </div>
           </div>
@@ -1095,11 +1118,11 @@
 </form>
 
 <!-- order quantity modal -->
-<div id="order-quantity" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modal-order-quantity" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="order-quantity-label">주문 수량</h4>
+        <h4 class="modal-title" id="label-order-quantity">주문 수량</h4>
       </div>
       <div class="modal-body">
         <div class="buy">
@@ -1172,11 +1195,11 @@
 <!-- /.modal -->
 
 <!-- safety modal -->
-<div id="safety" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modal-safety" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="safety-label">Safety</h4>
+        <h4 class="modal-title" id="label-safety">Safety</h4>
       </div>
       <div class="modal-body">
         <div class="form-group">
@@ -1318,6 +1341,7 @@
 <script src="http://www.amcharts.com/lib/3/pie.js" type="text/javascript"></script>
 <script src="http://www.amcharts.com/lib/3/plugins/animate/animate.min.js" type="text/javascript"></script>
 <script src="http://www.amcharts.com/lib/3/plugins/export/export.min.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js" type="text/javascript"></script>
 <script src="http://www.amcharts.com/lib/3/themes/patterns.js" type="text/javascript"></script>
 <script src="http://www.amcharts.com/lib/3/themes/light.js" type="text/javascript"></script>
 
@@ -1331,6 +1355,7 @@
 
 <script src="js/webticker.js"></script>
 <script src="js/livechart.js"></script>
+<script src="js/botlist.js"></script>
 <script src="js/botsetting.js"></script>
 
 </body>

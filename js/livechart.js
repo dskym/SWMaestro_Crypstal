@@ -1,6 +1,7 @@
 var chartData = [];
+var server_url = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/chart/candles/minutes/5';
 
-generateChartData();
+//generateChartData();
 
 function generateChartData() {
     var firstDate = new Date();
@@ -47,51 +48,62 @@ function generateChartData() {
             volume: volume,
         });
     }
+
+    console.log(chartData);
 }
 
 var chart = AmCharts.makeChart( "chartdiv1", {
     type: "stock",
     theme: "light",
     dataSets: [ {
-
         fieldMappings: [ {
-            fromField: "open",
+            fromField: "openingPrice",
             toField: "open"
         },{
-            fromField: "close",
+            fromField: "tradePrice",
             toField: "close"
         },{
-            fromField: "high",
+            fromField: "highPrice",
             toField: "high"
         },{
-            fromField: "low",
+            fromField: "lowPrice",
             toField: "low"
         },{
-            fromField: "volume",
+            fromField: "candleAccTradeVolume",
             toField: "volume"
         } ],
-        color: "#7f8da9",
-        dataProvider: chartData,
-        categoryField: "date"
+        dataLoader: {
+            url: server_url,
+            format: 'json',
+        },
+        categoryField: "candleDateTimeKST"
     }],
 
+    valueAxesSettings: {
+        minPeriod: "mm",
+        equalSpacing : true
+    },
 
     categoryAxesSettings: {
+        minPeriod: "mm",
         equalSpacing : true,
     },
 
     mouseWheelZoomEnabled: true,
 
+    glueToTheEnd: true,
+
     panels: [ {
         title: "Price",
-        showCategoryAxis: false,
-        percentHeight: 70,
+        showCategoryAxis: true,
+        percentHeight: 80,
         valueAxes: [ {
             id: "v1",
             dashLength: 5
         } ],
 
         categoryAxis: {
+            minPeriod: "mm",
             dashLength: 5
         },
 
@@ -99,11 +111,13 @@ var chart = AmCharts.makeChart( "chartdiv1", {
             title: 'BTC',
             type: "candlestick",
             id: "g1",
-            balloonText: "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>Volume:<b>[[volume]]</b><br>",
+            balloonText: "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>Volume:<b>[[value]]</b><br>Time:<b>[[candleDateTimeKST]]</b><br>",
             openField: "open",
             closeField: "close",
             highField: "high",
             lowField: "low",
+            valueField: "volume",
+            categoryField: "candleDateTimeKST",
             lineColor: "#0000ff",
             fillColors: "#0000ff",
             negativeLineColor: "#ff0000",
@@ -123,7 +137,7 @@ var chart = AmCharts.makeChart( "chartdiv1", {
     },
         {
             title: "Volume",
-            percentHeight: 30,
+            percentHeight: 20,
             marginTop: 1,
             showCategoryAxis: true,
             valueAxes: [ {
@@ -140,7 +154,7 @@ var chart = AmCharts.makeChart( "chartdiv1", {
                 type: "column",
                 useDataSetColors: false,
                 lineColor: "#2B4073",
-                balloonText: "Volume<br><b><span style='font-size:14px;'>value: [[value]]</span></b>",
+                balloonText: "Volume<br><b><span style='font-size:14px;'>Volume: [[value]]</span></b>",
                 showBalloon: true,
                 fillAlphas: false
             }],
@@ -157,7 +171,7 @@ var chart = AmCharts.makeChart( "chartdiv1", {
     chartScrollbarSettings: {
         graph: "g1",
         graphType: "line",
-        usePeriod: "DD"
+        usePeriod: "mm"
     },
 
     chartCursorSettings: {
@@ -169,29 +183,26 @@ var chart = AmCharts.makeChart( "chartdiv1", {
     periodSelector: {
         position: "bottom",
         periods: [ {
-            period: "DD",
-            count: 10,
-            label: "10 days"
-        }, {
-            period: "MM",
-            count: 1,
+            period: "mm",
+            count: 5,
             selected: true,
-            label: "1 month"
+            label: "5 min"
         }, {
-            period: "4MM",
-            count: 4,
-            label: "4 month"
+            period: "mm",
+            count: 15,
+            label: "15 min"
+        }, {
+            period: "30mm",
+            count: 30,
+            label: "30 min"
         },{
-            period: "MM",
-            count: 6,
-            label: "6 month"
-        },{
-            period: "YYYY",
+            period: "hh",
             count: 1,
-            label: "1 year"
-        }, {
-            period: "YTD",
-            label: "YTD"
+            label: "1 hour"
+        },{
+            period: "hh",
+            count: 2,
+            label: "2 hour"
         }, {
             period: "MAX",
             label: "MAX"
@@ -207,16 +218,18 @@ var chart = AmCharts.makeChart( "chartdiv1", {
                 url = 'https://api.upbit.com/v1/candles/minutes/5?market=KRW-BTC&count=200'
 
                 $.getJSON(url).done(function (e) {
-                    console.log(e)
+                    console.log(e);
                 });
-            }}, {
+            }},
+            {
             'event' : 'dataUpdated',
             'method' : function() {
-                console.log('data updated')
-            }}, {
+                console.log('data updated');
+            }},
+            {
             'event' : 'zoomed',
             'method' : function() {
-                console.log('zoomed')
+                console.log('zoomed');
             }}
         ]
 });
@@ -592,5 +605,5 @@ var demo2 = function() {
 }
 
 $(document).ready(function() {
-
+    demo2();
 });

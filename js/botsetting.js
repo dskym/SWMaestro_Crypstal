@@ -10,16 +10,16 @@ $('.strategy-setting').click(function () {
 $('.order-quantity').click(function () {
     var coinname = $('#bot-coin option:selected').val();
 
-    $('#order-quantity .order-quantity-coin').text(coinname);
+    $('#modal-order-quantity .order-quantity-coin').text(coinname);
     $('input[name="buy-krw"]').attr('placeholder', '100,000 KRW');
     $('input[name="sell-krw"]').attr('placeholder', '100,000 KRW');
     $('input[name="buy-coin"]').attr('placeholder', '1.1 ' + coinname);
     $('input[name="sell-coin"]').attr('placeholder', '1.1 ' + coinname);
 
-    $('#order-quantity').modal();
+    $('#modal-order-quantity').modal();
 });
 
-$('#order-quantity button[type="submit"]').click(function () {
+$('#modal-order-quantity button[type="submit"]').click(function () {
 
     var coinname = $('#bot-coin option:selected').val();
 
@@ -63,11 +63,11 @@ $('#order-quantity button[type="submit"]').click(function () {
 
     $('.box-save').css('display', 'block');
 
-    $('#order-quantity').modal('hide');
+    $('#modal-order-quantity').modal('hide');
 });
 
 $('.safety').click(function () {
-    $('#safety').modal();
+    $('#modal-safety').modal();
 });
 
 $('.modal-add-bot').submit(function () {
