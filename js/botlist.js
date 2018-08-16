@@ -23,95 +23,108 @@ $(function () {
             }
 
             content += '<h4 class="text-bold text-center">' + bot['name'] + '</h4>\n' +
-            '                  <div class="box">\n' +
-            '                    <div class="box-header with-border">\n' +
-            '                      <h6 class="box-title">봇의 전략</h6>\n' +
-            '                      <ul class="box-controls pull-right">\n' +
-            '                        <li><a class="box-btn-slide"  href="#"></a></li>\n' +
-            '                      </ul>\n' +
-            '                    </div>\n' +
-            '\n' +
-            '                    <div class="box-body">\n' +
-            '                      <div class="form-group">\n' +
-            '                        <label>계정</label>\n' +
-            '                        <select id="bot-exchange" class="form-control select2 exchange bot-data" data-minimum-results-for-search="Infinity">\n' +
-            '                          <option value="Bithumb">Bithumb</option>\n' +
-            '                          <option value="Upbit">Upbit</option>\n' +
-            '                          <option value="Coinone">Coinone</option>\n' +
-            '                        </select>\n' +
-            '                      </div>\n' +
-            '\n' +
-            '                      <div class="form-group">\n' +
-            '                        <label>코인</label>\n' +
-            '                        <select id="bot-coin" class="form-control select2 coin bot-data" data-minimum-results-for-search="Infinity">\n' +
-            '                          <option value="BTC">BTC</option>\n' +
-            '                          <option value="ETH">ETH</option>\n' +
-            '                          <option value="XRP">XRP</option>\n' +
-            '                        </select>\n' +
-            '                      </div>\n' +
-            '\n' +
-            '                      <div class="form-group">\n' +
-            '                        <label>주기</label>\n' +
-            '                        <select id="bot-period" class="form-control select2 period bot-data" data-minimum-results-for-search="Infinity">\n' +
-            '                          <option value="5m">5m</option>\n' +
-            '                          <option value="15m">15m</option>\n' +
-            '                          <option value="30m">30m</option>\n' +
-            '                          <option value="1h">1h</option>\n' +
-            '                          <option value="2h">2h</option>\n' +
-            '                        </select>\n' +
-            '                      </div>\n' +
-            '\n' +
-            '                      <div class="b-1 h-30px"></div><br>\n' +
-            '\n' +
-            '                      <div class="strategy-setting">\n' +
-            '                        <h2>바보</h2>\n' +
-            '                        <p>아무것도 못함</p>\n' +
-            '                        <button class="btn btn-info">수정하기</button>\n' +
-            '                      </div>\n' +
-            '                    </div>\n' +
-            '                  </div>\n' +
-            '\n' +
-            '                  <div class="box">\n' +
-            '                    <div class="box-header with-border">\n' +
-            '                      <h6 class="box-title">추가 설정</h6>\n' +
-            '                      <ul class="box-controls pull-right">\n' +
-            '                        <li><a class="box-btn-slide"  href="#"></a></li>\n' +
-            '                      </ul>\n' +
-            '                    </div>\n' +
-            '\n' +
-            '                    <div class="box-body">\n' +
-            '                      <div class="order-quantity">\n' +
-            '                        <p>주문 수량</p>\n' +
-            '                        <p><span class="badge badge-success mr-10">매수</span><span class="order-quantity-buy" >100% (All-in)</span></p>\n' +
-            '                        <p><span class="badge badge-danger mr-10">매도</span><span class="order-quantity-sell" >100% (All-in)</span></p>\n' +
-            '                        <button class="btn btn-info">수정하기</button>\n' +
-            '                      </div>\n' +
-            '\n' +
-            '                      <div className="b-1 h-30px"></div>\n' +
-            '\n' +
-            '                      <div class="safety">\n' +
-            '                        <p>Safety</p>\n' +
-            '                        <button class="btn btn-info">수정하기</button>\n' +
-            '                      </div>\n' +
-            '                    </div>\n' +
-            '                  </div>\n' +
-            '\n' +
-            '                  <div>\n' +
-            '                    <input type="checkbox" id="bot-alarm" class="filled-in bot-alarm bot-data"/>\n' +
-            '                    <label for="bot-alarm">챗봇 알림 받기</label>\n' +
-            '                  </div>\n' +
-            '                  <div>\n' +
-            '                    <input type="checkbox" id="auto-trade" class="filled-in auto-trade bot-data"/>\n' +
-            '                    <label for="auto-trade">자동 거래</label>\n' +
-            '                  </div>\n' +
-            '                  <div class="box-save">\n' +
-            '                    <button class="btn btn-info save-bot-setting">현재 봇 설정 저장</button>\n' +
-            '                  </div>\n' +
-            '                  <div class="box-submit">\n' +
-            '                    <button class="btn btn-info backtest">백테스팅</button>\n' +
-            '                    <button class="btn btn-info bot-start">봇 시작</button>\n' +
-            '                  </div>\n' +
-            '                </div>';
+                '                  <div class="box">\n' +
+                '                    <div class="box-header with-border">\n' +
+                '                      <h6 class="box-title">투자 금액</h6>\n' +
+                '                    </div>\n' +
+                '\n' +
+                '                    <div class="box-body">\n' +
+                '                      <div class="asset">\n' +
+                '                        <label>' + bot['asset'] + ' KRW</label>\n' +
+                '                        <button class="btn btn-info">수정하기</button>\n' +
+                '                      </div>\n' +
+                '                    </div>\n' +
+                '                  </div>\n' +
+                '\n' +
+                '                  <div class="box">\n' +
+                '                    <div class="box-header with-border">\n' +
+                '                      <h6 class="box-title">봇의 전략</h6>\n' +
+                '                      <ul class="box-controls pull-right">\n' +
+                '                        <li><a class="box-btn-slide"  href="#"></a></li>\n' +
+                '                      </ul>\n' +
+                '                    </div>\n' +
+                '\n' +
+                '                    <div class="box-body">\n' +
+                '                      <div class="form-group">\n' +
+                '                        <label>계정</label>\n' +
+                '                        <select id="bot-exchange" class="form-control select2 exchange bot-data" data-minimum-results-for-search="Infinity">\n' +
+                '                          <option value="Bithumb">Bithumb</option>\n' +
+                '                          <option value="Upbit">Upbit</option>\n' +
+                '                          <option value="Coinone">Coinone</option>\n' +
+                '                        </select>\n' +
+                '                      </div>\n' +
+                '\n' +
+                '                      <div class="form-group">\n' +
+                '                        <label>코인</label>\n' +
+                '                        <select id="bot-coin" class="form-control select2 coin bot-data" data-minimum-results-for-search="Infinity">\n' +
+                '                          <option value="BTC">BTC</option>\n' +
+                '                          <option value="ETH">ETH</option>\n' +
+                '                          <option value="XRP">XRP</option>\n' +
+                '                        </select>\n' +
+                '                      </div>\n' +
+                '\n' +
+                '                      <div class="form-group">\n' +
+                '                        <label>주기</label>\n' +
+                '                        <select id="bot-period" class="form-control select2 period bot-data" data-minimum-results-for-search="Infinity">\n' +
+                '                          <option value="5m">5m</option>\n' +
+                '                          <option value="15m">15m</option>\n' +
+                '                          <option value="30m">30m</option>\n' +
+                '                          <option value="1h">1h</option>\n' +
+                '                          <option value="2h">2h</option>\n' +
+                '                        </select>\n' +
+                '                      </div>\n' +
+                '\n' +
+                '                      <div class="b-1 h-30px"></div><br>\n' +
+                '\n' +
+                '                      <div class="strategy-setting">\n' +
+                '                        <h2>바보</h2>\n' +
+                '                        <p>아무것도 못함</p>\n' +
+                '                        <button class="btn btn-info">수정하기</button>\n' +
+                '                      </div>\n' +
+                '                    </div>\n' +
+                '                  </div>\n' +
+                '\n' +
+                '                  <div class="box">\n' +
+                '                    <div class="box-header with-border">\n' +
+                '                      <h6 class="box-title">추가 설정</h6>\n' +
+                '                      <ul class="box-controls pull-right">\n' +
+                '                        <li><a class="box-btn-slide"  href="#"></a></li>\n' +
+                '                      </ul>\n' +
+                '                    </div>\n' +
+                '\n' +
+                '                    <div class="box-body">\n' +
+                '                      <div class="order-quantity">\n' +
+                '                        <p>주문 수량</p>\n' +
+                '                        <p><span class="badge badge-success mr-10">매수</span><span class="order-quantity-buy" >100% (All-in)</span></p>\n' +
+                '                        <p><span class="badge badge-danger mr-10">매도</span><span class="order-quantity-sell" >100% (All-in)</span></p>\n' +
+                '                        <button class="btn btn-info">수정하기</button>\n' +
+                '                      </div>\n' +
+                '\n' +
+                '                      <div class="b-1 h-5 mt-10 mb-10"></div>\n' +
+                '\n' +
+                '                      <div class="safety">\n' +
+                '                        <p>Safety</p>\n' +
+                '                        <button class="btn btn-info">수정하기</button>\n' +
+                '                      </div>\n' +
+                '                    </div>\n' +
+                '                  </div>\n' +
+                '\n' +
+                '                  <div>\n' +
+                '                    <input type="checkbox" id="bot-alarm" class="filled-in bot-alarm bot-data"/>\n' +
+                '                    <label for="bot-alarm">챗봇 알림 받기</label>\n' +
+                '                  </div>\n' +
+                '                  <div>\n' +
+                '                    <input type="checkbox" id="auto-trade" class="filled-in auto-trade bot-data"/>\n' +
+                '                    <label for="auto-trade">자동 거래</label>\n' +
+                '                  </div>\n' +
+                '                  <div class="box-save">\n' +
+                '                    <button class="btn btn-info save-bot-setting">현재 봇 설정 저장</button>\n' +
+                '                  </div>\n' +
+                '                  <div class="box-submit">\n' +
+                '                    <button class="btn btn-info backtest">백테스팅</button>\n' +
+                '                    <button class="btn btn-info bot-start">봇 시작</button>\n' +
+                '                  </div>\n' +
+                '                </div>';
 
             $botTabContent.append(content);
 

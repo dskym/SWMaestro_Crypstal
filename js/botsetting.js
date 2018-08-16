@@ -3,6 +3,26 @@ $(document).on('click', '.bot-data', function () {
     $('.box-save').css('display', 'block');
 });
 
+$(document).on('click', '.asset', function () {
+    console.log('changed asset');
+
+    var $asset = $("div.bot-list").find('.tab-pane .active').find('asset');
+
+    console.log($asset);
+
+    $('#modal-asset').modal();
+});
+
+$(document).on('click', '#modal-asset button[type="submit"]', function () {
+    var newAsset = $('input[name="asset"]').val();
+
+    var $asset = $('div.bot-list').find('div.tab-pane.active').find('.asset').find('label');
+
+    $asset.text(newAsset+' KRW');
+
+    $('#modal-asset').modal('hide');
+});
+
 $(document).on('click', '.strategy-setting', function () {
     $('#bot-setting').modal();
 });
@@ -11,6 +31,7 @@ $(document).on('click', '.order-quantity', function () {
     var coinname = $('#bot-coin option:selected').val();
 
     $('#modal-order-quantity .order-quantity-coin').text(coinname);
+
     $('input[name="buy-krw"]').attr('placeholder', '100,000 KRW');
     $('input[name="sell-krw"]').attr('placeholder', '100,000 KRW');
     $('input[name="buy-coin"]').attr('placeholder', '1.1 ' + coinname);
