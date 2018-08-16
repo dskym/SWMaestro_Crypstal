@@ -63,18 +63,7 @@
 
         <div class="col-md-8 col-lg-8">
           <div class="webticker">
-            <ul id="webticker-6">
-              <li><i class="cc BTC"></i> BTC <span class="text-yellow"> $11.039232</span></li>
-              <li><i class="cc ETH"></i> ETH <span class="text-yellow"> $1.2792</span></li>
-              <li><i class="cc GAME"></i> GAME <span class="text-yellow"> $11.039232</span></li>
-              <li><i class="cc LBC"></i> LBC <span class="text-yellow"> $0.588418</span></li>
-              <li><i class="cc NEO"></i> NEO <span class="text-yellow"> $161.511</span></li>
-              <li><i class="cc STEEM"></i> STE <span class="text-yellow"> $0.551955</span></li>
-              <li><i class="cc LTC"></i> LIT <span class="text-yellow"> $177.80</span></li>
-              <li><i class="cc NOTE"></i> NOTE <span class="text-yellow"> $13.399</span></li>
-              <li><i class="cc MINT"></i> MINT <span class="text-yellow"> $0.880694</span></li>
-              <li><i class="cc IOTA"></i> IOT <span class="text-yellow"> $2.555</span></li>
-              <li><i class="cc DASH"></i> DAS <span class="text-yellow"> $769.22</span></li>
+            <ul id="webticker">
             </ul>
           </div>
         </div>
@@ -302,7 +291,7 @@
                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot1" role="tab" aria-expanded="true"><img src="../images/robot.png"/>Bot 1</a></li>
                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bot2" role="tab" aria-expanded="false"><img src="../images/robot.png" />Bot 2</a></li>
                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bot3" role="tab" aria-expanded="false"><img src="../images/robot.png" />Bot 3</a></li>
-                <li class="nav-item"> <a class="nav-link" data-toggle="modal" data-target="#addbot"><img src="../images/bot-add.png" />Add</a></li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="modal" data-target="#modal-add-boㅇ"><img src="../images/bot-add.png" />Add</a></li>
                 <li class="nav-item"> <a class="nav-link" data-toggle="modal" data-target="#deletebot"><img src="../images/bot-minus.png" />Delete</a></li>
               </ul>
               <!-- Tab panes -->
@@ -1022,40 +1011,38 @@
 </form>
 
 <!-- add bot modal -->
-<form action="#" method="post" onsubmit="return false;" class="modaladd-bot">
-  <div id="addbot" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="addbot-label">봇 추가</h4>
+<div id="modal-add-bot" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="label-add-bot">봇 추가</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <p>봇 이름을 입력해주세요.</p>
+          <div class="controls">
+            <input type="text" name="bot-name" class="form-control" placeholder="ex) Crypstal"> </div>
         </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <p>봇 이름을 입력해주세요.</p>
-            <div class="controls">
-              <input type="text" name="bot-name" class="form-control" placeholder="ex) Crypstal"> </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <div class="form-group row mb-0">
-            <div class="col-12">
-              <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
-                취소하기
-              </button>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group row mb-0">
+          <div class="col-12">
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+              취소하기
+            </button>
 
-              <button type="submit" class="btn btn-default">
-                생성하기
-              </button>
-            </div>
+            <button type="submit" class="btn btn-default">
+              생성하기
+            </button>
           </div>
         </div>
       </div>
-      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal-content -->
   </div>
-  <!-- /.modal -->
-</form>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <!-- bot setting modal -->
 <form action="#" method="post" onsubmit="return false;">
