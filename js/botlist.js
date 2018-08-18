@@ -51,7 +51,7 @@ $(function () {
                 '                    <div class="box-body">\n' +
                 '                      <div class="form-group">\n' +
                 '                        <label>계정</label>\n' +
-                '                        <select id="bot-exchange" class="form-control select2 exchange bot-data" data-minimum-results-for-search="Infinity">\n' +
+                '                        <select id="bot-exchange" class="form-control exchange bot-data">\n' +
                 '                          <option value="Bithumb">Bithumb</option>\n' +
                 '                          <option value="Upbit">Upbit</option>\n' +
                 '                          <option value="Coinone">Coinone</option>\n' +
@@ -60,7 +60,7 @@ $(function () {
                 '\n' +
                 '                      <div class="form-group">\n' +
                 '                        <label>코인</label>\n' +
-                '                        <select id="bot-coin" class="form-control select2 coin bot-data" data-minimum-results-for-search="Infinity">\n' +
+                '                        <select id="bot-coin" class="form-control coin bot-data">\n' +
                 '                          <option value="BTC">BTC</option>\n' +
                 '                          <option value="ETH">ETH</option>\n' +
                 '                          <option value="XRP">XRP</option>\n' +
@@ -69,7 +69,7 @@ $(function () {
                 '\n' +
                 '                      <div class="form-group">\n' +
                 '                        <label>주기</label>\n' +
-                '                        <select id="bot-period" class="form-control select2 period bot-data" data-minimum-results-for-search="Infinity">\n' +
+                '                        <select id="bot-period" class="form-control period bot-data">\n' +
                 '                          <option value="5m">5m</option>\n' +
                 '                          <option value="15m">15m</option>\n' +
                 '                          <option value="30m">30m</option>\n' +
@@ -246,7 +246,7 @@ $(function () {
                 '                    <div class="box-body">\n' +
                 '                      <div class="form-group">\n' +
                 '                        <label>계정</label>\n' +
-                '                        <select id="bot-exchange" class="form-control select2 exchange bot-data" data-minimum-results-for-search="Infinity">\n' +
+                '                        <select id="bot-exchange" class="form-control exchange bot-data">\n' +
                 '                          <option value="Bithumb">Bithumb</option>\n' +
                 '                          <option value="Upbit">Upbit</option>\n' +
                 '                          <option value="Coinone">Coinone</option>\n' +
@@ -255,7 +255,7 @@ $(function () {
                 '\n' +
                 '                      <div class="form-group">\n' +
                 '                        <label>코인</label>\n' +
-                '                        <select id="bot-coin" class="form-control select2 coin bot-data" data-minimum-results-for-search="Infinity">\n' +
+                '                        <select id="bot-coin" class="form-control coin bot-data">\n' +
                 '                          <option value="BTC">BTC</option>\n' +
                 '                          <option value="ETH">ETH</option>\n' +
                 '                          <option value="XRP">XRP</option>\n' +
@@ -264,7 +264,7 @@ $(function () {
                 '\n' +
                 '                      <div class="form-group">\n' +
                 '                        <label>주기</label>\n' +
-                '                        <select id="bot-period" class="form-control select2 period bot-data" data-minimum-results-for-search="Infinity">\n' +
+                '                        <select id="bot-period" class="form-control period bot-data">\n' +
                 '                          <option value="5m">5m</option>\n' +
                 '                          <option value="15m">15m</option>\n' +
                 '                          <option value="30m">30m</option>\n' +

@@ -1,10 +1,190 @@
 $(function () {
     "use strict";
 
+    var server_url = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/chart/candles/minutes/5';
+
+    //Trade Chart
+    var tradeChart = AmCharts.makeChart("tradeChart", {
+        "type": "stock",
+        "theme": "light",
+
+        "dataSets": [{
+            fieldMappings: [ {
+                fromField: "openingPrice",
+                toField: "open"
+            },{
+                fromField: "tradePrice",
+                toField: "close"
+            },{
+                fromField: "highPrice",
+                toField: "high"
+            },{
+                fromField: "lowPrice",
+                toField: "low"
+            },{
+                fromField: "candleAccTradeVolume",
+                toField: "volume"
+            } ],
+            dataLoader: {
+                url: server_url,
+                format: 'json',
+            },
+            categoryField: "candleDateTimeKST"
+        }],
+
+        valueAxesSettings: {
+            minPeriod: "mm",
+            equalSpacing : true,
+        },
+
+        categoryAxesSettings: {
+            minPeriod: "mm",
+            equalSpacing : true,
+        },
+
+        mouseWheelZoomEnabled: true,
+
+        "color": "#b0de09",
+        "categoryField": "date",
+
+        // EVENTS
+        "stockEvents": [{
+            "date": new Date(2018, 8, 14),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "B",
+            "description": "This is description of an event"
+        }, {
+            "date": new Date(2010, 10, 19),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "B",
+            "description": "This is description of an event"
+        }, {
+            "date": new Date(2010, 11, 10),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "B",
+            "description": "This is description of an event"
+        }, {
+            "date": new Date(2010, 11, 26),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "B",
+            "description": "This is description of an event"
+        }, {
+            "date": new Date(2011, 1, 3),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "B",
+            "description": "This is description of an event"
+        }, {
+            "date": new Date(2011, 1, 26),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "S",
+            "description": "This is description of an event"
+        }, {
+            "date": new Date(2011, 3, 5),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "B",
+            "description": "This is description of an event"
+        }, {
+            "date": new Date(2011, 3, 19),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "S",
+            "description": "This is description of an event"
+        }, {
+            "date": new Date(2011, 5, 15),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "B",
+            "description": "This is description of an event"
+        }, {
+            "date": new Date(2011, 6, 25),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "B",
+            "description": "This is description of an event"
+        }, {
+            "date": new Date(2011, 8, 1),
+            "type": "sign",
+            "backgroundColor": "#85CDE6",
+            "graph": "g1",
+            "text": "S",
+            "description": "This is description of an event"
+        }],
+
+        panels: [ {
+            title: "Price",
+            showCategoryAxis: true,
+            percentHeight: 80,
+            valueAxes: [ {
+                id: "v1",
+                dashLength: 5
+            } ],
+
+            categoryAxis: {
+                minPeriod: "mm",
+                dashLength: 5
+            },
+
+            stockGraphs: [ {
+                title: 'BTC',
+                type: "candlestick",
+                id: "g1",
+                openField: "open",
+                closeField: "close",
+                highField: "high",
+                lowField: "low",
+                categoryField: "candleDateTimeKST",
+                lineColor: "#0000ff",
+                fillColors: "#0000ff",
+                negativeLineColor: "#ff0000",
+                negativeFillColors: "#ff0000",
+                fillAlphas: 1,
+                useDataSetColors: false,
+                comparable: true,
+                showBalloon: true,
+                proCandlesticks: true,
+                gapField: 10
+            }],
+
+            stockLegend: {
+                "valueTextRegular": " ",
+                "markerType": "none"
+            }
+        }],
+
+        chartCursorSettings: {
+            valueLineBalloonEnabled: true,
+            valueLineEnabled: true,
+            valueBalloonsEnabled:true
+        },
+
+        panelsSettings: {
+            "usePrefixes": true
+        },
+    });
+
+
+    //Trade Result
     var tradeResult = new Object();
 
-    tradeResult.startDate = '2017-08-10 00:00:00';
-    tradeResult.endDate = '2017-08-16 00:00:00';
+    tradeResult.startDate = '2017-08-14 09:00:00';
+    tradeResult.endDate = '2017-08-14 12:00:00';
     tradeResult.win = 27;
     tradeResult.lose = 17;
     tradeResult.maxProfit = 44.44;
@@ -116,7 +296,7 @@ $(function () {
 
     if(tradeResult['changeRate'] > 0) {
         tableNode +=
-            '                                        <td colspan="4"><span class="text-green">+' + addComma(tradeResult['changeRate']) + '</span></td>\n' +
+            '                                        <td colspan="4"><span class="text-green">+' + addComma(tradeResult['changeRate']) + '%</span></td>\n' +
             '                                      </tr>\n';
     }
     else if(tradeResult['changeRate'] < 0) {
@@ -147,18 +327,19 @@ $(function () {
 
 
 
-
-
-
+    //Trade History
     var $botHistory = $botInfo.find('div.bot-history');
     var $botHistoryTable = $botHistory.find('table');
 
     var tradeHistory = new Array();
 
+    var baseDate = new Date(2018, 8, 14, 9, 0, 0);
+
     for(var i = 0;i<20;++i) {
         var tradeHistoryObj = new Object();
 
-        tradeHistoryObj.date = '2017-08-16 09:00:00';
+        tradeHistoryObj.date = new Date(baseDate);
+        baseDate.setMinutes(baseDate.getMinutes() + 5);
 
         if(i % 2 === 0)
             tradeHistoryObj.action = 'Buy';
@@ -191,10 +372,37 @@ $(function () {
         $botHistoryTable.append(tableNode);
     });
 
+
+
+    //Trade Chart
+    var tradeChart = AmCharts.charts[1];
+
+
+    var stockEvents = new Array();
+
+    $.each(tradeHistory, function(index, value) {
+        var stockEventsObj = new Object();
+
+        stockEventsObj.date = new Date(value['date']);
+        stockEventsObj.type = 'sign';
+        stockEventsObj.backgroundColor = '#85CDE6';
+        stockEventsObj.graph = 'g1';
+
+        if(value['action'] === 'Buy')
+            stockEventsObj.text = 'B';
+        else if(value['action'] === 'Sell')
+            stockEventsObj.text = 'S';
+
+        stockEventsObj.description = 'This is description of an event';
+
+        stockEvents.push(stockEventsObj);
+    });
+
+    tradeChart.stockEvents = stockEvents;
+
+
+
     function addComma(value) {
         return Number(value).toLocaleString('en');
     }
-
 });
-
-

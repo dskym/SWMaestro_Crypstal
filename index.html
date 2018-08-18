@@ -22,6 +22,9 @@
   <!-- Select2 -->
   <link rel="stylesheet" href="../assets/vendor_components/select2/dist/css/select2.min.css">
 
+  <!--alerts CSS -->
+  <link href="../assets/vendor_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+
   <!-- theme style -->
   <link rel="stylesheet" href="css/master_style.css">
 
@@ -318,13 +321,8 @@
                         <div class="box">
                           <div class="box-body">
                             <div class="chart">
-                              <div id="chartdiv1" style="height: 720px;"></div>
+                              <div id="liveChart" style="height: 720px;"></div>
                             </div>
-                            <!--
-                            <div class="chart">
-                              <div id="lion_amcharts_5" style="height: 500px;"></div>
-                            </div>
-                            -->
                           </div>
                         </div>
                       </div>
@@ -356,7 +354,7 @@
                                 <div class="box-header without-border">
                                   <h6 class="box-title">Trade History</h6>
                                 </div>
-                                <div class="box-body">
+                                <div class="box-body inner-content-div">
                                   <div class="table-responsive">
                                     <table class="table table-hover">
                                       <tr>
@@ -382,7 +380,7 @@
                                 </div>
                                 <div class="box-body">
                                   <div class="chart">
-                                    <div id="lion_amcharts_2" style="height: 500px;"></div>
+                                    <div id="tradeChart" style="height: 500px;"></div>
                                   </div>
                                 </div>
                               </div>
@@ -688,6 +686,80 @@
 </div>
 <!-- /.modal -->
 
+<!-- bot-step modal -->
+<div id="modal-bot-step" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="label-bot-step">전략 만들기</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs customtab" role="tablist">
+          <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#buy" role="tab">매수</a></li>
+          <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sell" role="tab">매도</a></li>
+          <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#safety" role="tab">Safety</a></li>
+          <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#additional" role="tab">추가설정</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="buy" role="tabpanel">
+            <div class="form-group">
+              <label>매수전략 가중치</label>
+              <input class="form-control" type="number" value="1" id="buyStrategyThreshold">
+            </div>
+
+            <div class="indicator">
+              <div class="indicator-selector">
+                <div class="form-group">
+                  <label>지표를 선택해주세요.</label>
+                  <select class="form-control">
+                    <option value="MACD" selected="selected">MACD</option>
+                    <option value="MA Double">MA Double</option>
+                    <option value="Bollinger Bands">Bollinger Bands</option>
+                    <option value="Parabolic Sar">Parabolic Sar</option>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane pad" id="sell" role="tabpanel">
+
+          </div>
+          <div class="tab-pane pad" id="safety" role="tabpanel">
+
+          </div>
+          <div class="tab-pane pad" id="additional" role="tabpanel">
+
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group row mb-0">
+          <div class="col-12">
+            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+              취소
+            </button>
+            <button type="button" class="btn btn-default">
+              이전
+            </button>
+            <button type="button" class="btn btn-default">
+              다음
+            </button>
+            <button type="submit" class="btn btn-default">
+              저장
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <!-- asset modal -->
 <div id="modal-asset" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -964,9 +1036,6 @@
 <!-- Bootstrap 4.0-->
 <script src="../assets/vendor_components/bootstrap/dist/js/bootstrap.js"></script>
 
-<!-- Select2 -->
-<script src="../assets/vendor_components/select2/dist/js/select2.full.js"></script>
-
 <!-- InputMask -->
 <script src="../assets/vendor_plugins/input-mask/jquery.inputmask.js"></script>
 <script src="../assets/vendor_plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
@@ -994,18 +1063,13 @@
 <!-- FastClick -->
 <script src="../assets/vendor_components/fastclick/lib/fastclick.js"></script>
 
-<!-- Crypto_Admin for advanced form element -->
-<script src="js/pages/advanced-form-element.js"></script>
-
-
 <!--amcharts charts -->
 <script src="http://www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>
 <script src="http://www.amcharts.com/lib/3/gauge.js" type="text/javascript"></script>
 <script src="http://www.amcharts.com/lib/3/serial.js" type="text/javascript"></script>
 <script src="http://www.amcharts.com/lib/3/amstock.js" type="text/javascript"></script>
 <script src="http://www.amcharts.com/lib/3/pie.js" type="text/javascript"></script>
-<script src="http://www.amcharts.com/lib/3/plugins/animate/animate.min.js" type="text/javascript"></script>
-<script src="http://www.amcharts.com/lib/3/plugins/export/export.min.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/plugins/animate/animate.min.js" type="text/javascript"></script>]
 <script src="http://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js" type="text/javascript"></script>
 <script src="http://www.amcharts.com/lib/3/themes/patterns.js" type="text/javascript"></script>
 <script src="http://www.amcharts.com/lib/3/themes/light.js" type="text/javascript"></script>
@@ -1013,15 +1077,16 @@
 <!-- webticker -->
 <script src="../assets/vendor_components/Web-Ticker-master/jquery.webticker.min.js"></script>
 
+
 <!-- Crypto_Admin App -->
 <!-- 스크롤 때문에 -->
 <script src="js/template.js"></script>
-
 
 <script src="js/webticker.js"></script>
 <script src="js/livechart.js"></script>
 <script src="js/botlist.js"></script>
 <script src="js/botsetting.js"></script>
+<script src="js/indicatorsetting.js"></script>
 
 <script src="js/tradeinfo.js"></script>
 

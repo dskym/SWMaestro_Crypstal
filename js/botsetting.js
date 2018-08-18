@@ -1,3 +1,9 @@
+$(function () {
+    "use strict";
+
+    $('#modal-bot-step').modal();
+});
+
 $(document).on('click', '.bot-data', function () {
     console.log('changed');
     $('.box-save').css('display', 'block');
@@ -18,7 +24,7 @@ $(document).on('click', '#modal-asset button[type="submit"]', function () {
 
     var $asset = $('div.bot-list').find('div.tab-pane.active').find('.asset').find('label');
 
-    $asset.text(newAsset+' KRW');
+    $asset.text(Number(newAsset).toLocaleString('en')+' KRW');
 
     $('#modal-asset').modal('hide');
 });
@@ -54,12 +60,12 @@ $(document).on('click', '#modal-order-quantity button[type="submit"]', function 
         else if(selectedtab === true && index === 1) {
             var buykrw = $('input[name="buy-krw"]').val();
 
-            $('.order-quantity .order-quantity-buy').text(buykrw + ' KRW');
+            $('.order-quantity .order-quantity-buy').text(Number(buykrw).toLocaleString('en') + ' KRW');
         }
         else if(selectedtab === true && index === 2) {
             var buycoin = $('input[name="buy-coin"]').val();
 
-            $('.order-quantity .order-quantity-buy').text(buycoin + ' ' + coinname);
+            $('.order-quantity .order-quantity-buy').text(Number(buycoin).toLocaleString('en') + ' ' + coinname);
         }
     });
 
@@ -72,12 +78,12 @@ $(document).on('click', '#modal-order-quantity button[type="submit"]', function 
         else if(selectedtab === true && index === 1) {
             var sellkrw = $('input[name="sell-krw"]').val();
 
-            $('.order-quantity .order-quantity-sell').text(sellkrw + ' KRW');
+            $('.order-quantity .order-quantity-sell').text(Number(sellkrw).toLocaleString('en') + ' KRW');
         }
         else if(selectedtab === true && index === 2) {
             var sellcoin = $('input[name="sell-coin"]').val();
 
-            $('.order-quantity .order-quantity-sell').text(sellcoin + ' ' + coinname);
+            $('.order-quantity .order-quantity-sell').text(Number(sellcoin).toLocaleString('en') + ' ' + coinname);
         }
     });
 
