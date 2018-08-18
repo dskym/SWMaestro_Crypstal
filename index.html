@@ -725,10 +725,92 @@
           </div>
 
           <div class="tab-pane pad" id="sell" role="tabpanel">
+            <div class="form-group">
+              <label>매도전략 가중치</label>
+              <input class="form-control" type="number" value="1" id="sellStrategyThreshold">
+            </div>
 
+            <div class="indicator">
+              <div class="indicator-selector">
+                <div class="form-group">
+                  <label>지표를 선택해주세요.</label>
+                  <select class="form-control">
+                    <option value="MACD" selected="selected">MACD</option>
+                    <option value="MA Double">MA Double</option>
+                    <option value="Bollinger Bands">Bollinger Bands</option>
+                    <option value="Parabolic Sar">Parabolic Sar</option>
+                  </select>
+                </div>
+                <!-- /.form-group -->
+              </div>
+            </div>
           </div>
           <div class="tab-pane pad" id="safety" role="tabpanel">
+            <span class="text-blue">* Trailing-Stop은 백테스트에 반영되지 않습니다.</span>
+            <div class="profit-target">
+              <div class="box">
+                <div class="box-header">
+                  <h6 class="box-title">Profit-Target <span class="text-blue">(+10%)</span></h6>
+                  <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide"  href="#"></a></li>
+                  </ul>
+                  <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">+10% 이상</span>일 경우 매도</p>
+                </div>
+                <div class="box-body">
+                  <p>봇 시작 후 직전 매수 금액의 ? %</p>
+                  <p>이상 일 경우 매도 (Profit-Target)</p>
+                </div>
+              </div>
+            </div>
 
+            <div class="stop-loss">
+              <div class="box">
+                <div class="box-header">
+                  <h6 class="box-title">Stop-Loss <span class="text-blue">(-5%)</span></h6>
+                  <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide"  href="#"></a></li>
+                  </ul>
+                  <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">-5% 이하</span>일 경우 매도</p>
+                </div>
+                <div class="box-body">
+                  <p>봇 시작 후 직전 매수 금액의 ? %</p>
+                  <p>이상 일 경우 매도 (Stop-Loss)</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="trailing-stop">
+              <div class="box">
+                <div class="box-header">
+                  <h6 class="box-title">Trailing-Stop <span class="text-blue">(+5% / -2%)</span></h6>
+                  <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide"  href="#"></a></li>
+                  </ul>
+                  <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">5%</span>돌파 후</p>
+                  <p>최고가 대비 <span class="text-blue">2%</span> 하락 시 매도</p>
+                </div>
+                <div class="box-body">
+                  <p>봇 시작 후 직전 매수 금액의 ? % 이상</p>
+                  <p>돌파 후 최고가 대비 ? % 하락 시 매도</p>
+                  <p>(Trailing-Stop)</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="trailing-stop">
+              <div class="box">
+                <div class="box-header">
+                  <h6 class="box-title">Safety 발동 후 강제 포지션 변경</h6>
+                  <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide"  href="#"></a></li>
+                  </ul>
+                </div>
+                <div class="box-body">
+                  <p>Safety로 매도될 경우, 즉시 매도 포지션 진입.</p>
+                  <p>(미선택시 매도전략 충족 시점에 매도 포지션 진입. 매도전략 충족 시점에는 거래 없이 단순 포지션 변경만 일어남.)</p>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="tab-pane pad" id="additional" role="tabpanel">
 
