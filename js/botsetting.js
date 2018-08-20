@@ -1,176 +1,222 @@
 $(function () {
     "use strict";
 
-    $('#modal-bot-step').modal();
-});
+    /*
+    * If bot status is changed, save current bot status button is appeared.
+    */
+    $(document).on('click', '.bot-data', function () {
+        console.log('Save current bot status.');
 
-$(document).on('click', '.bot-data', function () {
-    console.log('changed');
-    $('.box-save').css('display', 'block');
-});
-
-$(document).on('click', '.asset', function () {
-    console.log('changed asset');
-
-    var $asset = $("div.bot-list").find('.tab-pane .active').find('asset');
-
-    console.log($asset);
-
-    $('#modal-asset').modal();
-});
-
-$(document).on('click', '#modal-asset button[type="submit"]', function () {
-    var newAsset = $('input[name="asset"]').val();
-
-    var $asset = $('div.bot-list').find('div.tab-pane.active').find('.asset').find('label');
-
-    $asset.text(Number(newAsset).toLocaleString('en')+' KRW');
-
-    $('#modal-asset').modal('hide');
-});
-
-$(document).on('click', '.strategy-setting', function () {
-    $('#bot-setting').modal();
-});
-
-$(document).on('click', '.order-quantity', function () {
-    var coinname = $('#bot-coin option:selected').val();
-
-    $('#modal-order-quantity .order-quantity-coin').text(coinname);
-
-    $('input[name="buy-krw"]').attr('placeholder', '100,000 KRW');
-    $('input[name="sell-krw"]').attr('placeholder', '100,000 KRW');
-    $('input[name="buy-coin"]').attr('placeholder', '1.1 ' + coinname);
-    $('input[name="sell-coin"]').attr('placeholder', '1.1 ' + coinname);
-
-    $('#modal-order-quantity').modal();
-});
-
-$(document).on('click', '#modal-order-quantity button[type="submit"]', function () {
-    var coinname = $('#bot-coin option:selected').val();
-
-    console.log('Success Order Quantity');
-
-    $('.buy li').each( function (index) {
-        var selectedtab = $(this).children().hasClass('active');
-
-        if(selectedtab === true && index === 0) {
-            $('.order-quantity .order-quantity-buy').text('100% (All-in)');
-        }
-        else if(selectedtab === true && index === 1) {
-            var buykrw = $('input[name="buy-krw"]').val();
-
-            $('.order-quantity .order-quantity-buy').text(Number(buykrw).toLocaleString('en') + ' KRW');
-        }
-        else if(selectedtab === true && index === 2) {
-            var buycoin = $('input[name="buy-coin"]').val();
-
-            $('.order-quantity .order-quantity-buy').text(Number(buycoin).toLocaleString('en') + ' ' + coinname);
-        }
+        $('.box-save').css('display', 'block');
     });
 
-    $('.sell li').each( function (index) {
-        var selectedtab = $(this).children().hasClass('active');
+    /*
+    * If user want to change asset assigned to bot, click asset area.
+    * Appear asset setting modal.
+    */
+    $(document).on('click', 'div.asset', function () {
+        console.log('Change Bot Asset');
 
-        if(selectedtab === true && index === 0) {
-            $('.order-quantity .order-quantity-sell').text('100% (All-in)');
-        }
-        else if(selectedtab === true && index === 1) {
-            var sellkrw = $('input[name="sell-krw"]').val();
-
-            $('.order-quantity .order-quantity-sell').text(Number(sellkrw).toLocaleString('en') + ' KRW');
-        }
-        else if(selectedtab === true && index === 2) {
-            var sellcoin = $('input[name="sell-coin"]').val();
-
-            $('.order-quantity .order-quantity-sell').text(Number(sellcoin).toLocaleString('en') + ' ' + coinname);
-        }
+        $('#modal-asset').modal();
     });
 
-    $('.box-save').css('display', 'block');
+    /*
+    * If user decide to asset assigned to bot, user press submit button.
+    * Then, send change request to server.
+    */
+    $(document).on('click', '#modal-asset button[type="submit"]', function () {
+        var newAsset = $('input[name="asset"]').val();
 
-    $('#modal-order-quantity').modal('hide');
+        var $asset = $('div.bot-list').find('div.tab-pane.active').find('.asset').find('label');
+        $asset.text(Number(newAsset).toLocaleString('en')+' KRW');
+
+        //send change request to server.
+
+        $('#modal-asset').modal('hide');
+    });
+
+    /*
+    * If user want to set trading strategy, click setting area.
+    */
+    $(document).on('click', '.strategy-setting', function () {
+        $('#modal-bot-step').modal();
+    });
+
+    /*
+    * Need to thinking more.
+    */
+    $(document).on('click', '.order-quantity', function () {
+        var coinName = $('#bot-coin option:selected').val();
+
+        $('#modal-order-quantity .order-quantity-coin').text(coinName);
+
+        $('input[name="buy-krw"]').attr('placeholder', '100,000 KRW');
+        $('input[name="sell-krw"]').attr('placeholder', '100,000 KRW');
+        $('input[name="buy-coin"]').attr('placeholder', '1.1 ' + coinName);
+        $('input[name="sell-coin"]').attr('placeholder', '1.1 ' + coinName);
+
+        $('#modal-order-quantity').modal();
+    });
+
+    /*
+    * If user decide to order quantit data to set, user press submit button.
+    * Then, send data to server. and change bot status.
+    */
+    $(document).on('click', '#modal-order-quantity button[type="submit"]', function () {
+        var coinName = $('#bot-coin option:selected').val();
+        var $orderQuantity = $('div.bot-list').find('div.tab-pane.active').find('div.order-quantity');
+
+        //setting buy part.
+        $('.buy li').each( function (index) {
+            var selectedTab = $(this).children().hasClass('active');
+
+            if(selectedTab === true && index === 0) {
+                $orderQuantity.find('.order-quantity-buy').text('100% (All-in)');
+            }
+            else if(selectedTab === true && index === 1) {
+                var buykrw = $('input[name="buy-krw"]').val();
+
+                $orderQuantity.find('.order-quantity-buy').text(Number(buykrw).toLocaleString('en') + ' KRW');
+            }
+            else if(selectedTab === true && index === 2) {
+                var buycoin = $('input[name="buy-coin"]').val();
+
+                $orderQuantity.find('.order-quantity-buy').text(Number(buycoin).toLocaleString('en') + ' ' + coinName);
+            }
+        });
+
+        //setting sell part.
+        $('.sell li').each( function (index) {
+            var selectedtab = $(this).children().hasClass('active');
+
+            if(selectedtab === true && index === 0) {
+                $orderQuantity.find('.order-quantity-sell').text('100% (All-in)');
+            }
+            else if(selectedtab === true && index === 1) {
+                var sellkrw = $('input[name="sell-krw"]').val();
+
+                $orderQuantity.find('.order-quantity-sell').text(Number(sellkrw).toLocaleString('en') + ' KRW');
+            }
+            else if(selectedtab === true && index === 2) {
+                var sellcoin = $('input[name="sell-coin"]').val();
+
+                $orderQuantity.find('.order-quantity-sell').text(Number(sellcoin).toLocaleString('en') + ' ' + coinName);
+            }
+        });
+
+        //appear to bot status save button.
+        $('.box-save').css('display', 'block');
+
+        $('#modal-order-quantity').modal('hide');
+    });
+
+    /*
+    * Need to thinking more.
+    */
+    $(document).on('click', '.safety', function () {
+        $('#modal-bot-step').modal();
+    });
+
+
+    /*
+    * Todo
+    * Connect to chatbot system.
+    */
+    $(document).on('click', '.bot-list #bot-alarm', function () {
+        console.log($('.bot-list #bot-alarm').is(":checked"));
+    });
+
+    /*
+    * Todo
+    * Connect to server.
+    */
+    $(document).on('click', '.bot-list #auto-trade', function () {
+        console.log($('.bot-list #auto-trade').is(":checked"));
+    });
+
+    /*
+    * Save current bot status.
+    */
+    $(document).on('click', '.bot-list .save-bot-setting', function () {
+        saveBotSetting();
+    });
+
+    /*
+    * If user want to backtest using current bot setting, user press this button.
+    */
+    $(document).on('click', '.bot-list .backtest', function () {
+
+
+        $('#modal-backtest-setting').modal();
+    });
+
+    /*
+    * User set some data to do backtest.
+    * Then, send data to server.
+    */
+    $(document).on('click', '#modal-backtest-setting button[type="submit"]', function () {
+        //backtest information object.
+        var backtestSettingInfo = new Object();
+
+        backtestSettingInfo.startDate = 0;
+        backtestSettingInfo.endDate = 0;
+
+        var amount = $('input[name="backtest-amount"]').val();
+
+        if(amount !== "")
+            backtestSettingInfo.amount = parseInt(amount);
+        else
+            backtestSettingInfo.amount = parseInt($('input[name="backtest-amount"]').attr('placeholder'));
+
+
+        var fee = $('input[name="backtest-fee"]').val();
+
+        if(fee !== "")
+            backtestSettingInfo.fee = fee * 0.01;
+        else
+            backtestSettingInfo.fee = $('input[name="backtest-fee"]').attr('placeholder') * 0.01;
+
+
+        var slippage = $('input[name="backtest-slippage"]').val();
+
+        if(slippage !== "")
+            backtestSettingInfo.slippage = slippage * 0.01;
+        else
+            backtestSettingInfo.slippage = $('input[name="backtest-slippage"]').attr('placeholder') * 0.01;
+
+        //send data to server.
+        console.log(backtestSettingInfo);
+    });
+
+    /*
+    * If user want to start bot trading, user press this button.
+    * And, save current bot status.
+    */
+    $(document).on('click', '.bot-list .bot-start', function () {
+        saveBotSetting();
+    });
+
+    /*
+    * If user want to save current bot status or start bot, this function is called.
+    * And, send data to server.
+    */
+    function saveBotSetting() {
+        var botSettingInfo = new Object();
+
+        botSettingInfo.botname = $('#bot-name').text();
+
+        botSettingInfo.botexchange = $('#bot-exchange option:selected').val();
+        botSettingInfo.botcoin = $('#bot-coin option:selected').val();
+        botSettingInfo.botperiod = $('#bot-period option:selected').val();
+
+        //botSettingInfo.strategyInfo = ;
+        //botSettingInfo.additionalInfo = ;
+
+        botSettingInfo.botalarm = $('.bot-list #bot-alarm').is(":checked");
+        botSettingInfo.autotrade = $('.bot-list #auto-trade').is(":checked");
+
+
+        //send data to server.
+        console.log(botSettingInfo);
+    }
 });
-
-$(document).on('click', '.safety', function () {
-    $('#modal-safety').modal();
-});
-
-$(document).on('click', '.bot-list #bot-alarm', function () {
-    console.log($('.bot-list #bot-alarm').is(":checked"));
-});
-
-$(document).on('click', '.bot-list #auto-trade', function () {
-    console.log($('.bot-list #auto-trade').is(":checked"));
-});
-
-
-$(document).on('click', '.bot-list .save-bot-setting', function () {
-    console.log('save-bot-setting');
-    saveBotSetting();
-});
-
-$(document).on('click', '.bot-list .backtest', function () {
-    console.log('backtest');
-
-    $('#modal-backtest-setting').modal();
-});
-
-$(document).on('click', '#modal-backtest-setting button[type="submit"]', function () {
-    console.log('start backtest');
-
-    var backtestSettingInfo = new Object();
-
-    backtestSettingInfo.startDate = 0;
-    backtestSettingInfo.endDate = 0;
-
-
-    var amount = $('input[name="backtest-amount"]').val();
-
-    if(amount !== "")
-        backtestSettingInfo.amount = parseInt(amount);
-    else
-        backtestSettingInfo.amount = 1000000;
-
-
-    var fee = $('input[name="backtest-fee"]').val();
-
-    if(fee !== "")
-        backtestSettingInfo.fee = fee * 0.01;
-    else
-        backtestSettingInfo.fee = 0.001;
-
-
-    var slippage = $('input[name="backtest-slippage"]').val();
-
-    if(slippage !== "")
-        backtestSettingInfo.slippage = slippage * 0.01;
-    else
-        backtestSettingInfo.slippage = 0.004;
-
-
-    console.log(backtestSettingInfo);
-});
-
-$(document).on('click', '.bot-list .bot-start', function () {
-    console.log('bot-start');
-    saveBotSetting();
-});
-
-function saveBotSetting() {
-    var botSettingInfo = new Object();
-
-    botSettingInfo.botname = $('#bot-name').text();
-
-    botSettingInfo.botexchange = $('#bot-exchange option:selected').val();
-    botSettingInfo.botcoin = $('#bot-coin option:selected').val();
-    botSettingInfo.botperiod = $('#bot-period option:selected').val();
-
-    //botSettingInfo.strategyInfo = ;
-    //botSettingInfo.additionalInfo = ;
-
-    botSettingInfo.botalarm = $('.bot-list #bot-alarm').is(":checked");
-    botSettingInfo.autotrade = $('.bot-list #auto-trade').is(":checked");
-
-    console.log(botSettingInfo);
-}
