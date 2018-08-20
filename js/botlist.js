@@ -3,15 +3,11 @@ $(function () {
 
     var botListUrl = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/bots/';
 
-    var botCount = 0;
-
     $.getJSON(botListUrl, function () {
         console.log('Success Load Bot List');
     }).done(function (botLists) {
         var $botList = $('div.bot-list');
         var $botTab = $botList.find('ul.bot-tab');
-
-        botCount = botLists.length;
 
         $.each(botLists, function (index, bot) {
             var $botTabContent = $botList.find('div.bot-tab-content');
@@ -19,14 +15,16 @@ $(function () {
             var content = '';
 
             if (index === 0) {
-                $botTab.append('<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot' + (index + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/>' + bot['name'] + '</a></li>');
+                $botTab.append('<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot' + (index + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/><span class="bot-name">' + bot['name'] + '</span></a></li>');
                 content += '<div class="tab-pane active" id="bot' + (index + 1) + '" role="tabpanel" aria-expanded="true">';
             } else {
                 $botTab.append('<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bot' + (index + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png" />' + bot['name'] + '</a></li>');
                 content += '<div class="tab-pane" id="bot' + (index + 1) + '" role="tabpanel" aria-expanded="true">';
             }
 
-            content += '<h4 class="text-bold text-center">' + bot['name'] + '</h4>\n' +
+            content +=
+                '              <div class="bot">\n' +
+                '                <h4 class="text-bold text-center">' + bot['name'] + '</h4>\n' +
                 '                  <div class="box">\n' +
                 '                    <div class="box-header with-border">\n' +
                 '                      <h6 class="box-title">투자 금액</h6>\n' +
@@ -128,7 +126,8 @@ $(function () {
                 '                    <button class="btn btn-info backtest">백테스팅</button>\n' +
                 '                    <button class="btn btn-info bot-start">봇 시작</button>\n' +
                 '                  </div>\n' +
-                '                </div>';
+                '                </div>\n' +
+                '              </div>';
 
             $botTabContent.append(content);
 
@@ -195,11 +194,10 @@ $(function () {
             newBot.buyStrategyThreshold = 3;
             newBot.sellStrategyThreshold = 3;
             newBot.tradingPeriod = '15';
-            newBot.asset = 100.0;
+            newBot.asset = 1000000.0;
             newBot.signalAlarm = false;
             newBot.autoTrading = false;
             newBot.creationTime = '2018-08-17T06:07:26.751';
-
 
 
 
@@ -213,15 +211,19 @@ $(function () {
             var $botActiveTanContentNode = $botTabContent.find('.active');
             $botActiveTanContentNode.removeClass('active');
 
+            var botCount = $botTabContent.find('div.bot').length;
+
             //request to add bot to server.
             var $botTabNode = $botTab.find('li:eq(' + botCount + ')');
-            $botTabNode.before('<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot' + (botCount + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/>' + botname + '</a></li>');
+            $botTabNode.before('<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot' + botCount + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/><span class="bot-name">' + botname + '</span></a></li>');
 
 
             var content = '';
 
             content += '<div class="tab-pane active" id="bot' + (botCount + 1) + '" role="tabpanel" aria-expanded="true">';
-            content += '<h4 class="text-bold text-center">' + newBot['name'] + '</h4>\n' +
+            content += '<div class="bot">\n';
+            content +=
+                '                <h4 class="text-bold text-center">' + newBot['name'] + '</h4>\n' +
                 '                  <div class="box">\n' +
                 '                    <div class="box-header with-border">\n' +
                 '                      <h6 class="box-title">투자 금액</h6>\n' +
@@ -323,11 +325,10 @@ $(function () {
                 '                    <button class="btn btn-info backtest">백테스팅</button>\n' +
                 '                    <button class="btn btn-info bot-start">봇 시작</button>\n' +
                 '                  </div>\n' +
-                '                </div>';
+                '                </div>\n' +
+                '              </div>';
 
             $botTabContent.append(content);
-
-
 
             $('#modal-add-bot').modal('hide');
         }
