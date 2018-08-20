@@ -705,7 +705,7 @@
           <div class="tab-pane active" id="buy" role="tabpanel">
             <div class="form-group">
               <label>매수전략 가중치</label>
-              <input class="form-control" type="number" value="1" id="buyStrategyThreshold">
+              <input class="form-control w-50 text-center" type="number" value="1" id="buyStrategyThreshold">
             </div>
 
             <div class="indicator">
@@ -727,7 +727,7 @@
           <div class="tab-pane pad" id="sell" role="tabpanel">
             <div class="form-group">
               <label>매도전략 가중치</label>
-              <input class="form-control" type="number" value="1" id="sellStrategyThreshold">
+              <input class="form-control w-50 text-center" type="number" value="1" id="sellStrategyThreshold">
             </div>
 
             <div class="indicator">
@@ -750,14 +750,15 @@
             <div class="profit-target">
               <div class="box">
                 <div class="box-header">
-                  <h6 class="box-title">Profit-Target <span class="text-blue">(+10%)</span></h6>
+                    <input type="checkbox" id="checkbox-profit-target" class="filled-in" checked />
+                    <label for="checkbox-profit-target">Profit-Target <span class="text-blue">(+10%)</span></label>
                   <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide"  href="#"></a></li>
                   </ul>
                   <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">+10% 이상</span>일 경우 매도</p>
                 </div>
                 <div class="box-body">
-                  <p>봇 시작 후 직전 매수 금액의 ? %</p>
+                  <p>봇 시작 후 직전 매수 금액의 <input class="form-control w-50 text-center" type="text" id="input-profit-target" placeholder="10"> %</p>
                   <p>이상 일 경우 매도 (Profit-Target)</p>
                 </div>
               </div>
@@ -766,14 +767,15 @@
             <div class="stop-loss">
               <div class="box">
                 <div class="box-header">
-                  <h6 class="box-title">Stop-Loss <span class="text-blue">(-5%)</span></h6>
+                  <input type="checkbox" id="checkbox-stop-loss" class="filled-in" checked />
+                  <label for="checkbox-stop-loss">Stop-Loss <span class="text-blue">(-5%)</span></label>
                   <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide"  href="#"></a></li>
                   </ul>
                   <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">-5% 이하</span>일 경우 매도</p>
                 </div>
                 <div class="box-body">
-                  <p>봇 시작 후 직전 매수 금액의 ? %</p>
+                  <p>봇 시작 후 직전 매수 금액의 <input class="form-control w-50 text-center" type="text" id="input-stop-loss" placeholder="5"> %</p>
                   <p>이상 일 경우 매도 (Stop-Loss)</p>
                 </div>
               </div>
@@ -782,7 +784,8 @@
             <div class="trailing-stop">
               <div class="box">
                 <div class="box-header">
-                  <h6 class="box-title">Trailing-Stop <span class="text-blue">(+5% / -2%)</span></h6>
+                  <input type="checkbox" id="checkbox-trailing-stop" class="filled-in" checked />
+                  <label for="checkbox-trailing-stop">Trailing-Stop <span class="text-blue">(+5% / -2%)</span></label>
                   <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide"  href="#"></a></li>
                   </ul>
@@ -790,17 +793,18 @@
                   <p>최고가 대비 <span class="text-blue">2%</span> 하락 시 매도</p>
                 </div>
                 <div class="box-body">
-                  <p>봇 시작 후 직전 매수 금액의 ? % 이상</p>
-                  <p>돌파 후 최고가 대비 ? % 하락 시 매도</p>
+                  <p>봇 시작 후 직전 매수 금액의 <input class="form-control w-50 text-center" type="text" id="input-trailing-stop-high" placeholder="5"> % 이상</p>
+                  <p>돌파 후 최고가 대비 <input class="form-control w-50 text-center" type="text" id="input-trailing-stop-low" placeholder="2"> % 하락 시 매도</p>
                   <p>(Trailing-Stop)</p>
                 </div>
               </div>
             </div>
 
-            <div class="trailing-stop">
+            <div class="position-change">
               <div class="box">
                 <div class="box-header">
-                  <h6 class="box-title">Safety 발동 후 강제 포지션 변경</h6>
+                  <input type="checkbox" id="checkbox-position-change" class="filled-in" checked />
+                  <label for="checkbox-position-change">Safety 발동 후 강제 포지션 변경</label>
                   <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide"  href="#"></a></li>
                   </ul>
@@ -808,6 +812,38 @@
                 <div class="box-body">
                   <p>Safety로 매도될 경우, 즉시 매도 포지션 진입.</p>
                   <p>(미선택시 매도전략 충족 시점에 매도 포지션 진입. 매도전략 충족 시점에는 거래 없이 단순 포지션 변경만 일어남.)</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="sell-exit">
+              <div class="box">
+                <div class="box-header">
+                  <input type="checkbox" id="checkbox-sell-exit" class="filled-in" checked />
+                  <label for="checkbox-sell-exit">봇 종료 : <span class="text-blue">매도 조건 충족 시 거래 후 봇 종료</span></label>
+                  <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide"  href="#"></a></li>
+                  </ul>
+                </div>
+                <div class="box-body">
+                  <p>* 이 옵션을 선택하면, 매도가 발생한 후 봇이 종료됩니다.</p>
+                  <p>(미선택시 다음 매수 조건을 모니터링 합니다.)</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="safety-exit">
+              <div class="box">
+                <div class="box-header">
+                  <input type="checkbox" id="checkbox-safety-exit" class="filled-in" checked />
+                  <label for="checkbox-safety-exit">봇 종료 : <span class="text-blue">Safety 발동 후 봇 종료</span></label>
+                  <ul class="box-controls pull-right">
+                    <li><a class="box-btn-slide"  href="#"></a></li>
+                  </ul>
+                </div>
+                <div class="box-body">
+                  <p>* 이 옵션을 선택하면 Safety로 인한 매도 발생 후, 봇이 종료됩니다.</p>
+                  <p>(미선택시 다음 매수 조건을 모니터링 합니다.)</p>
                 </div>
               </div>
             </div>
