@@ -14,7 +14,11 @@ $(function () {
     strategy.indicator.settings.short = 12;
     strategy.indicator.settings.long = 26;
     strategy.indicator.settings.signal = 9;
+
+    strategy.indicator.settings.trigger = new Object();
+    strategy.indicator.settings.left = 'MACD';
     strategy.indicator.settings.position = '>';
+    strategy.indicator.settings.right = 'Signal';
 
     strategy.weight = 1;
 
@@ -33,7 +37,11 @@ $(function () {
     strategy.indicator.settings.shortMaType = 'SMA';
     strategy.indicator.settings.longLength = 130;
     strategy.indicator.settings.longMaType = 'SMA';
+
+    strategy.indicator.settings.trigger = new Object();
+    strategy.indicator.settings.left = 'Short';
     strategy.indicator.settings.position = '>';
+    strategy.indicator.settings.right = 'Long';
 
     strategy.weight = 1;
 
@@ -52,7 +60,11 @@ $(function () {
 
     strategy.indicator.settings.minAf = 0.01;
     strategy.indicator.settings.maxAf = 0.2;
+
+    strategy.indicator.settings.trigger = new Object();
+    strategy.indicator.settings.left = '기준 종가';
     strategy.indicator.settings.position = '>';
+    strategy.indicator.settings.right = 'SAR';
 
     strategy.weight = 1;
 
@@ -70,7 +82,11 @@ $(function () {
     strategy.indicator.settings.period = 100;
     strategy.indicator.settings.standardDeviations = 1.1;
     strategy.indicator.settings.positionIndex = 0;
-    strategy.indicator.settings.upOrDown = 'UP';
+
+    strategy.indicator.settings.trigger = new Object();
+    strategy.indicator.settings.left = '기준 종가';
+    strategy.indicator.settings.position = '>';
+    strategy.indicator.settings.right = 'Position Index';
 
     strategy.weight = 1;
 

@@ -553,104 +553,99 @@
     <!-- /.content -->
   </section>
   <!-- /.content-wrapper -->
-
 </section>
 <!-- ./wrapper -->
 
 <!-- login modal -->
-<form action="#" method="post" onsubmit="return false;">
-  <div id="login" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="login-label">Login Form</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group row">
-            <label class="col-12" for="login-username">Username</label>
-            <div class="col-12">
-              <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Enter your username..">
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-12" for="login-password">Password</label>
-            <div class="col-12">
-              <input type="password" class="form-control" id="login-password" name="login-password" placeholder="Enter your password..">
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-12">
-              <label class="switch switch-border switch-info">
-                <input type="checkbox">
-                <span class="switch-indicator"></span>
-                <span class="switch-description"></span>&nbsp; Remember Me?
-              </label>
-            </div>
+<div id="modal-login" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="label-login">Login Form</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label class="col-12" for="login-username">Username</label>
+          <div class="col-12">
+            <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Enter your username..">
           </div>
         </div>
-        <div class="modal-footer">
-          <div class="form-group row mb-0">
-            <div class="col-12">
-              <button type="submit" class="btn btn-danger">
-                <i class="fa fa-arrow-right mr-5"></i> Log in
-              </button>
-
-              <button class="btn btn-social-icon btn-circle btn-google" data-toggle="modal" data-target="#register"><i class="fa fa-google-plus"></i></button>
-
-            </div>
+        <div class="form-group row">
+          <label class="col-12" for="login-password">Password</label>
+          <div class="col-12">
+            <input type="password" class="form-control" id="login-password" name="login-password" placeholder="Enter your password..">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-12">
+            <label class="switch switch-border switch-info">
+              <input type="checkbox">
+              <span class="switch-indicator"></span>
+              <span class="switch-description"></span>&nbsp; Remember Me?
+            </label>
           </div>
         </div>
       </div>
-      <!-- /.modal-content -->
+      <div class="modal-footer">
+        <div class="form-group row mb-0">
+          <div class="col-12">
+            <button type="submit" class="btn btn-danger">
+              <i class="fa fa-arrow-right mr-5"></i> Log in
+            </button>
+
+            <button class="btn btn-social-icon btn-circle btn-google" data-toggle="modal" data-target="#register"><i class="fa fa-google-plus"></i></button>
+
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal-content -->
   </div>
-  <!-- /.modal -->
-</form>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <!-- register modal -->
-<form action="#" method="post" onsubmit="return false;">
-  <div id="register" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="register-label">Register Form</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<div id="modal-register" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="label-register">Register Form</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <h5>Enter Email Address <span class="text-danger">*</span></h5>
+          <div class="controls">
+            <input type="text" class="form-control" placeholder="Email Address" data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})" data-validation-regex-message="Enter Valid Email"> </div>
         </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <h5>Enter Email Address <span class="text-danger">*</span></h5>
-            <div class="controls">
-              <input type="text" class="form-control" placeholder="Email Address" data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})" data-validation-regex-message="Enter Valid Email"> </div>
-          </div>
-          <div class="form-group">
-            <h5>Password Input Field <span class="text-danger">*</span></h5>
-            <div class="controls">
-              <input type="password" name="password" class="form-control" required data-validation-required-message="This field is required"> </div>
-          </div>
-          <div class="form-group">
-            <h5>Repeat Password Input Field <span class="text-danger">*</span></h5>
-            <div class="controls">
-              <input type="password" name="password2" data-validation-match-match="password" class="form-control" required> </div>
-          </div>
+        <div class="form-group">
+          <h5>Password Input Field <span class="text-danger">*</span></h5>
+          <div class="controls">
+            <input type="password" name="password" class="form-control" required data-validation-required-message="This field is required"> </div>
         </div>
-        <div class="modal-footer">
-          <div class="form-group row mb-0">
-            <div class="col-12">
-              <button type="submit" class="btn btn-danger">
-                <i class="fa fa-arrow-right mr-5"></i> Complete
-              </button>
-            </div>
+        <div class="form-group">
+          <h5>Repeat Password Input Field <span class="text-danger">*</span></h5>
+          <div class="controls">
+            <input type="password" name="password2" data-validation-match-match="password" class="form-control" required> </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group row mb-0">
+          <div class="col-12">
+            <button type="submit" class="btn btn-danger">
+              <i class="fa fa-arrow-right mr-5"></i> Complete
+            </button>
           </div>
         </div>
       </div>
-      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal-content -->
   </div>
-  <!-- /.modal -->
-</form>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 <!-- add bot modal -->
 <div id="modal-add-bot" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -705,7 +700,7 @@
           <div class="tab-pane active" id="buy" role="tabpanel">
             <div class="form-group">
               <label>매수전략 가중치</label>
-              <input class="form-control w-50 text-center" type="number" value="1" id="buyStrategyThreshold">
+              <input class="w-50 text-center" type="number" placeholder="1" id="buyStrategyThreshold">
             </div>
 
             <div class="indicator">
@@ -727,7 +722,7 @@
           <div class="tab-pane pad" id="sell" role="tabpanel">
             <div class="form-group">
               <label>매도전략 가중치</label>
-              <input class="form-control w-50 text-center" type="number" value="1" id="sellStrategyThreshold">
+              <input class="w-50 text-center" type="number" placeholder="1" id="sellStrategyThreshold">
             </div>
 
             <div class="indicator">
@@ -750,15 +745,15 @@
             <div class="profit-target">
               <div class="box">
                 <div class="box-header">
-                    <input type="checkbox" id="checkbox-profit-target" class="filled-in" checked />
-                    <label for="checkbox-profit-target">Profit-Target <span class="text-blue">(+10%)</span></label>
+                  <input type="checkbox" id="checkbox-profit-target" class="filled-in" checked />
+                  <label for="checkbox-profit-target">Profit-Target <span class="text-blue">(+<span class="profit-target-value">2</span>%)</span></label>
                   <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide"  href="#"></a></li>
                   </ul>
-                  <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">+10% 이상</span>일 경우 매도</p>
+                  <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">+<span class="profit-target-value">1</span>% 이상</span>일 경우 매도</p>
                 </div>
                 <div class="box-body">
-                  <p>봇 시작 후 직전 매수 금액의 <input class="form-control w-50 text-center" type="text" id="input-profit-target" placeholder="10"> %</p>
+                  <p>봇 시작 후 직전 매수 금액의 <input class="w-50 text-center" type="number" id="input-profit-target" placeholder="10"> %</p>
                   <p>이상 일 경우 매도 (Profit-Target)</p>
                 </div>
               </div>
@@ -768,14 +763,14 @@
               <div class="box">
                 <div class="box-header">
                   <input type="checkbox" id="checkbox-stop-loss" class="filled-in" checked />
-                  <label for="checkbox-stop-loss">Stop-Loss <span class="text-blue">(-5%)</span></label>
+                  <label for="checkbox-stop-loss">Stop-Loss <span class="text-blue">(-<span class="stop-loss-value"></span>%)</span></label>
                   <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide"  href="#"></a></li>
                   </ul>
-                  <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">-5% 이하</span>일 경우 매도</p>
+                  <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">-<span class="stop-loss-value"></span>% 이하</span>일 경우 매도</p>
                 </div>
                 <div class="box-body">
-                  <p>봇 시작 후 직전 매수 금액의 <input class="form-control w-50 text-center" type="text" id="input-stop-loss" placeholder="5"> %</p>
+                  <p>봇 시작 후 직전 매수 금액의 <input class="w-50 text-center" type="number" id="input-stop-loss" placeholder="5"> %</p>
                   <p>이상 일 경우 매도 (Stop-Loss)</p>
                 </div>
               </div>
@@ -785,16 +780,16 @@
               <div class="box">
                 <div class="box-header">
                   <input type="checkbox" id="checkbox-trailing-stop" class="filled-in" checked />
-                  <label for="checkbox-trailing-stop">Trailing-Stop <span class="text-blue">(+5% / -2%)</span></label>
+                  <label for="checkbox-trailing-stop">Trailing-Stop <span class="text-blue">(+<span class="trailing-stop-high-value"></span>% / -<span class="trailing-stop-low-value"></span>%)</span></label>
                   <ul class="box-controls pull-right">
                     <li><a class="box-btn-slide"  href="#"></a></li>
                   </ul>
-                  <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">5%</span>돌파 후</p>
-                  <p>최고가 대비 <span class="text-blue">2%</span> 하락 시 매도</p>
+                  <p>봇 시작 후 직전 매수 금액의 <span class="text-blue"><span class="trailing-stop-high-value"></span>%</span>돌파 후</p>
+                  <p>최고가 대비 <span class="text-blue"><span class="trailing-stop-low-value"></span>%</span> 하락 시 매도</p>
                 </div>
                 <div class="box-body">
-                  <p>봇 시작 후 직전 매수 금액의 <input class="form-control w-50 text-center" type="text" id="input-trailing-stop-high" placeholder="5"> % 이상</p>
-                  <p>돌파 후 최고가 대비 <input class="form-control w-50 text-center" type="text" id="input-trailing-stop-low" placeholder="2"> % 하락 시 매도</p>
+                  <p>봇 시작 후 직전 매수 금액의 <input class="w-50 text-center" type="number" id="input-trailing-stop-high" placeholder="5"> % 이상</p>
+                  <p>돌파 후 최고가 대비 <input class="w-50 text-center" type="number" id="input-trailing-stop-low" placeholder="2"> % 하락 시 매도</p>
                   <p>(Trailing-Stop)</p>
                 </div>
               </div>
@@ -1205,6 +1200,7 @@
 <script src="js/botlist.js"></script>
 <script src="js/botsetting.js"></script>
 <script src="js/indicatorsetting.js"></script>
+<script src="js/safetysetting.js"></script>
 
 <script src="js/tradeinfo.js"></script>
 
