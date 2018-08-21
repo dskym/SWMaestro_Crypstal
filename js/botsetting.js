@@ -146,7 +146,6 @@ $(function () {
     */
     $(document).on('click', '.bot-list .backtest', function () {
 
-
         $('#modal-backtest-setting').modal();
     });
 

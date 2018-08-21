@@ -1,52 +1,62 @@
 $(function () {
     "use strict";
 
-    init();
+    /*
+    * params
+    * baseCurrency
+    * cryptoCurrency
+    *
+    * data
+    * {
+    *   'exchange' : 'UPBIT',
+    *   'marketConditionList': [
+    *   {
+    *     "baseCurrency": "KRW",
+    *     "cryptoCurrency": "RVN",
+    *     "tradePrice": 7334000.0,
+    *     "change": "FALL" or "RISE",
+    *     "signedChangePrice": 79000.0,
+    *     "signedChangeRate": 0.010889042
+    *   }],
+    *   'updatedTime' : '2018-08-21T01:10:13.896',
+    * }
+    */
 
-    $("#webticker").webTicker({
-        height:'auto',
-        duplicate:true,
-        startEmpty:false,
-        rssfrequency:5,
-        direction: 'right'
+    var webtickerUrl = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/ticker?baseCurrency=KRW';
+
+    $.getJSON(webtickerUrl, function () {
+        console.log('Success Load Web Ticker');
+    }).done(function (webTickerData) {
+        setWebTickerContent(webTickerData);
+
+        $("#webticker").webTicker({
+            height:'auto',
+            duplicate:true,
+            startEmpty:false,
+            rssfrequency:5,
+            direction: 'right'
+        });
     });
-});
 
-function init() {
-    var coinMapping = {
-        'btc' : 'BTC',
-        'eth' : 'ETH',
-        'game' : 'GAME',
-        'lbc' : 'LBC',
-        'neo' : 'NEO',
-        'ste' : 'STEEM',
-        'lit' : 'LTC',
-        'note' : 'NOTE',
-        'mint' : 'MINT',
-        'iot' : 'IOTA',
-        'das' : 'DASH',
+    function setWebTickerContent(webTickerData) {
+
+        //webTickerData['exchange'] -> 'UPBIT'
+
+        $.each(webTickerData['marketConditionList'], function(index, value) {
+            var webTickerContent = '';
+
+            webTickerContent +=
+                '<li>' +
+                '  <div>' +
+                '<i class="cc ' + value['cryptoCurrency'] + '"></i> ' +
+                value['cryptoCurrency'] +
+                ' <span class="text-yellow"> ' +
+                value['tradePrice'] +
+                ' </span>' +
+                '  </div>' +
+                '</li>';
+
+            $("#webticker").append(webTickerContent);
+        });
     }
-
-    var webTickerData = new Object();
-
-    var coinData = new Object();
-
-    coinData.btc = '$11.039232';
-    coinData.eth = '$1.2792';
-    coinData.game = '$11.039232';
-    coinData.lbc = '$0.588418';
-    coinData.neo = '$161.511';
-    coinData.ste = '$0.551955';
-    coinData.lit = '$177.80';
-    coinData.note = '$13.399';
-    coinData.mint = '$0.880694';
-    coinData.iot = '$2.555';
-    coinData.das = '$769.22';
-
-    webTickerData.exchange = 'upbit';
-    webTickerData.coin = coinData;
-
-    $.each(webTickerData['coin'], function(key, value) {
-        $("#webticker").append('<li><i class=\"cc ' + coinMapping[key] + '\"></i> ' + key.toUpperCase() + ' <span class=\"text-yellow\"> ' + value + '</span></li>');
-    });
-}
+});
