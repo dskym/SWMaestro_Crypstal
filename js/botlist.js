@@ -176,29 +176,41 @@ $(function () {
         })
 
         $botTab.append('<li class="nav-item"> <a class="nav-link" data-toggle="modal" data-target="#modal-add-bot"><img src="../images/bot-add.png" />Add</a></li>');
-        $botTab.append('<li class="nav-item"> <a class="nav-link" data-toggle="modal" data-target="#deletebot"><img src="../images/bot-minus.png" />Delete</a></li>');
+        $botTab.append('<li class="nav-item"> <a class="nav-link" data-toggle="modal" data-target="#moodal-delete-bot"><img src="../images/bot-minus.png" />Delete</a></li>');
 
         var $botTabContent = $("div.bot-list").find('div.bot-tab-content');
     });
 
+    /*
+    * If user want to create a new bot, client send request to server.
+    * Then, receive default new bot data and print it.
+    */
     $('#modal-add-bot button[type="submit"]').click(function () {
         var botname = $('input[name="bot-name"]').val();
 
         if(botname !== "") {
+            //send request to server
+
+            //receive default new bot data.
             var newBot = new Object();
             newBot.name = botname;
             newBot.exchange = 'Bithumb';
-            newBot.cryptoCurrency = 'XRP';
+            newBot.cryptoCurrency = 'BTC';
             newBot.buyStrategy = [];
             newBot.sellStrategy = [];
-            newBot.buyStrategyThreshold = 3;
-            newBot.sellStrategyThreshold = 3;
-            newBot.tradingPeriod = '15';
-            newBot.asset = 1000000.0;
+            newBot.buyStrategyThreshold = 1;
+            newBot.sellStrategyThreshold = 1;
+            newBot.tradingPeriod = '5';
+            newBot.asset = 0.0;
             newBot.signalAlarm = false;
             newBot.autoTrading = false;
-            newBot.creationTime = '2018-08-17T06:07:26.751';
+            newBot.creationTime = '0000-00-00T00:00:00.000';
 
+            botListData.push(newBot);
+
+
+            console.log('Add New Bot');
+            console.log(botListData);
 
 
             var $botList = $('div.bot-list');
@@ -211,16 +223,16 @@ $(function () {
             var $botActiveTanContentNode = $botTabContent.find('.active');
             $botActiveTanContentNode.removeClass('active');
 
-            var botCount = $botTabContent.find('div.bot').length;
+            var botCount = botListData.length;
 
             //request to add bot to server.
-            var $botTabNode = $botTab.find('li:eq(' + botCount + ')');
+            var $botTabNode = $botTab.find('li:eq(' + (botCount - 1) + ')');
             $botTabNode.before('<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot' + botCount + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/><span class="bot-name">' + botname + '</span></a></li>');
 
 
             var content = '';
 
-            content += '<div class="tab-pane active" id="bot' + (botCount + 1) + '" role="tabpanel" aria-expanded="true">';
+            content += '<div class="tab-pane active" id="bot' + botCount + '" role="tabpanel" aria-expanded="true">';
             content += '<div class="bot">\n';
             content +=
                 '                <h4 class="text-bold text-center">' + newBot['name'] + '</h4>\n' +
@@ -330,6 +342,7 @@ $(function () {
 
             $botTabContent.append(content);
 
+            $('#modal-add-bot').find('input[name="bot-name"]').val('');
             $('#modal-add-bot').modal('hide');
         }
         else

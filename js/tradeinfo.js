@@ -180,22 +180,6 @@ $(function () {
     });
 
 
-    //Trade Result
-    var tradeResult = new Object();
-
-    tradeResult.startDate = '2017-08-14 09:00:00';
-    tradeResult.endDate = '2017-08-14 12:00:00';
-    tradeResult.win = 27;
-    tradeResult.lose = 17;
-    tradeResult.maxProfit = 44.44;
-    tradeResult.maxLoss = -22.22;
-    tradeResult.revenueRate = 2500.00;
-    tradeResult.initialInvestmentAmount = 1000000;
-    tradeResult.totalAmount = 25000000;
-    tradeResult.profitAndLossAmount = 25000000;
-    tradeResult.changeRate = 35.10;
-    tradeResult.exchangeFee = 1000000;
-    tradeResult.slippageRate = 0.4;
 
     var $botInfo = $('div.bot-info');
 
@@ -326,32 +310,8 @@ $(function () {
     $botResultTable.append(tableNode);
 
 
-
-    //Trade History
     var $botHistory = $botInfo.find('div.bot-history');
     var $botHistoryTable = $botHistory.find('table');
-
-    var tradeHistory = new Array();
-
-    var baseDate = new Date(2018, 8, 14, 9, 0, 0);
-
-    for(var i = 0;i<20;++i) {
-        var tradeHistoryObj = new Object();
-
-        tradeHistoryObj.date = new Date(baseDate);
-        baseDate.setMinutes(baseDate.getMinutes() + 5);
-
-        if(i % 2 === 0)
-            tradeHistoryObj.action = 'Buy';
-        else
-            tradeHistoryObj.action = 'Sell';
-
-        tradeHistoryObj.price = 12345678;
-        tradeHistoryObj.volume = 123.456;
-        tradeHistoryObj.evaluation = 12345678;
-
-        tradeHistory.push(tradeHistoryObj);
-    }
 
     $.each(tradeHistory, function(index, value) {
         var tableNode = '';

@@ -1,108 +1,6 @@
 $(function () {
     "use strict";
 
-    var obj = new Array();
-
-    var buyStrategy = new Array();
-
-    var strategy = new Object();
-
-    strategy.indicator = new Object();
-
-    strategy.indicator.name = 'MACD';
-
-    strategy.indicator.settings = new Object;
-
-    strategy.indicator.settings.short = 12;
-    strategy.indicator.settings.long = 26;
-    strategy.indicator.settings.signal = 9;
-
-    strategy.indicator.settings.trigger = new Object();
-    strategy.indicator.settings.trigger.left = 'MACD';
-    strategy.indicator.settings.trigger.comparator = '>';
-    strategy.indicator.settings.trigger.right = 'Signal';
-
-    strategy.weight = 1;
-
-    buyStrategy.push(strategy);
-    obj.push(strategy);
-
-    var strategy = new Object();
-
-    strategy.indicator = new Object();
-
-    strategy.indicator.name = 'MA Double';
-
-    strategy.indicator.settings = new Object;
-
-    strategy.indicator.settings.shortLength = 55;
-    strategy.indicator.settings.shortMaType = 'SMA';
-    strategy.indicator.settings.longLength = 130;
-    strategy.indicator.settings.longMaType = 'SMA';
-
-    strategy.indicator.settings.trigger = new Object();
-    strategy.indicator.settings.trigger.left = 'Short';
-    strategy.indicator.settings.trigger.comparator = '>';
-    strategy.indicator.settings.trigger.right = 'Long';
-
-    strategy.weight = 1;
-
-    buyStrategy.push(strategy);
-    obj.push(strategy);
-
-
-    var sellStrategy = new Array();
-
-    var strategy = new Object();
-
-    strategy.indicator = new Object();
-
-    strategy.indicator.name = 'Parabolic Sar';
-
-    strategy.indicator.settings = new Object;
-
-    strategy.indicator.settings.minAf = 0.01;
-    strategy.indicator.settings.maxAf = 0.2;
-
-    strategy.indicator.settings.trigger = new Object();
-    strategy.indicator.settings.trigger.left = '기준 종가';
-    strategy.indicator.settings.trigger.comparator = '>';
-    strategy.indicator.settings.trigger.right = 'SAR';
-
-    strategy.weight = 1;
-
-    sellStrategy.push(strategy);
-    obj.push(strategy);
-
-
-    var strategy = new Object();
-
-    strategy.indicator = new Object();
-
-    strategy.indicator.name = 'Bollinger Bands';
-
-    strategy.indicator.settings = new Object;
-
-    strategy.indicator.settings.period = 100;
-    strategy.indicator.settings.standardDeviations = 1.1;
-    strategy.indicator.settings.positionIndex = 0;
-
-    strategy.indicator.settings.trigger = new Object();
-    strategy.indicator.settings.trigger.left = '기준 종가';
-    strategy.indicator.settings.trigger.comparator = '>';
-    strategy.indicator.settings.trigger.right = 'Position Index';
-
-    strategy.weight = 1;
-
-    sellStrategy.push(strategy);
-    obj.push(strategy);
-
-    console.log(buyStrategy);
-    console.log(sellStrategy);
-
-
-
-
     var $strategy = $('div.strategy');
     $strategy.append(makeIndicatorSelectorContent());
 
@@ -318,8 +216,6 @@ $(function () {
 
         strategy.weight = $indicatorSetting.find('.weight').find('input').attr('value');
 
-        console.log(strategy);
-
         return strategy;
     }
 
@@ -348,8 +244,6 @@ $(function () {
         strategy.indicator.settings.position.right = 'Signal';
 
         strategy.weight = $indicatorSetting.find('.weight').find('input').attr('value');
-
-        console.log(strategy);
 
         return strategy;
     }
