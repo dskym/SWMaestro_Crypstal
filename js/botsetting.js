@@ -40,6 +40,7 @@ $(function () {
     * If user want to set trading strategy, click setting area.
     */
     $(document).on('click', '.strategy-setting', function () {
+
         $('#modal-bot-step').modal();
     });
 
@@ -118,7 +119,6 @@ $(function () {
         $('#modal-bot-step').modal();
     });
 
-
     /*
     * Todo
     * Connect to chatbot system.
@@ -151,6 +151,7 @@ $(function () {
             endDate  : moment(),
             autoclose: true
         });
+
         $('div.daterangepicker').css("z-index", "9999");
 
         $('#modal-backtest-setting').modal();

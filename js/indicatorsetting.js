@@ -1,8 +1,48 @@
 $(function () {
     "use strict";
 
-    var $strategy = $('div.strategy');
-    $strategy.append(makeIndicatorSelectorContent());
+    //Show indicator selector content.
+    $('#modal-bot-step').on('show.bs.modal', function() {
+        ////////////////////////////////////
+        //request strategy data to server.//
+        ////////////////////////////////////
+
+        var botName = $('div.bot-list').find('div.bot-tab-content').find('.active').find('div.bot').find('h4').text();
+
+        //draw modal
+        $.each(botListData, function(index, bot) {
+            if(bot['name'] === botName) {
+                var buyStrategy = bot['buyStrategy'];
+                var sellStrategy = bot['sellStrategy'];
+
+                $.each(buyStrategy, function(index, indicatorObj) {
+                    var buyIndicatorDescriptionContent = makeIndicatorDescriptionContent(indicatorObj);
+
+                    $('#buy').find('div.strategy').append(buyIndicatorDescriptionContent);
+                });
+
+                $.each(sellStrategy, function(index, indicatorObj) {
+                    var sellIndicatorDescriptionContent = makeIndicatorDescriptionContent(indicatorObj);
+
+                    $('#sell').find('div.strategy').append(sellIndicatorDescriptionContent);
+                });
+            }
+        });
+
+        ////////////////////////////////////
+
+        var $strategy = $('div.strategy');
+
+        $.each($strategy, function() {
+            if($(this).find('div.indicator').length !== 5) {
+                $(this).append(makeIndicatorSelectorContent());
+            }
+        });
+    });
+
+    $('#modal-bot-step').on('hide.bs.modal', function() {
+        $('div.strategy').empty();
+    });
 
     $(document).on('change', 'div.indicator-selector', function () {
         var $indicatorSelector = $(this);
@@ -25,14 +65,12 @@ $(function () {
         });
     });
 
-    $(document).on('click', '#delete-indicator-setting', function () {
-        $(this).closest('div.indicator').remove();
-    });
-
     $(document).on('click', '#apply-indicator-setting', function () {
         var $indicatorSetting = $(this).closest('div.indicator-setting');
 
         var indicatorObj = getStrategyObjectFromSetting($indicatorSetting);
+
+        console.log(indicatorObj);
 
         var indicatorDescriptionContent = makeIndicatorDescriptionContent(indicatorObj);
 
@@ -46,10 +84,20 @@ $(function () {
         $indicatorSetting.replaceWith(indicatorDescriptionContent);
     });
 
-    $(document).on('click', 'div.indicator-description', function () {
-        //var indicatorObj = getStrategyObjectFromDescription($(this));
+    $(document).on('click', '#delete-indicator-setting', function () {
+        $(this).closest('div.indicator').remove();
+    });
 
-        var indicatorSettingContent = makeIndicatorSettingContent(buyStrategy[0]);
+    $(document).on('click', 'div.indicator-description', function () {
+        //parse description data.
+
+        var $indicatorDescriptionContent = $(this);
+
+        var indicatorObj = getStrategyObjectFromDescription($indicatorDescriptionContent);
+
+        console.log(indicatorObj);
+
+        var indicatorSettingContent = makeIndicatorSettingContent(indicatorObj);
 
         $(this).replaceWith(indicatorSettingContent);
     });
@@ -65,6 +113,9 @@ $(function () {
             $(this).text('<=');
         else if(value === '<=')
             $(this).text('>=');
+        else {
+            console.log('value : ' + value);
+        }
     });
 
     function makeIndicatorSelectorContent() {
@@ -105,7 +156,7 @@ $(function () {
                 indicatorSettingContent +=
                     '                        <div class="form-group">\n' +
                     '                          <label>' + key + '</label>\n' +
-                    '                          <input class="w-50 text-center" type="number" value="' + value + '" id="min">\n' +
+                    '                          <input class="w-50 text-center" type="text" value="' + value + '" id="min">\n' +
                     '                        </div>\n';
             }
         });
@@ -114,9 +165,9 @@ $(function () {
             '                        </div>\n' +
             '                        <div class="position">\n' +
             '                          <div class="text-center">\n' +
-            '                            <label>' + obj['indicator']['settings']['trigger']['left'] + '</label>\n' +
+            '                            <span class="left">' + obj['indicator']['settings']['trigger']['left'] + '</span>\n' +
             '                            <button type="button" class="btn btn-info btn-circle comparator">' + obj['indicator']['settings']['trigger']['comparator'] + '</button>\n' +
-            '                            <label>' + obj['indicator']['settings']['trigger']['right'] + '</label>\n' +
+            '                            <span class="right">' + obj['indicator']['settings']['trigger']['right'] + '</span>\n' +
             '                          </div>\n' +
             '                        </div>\n';
 
@@ -147,41 +198,45 @@ $(function () {
     function makeIndicatorDescriptionContent(obj) {
         var indicatorDescriptionContent = '';
 
-        var trigger = 'Trigger : ';
-        var setting = '';
-
-        trigger += obj['indicator']['settings']['position']['left'] + ' ' + obj['indicator']['settings']['position']['comparator'] + ' ' + obj['indicator']['settings']['position']['right'];
-
         var index = 0;
-
-        $.each(obj['indicator']['settings'], function(key, value) {
-            if(key !== "position") {
-                setting += key + ' : ' + value;
-
-                if(Object.keys(obj['indicator']['settings']).length - 2 !== index)
-                    setting += ' / ';
-            }
-
-            index++;
-        });
 
         indicatorDescriptionContent +=
             '                <div class="indicator-description">\n' +
             '                  <div class="box">\n' +
             '                    <div class="box-header with-border">\n' +
-            '                      <h6 class="box-title">' + obj['indicator']['name'] + '</h6>\n' +
+            '                      <h6 class="box-title"><span class="name">' + obj['indicator']['name'] + '</span></h6>\n' +
             '                    </div>\n' +
             '                    <div class="box-body">\n';
 
-        indicatorDescriptionContent +=
-            '                      <p>' + trigger + '</p>\n' +
-            '                      <p>' + setting + '</p>\n';
+        indicatorDescriptionContent += '<p>Trigger : ';
+
+        $.each(obj['indicator']['settings']['trigger'], function(key, value) {
+            indicatorDescriptionContent += '<span class="' + key + '">' + value + '</span>' + ' ';
+        });
+
+        var setting = '';
+
+        indicatorDescriptionContent += '</p>';
+        indicatorDescriptionContent += '<div class="options">';
+
+        $.each(obj['indicator']['settings'], function(key, value) {
+            if(key !== "trigger") {
+                indicatorDescriptionContent += '<span class="option"><span class="option-key">' + key + '</span> : <span class="option-value">' + value + '</span></span>';
+
+                if(Object.keys(obj['indicator']['settings']).length - 2 !== index)
+                    indicatorDescriptionContent += ' / ';
+            }
+
+            index++;
+        });
+
+        indicatorDescriptionContent += '</div>';
 
         indicatorDescriptionContent +=
             '                    </div>\n' +
             '                    <div class="box-footer">\n' +
             '                      <span>이 지표의 가중치</span>\n' +
-            '                      <span class="badge badge-pill badge-info">' + obj['weight'] + '</span>\n' +
+            '                      <span class="badge badge-pill badge-info weight">' + obj['weight'] + '</span>\n' +
             '                    </div>\n' +
             '                  </div>\n' +
             '                </div>\n' +
@@ -191,6 +246,7 @@ $(function () {
     }
 
     function getStrategyObjectFromSetting(obj) {
+
         var $indicatorSetting = obj;
 
         var strategy = new Object();
@@ -203,18 +259,20 @@ $(function () {
 
         $.each($indicatorSetting.find('.settings').find('.form-group'), function() {
             var key = $(this).find('label').text();
-            var value = $(this).find('input').attr('value');
+            var value = $(this).find('input').val();
 
             strategy.indicator.settings[key] = value;
         });
 
         strategy.indicator.settings.position = new Object();
 
-        strategy.indicator.settings.position.left = 'MACD';
+        strategy.indicator.settings.position.left = $indicatorSetting.find('.left').text();
         strategy.indicator.settings.position.comparator = $indicatorSetting.find('.comparator').text();
-        strategy.indicator.settings.position.right = 'Signal';
+        strategy.indicator.settings.position.right = $indicatorSetting.find('.right').text();
 
         strategy.weight = $indicatorSetting.find('.weight').find('input').attr('value');
+
+        console.log(strategy);
 
         return strategy;
     }
@@ -226,24 +284,25 @@ $(function () {
 
         strategy.indicator = new Object();
 
-        strategy.indicator.name = obj.find('.name').text();
+        strategy.indicator.name = $indicatorDescription.find('.name').text();
 
-        strategy.indicator.settings = new Object();
+        console.dir($indicatorDescription);
 
-        $.each($indicatorSetting.find('.settings').find('.form-group'), function() {
-            var key = $(this).find('label').text();
-            var value = $(this).find('input').attr('value');
+        strategy.indicator.settings = new Object;
+
+        $.each($indicatorDescription.find('.options').find('.option'), function() {
+            var key = $(this).find('.option-key').text();
+            var value = $(this).find('.option-value').text();
 
             strategy.indicator.settings[key] = value;
         });
 
-        strategy.indicator.settings.position = new Object();
+        strategy.indicator.settings.trigger = new Object();
+        strategy.indicator.settings.trigger.left = $indicatorDescription.find('.left').text();
+        strategy.indicator.settings.trigger.comparator = $indicatorDescription.find('.comparator').text();
+        strategy.indicator.settings.trigger.right = $indicatorDescription.find('.right').text();
 
-        strategy.indicator.settings.position.left = 'MACD';
-        strategy.indicator.settings.position.comparator = $indicatorSetting.find('.comparator').text();
-        strategy.indicator.settings.position.right = 'Signal';
-
-        strategy.weight = $indicatorSetting.find('.weight').find('input').attr('value');
+        strategy.weight = $indicatorDescription.find('.weight').text();
 
         return strategy;
     }

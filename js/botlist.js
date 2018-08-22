@@ -342,10 +342,13 @@ $(function () {
 
             $botTabContent.append(content);
 
-            $('#modal-add-bot').find('input[name="bot-name"]').val('');
             $('#modal-add-bot').modal('hide');
         }
         else
             alert('이름을 입력해주세요.');
+    });
+
+    $('#modal-add-bot').on('hide.bs.modal', function() {
+        $('#modal-add-bot').find('input[name="bot-name"]').val('');
     });
 });
