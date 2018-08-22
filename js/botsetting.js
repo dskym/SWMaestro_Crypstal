@@ -4,7 +4,7 @@ $(function () {
     /*
     * If bot status is changed, save current bot status button is appeared.
     */
-    $(document).on('click', '.bot-data', function () {
+    $(document).on('change', '.bot-data', function () {
         console.log('Save current bot status.');
 
         $('.box-save').css('display', 'block');
@@ -32,6 +32,7 @@ $(function () {
 
         //send change request to server.
 
+        $('.box-save').css('display', 'block');
         $('#modal-asset').modal('hide');
     });
 
@@ -145,6 +146,12 @@ $(function () {
     * If user want to backtest using current bot setting, user press this button.
     */
     $(document).on('click', '.bot-list .backtest', function () {
+        $('#backtest-date').daterangepicker({
+            startDate: moment().subtract(6, 'months'),
+            endDate  : moment(),
+            autoclose: true
+        });
+        $('div.daterangepicker').css("z-index", "9999");
 
         $('#modal-backtest-setting').modal();
     });
@@ -157,8 +164,8 @@ $(function () {
         //backtest information object.
         var backtestSettingInfo = new Object();
 
-        backtestSettingInfo.startDate = 0;
-        backtestSettingInfo.endDate = 0;
+        backtestSettingInfo.startDate = $('div.daterangepicker').find('input[name="daterangepicker_start"]').val();
+        backtestSettingInfo.endDate = $('div.daterangepicker').find('input[name="daterangepicker_end"]').val();
 
         var amount = $('input[name="backtest-amount"]').val();
 
