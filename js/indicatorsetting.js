@@ -126,7 +126,7 @@ $(function () {
 
     $(document).on('click', '#modal-bot-step button[type="submit"]', function () {
 
-    }
+    });
 
     function makeIndicatorSelectorContent() {
         var indicatorSelectorContent = '';
