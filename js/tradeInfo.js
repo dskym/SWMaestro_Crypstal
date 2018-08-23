@@ -317,7 +317,7 @@ $(function () {
         var tableNode = '';
 
         tableNode += '<tr>';
-        tableNode += '<td><a href="javascript:void(0)"><span class="text-black">' + value['date'] + '</span></a></td>';
+        tableNode += '<td><a href="javascript:void(0)"><span class="text-black">' + moment(value['date']).format('YYYY-MM-DD hh:mm') + '</span></a></td>';
 
         if(value['action'] === 'Buy')
             tableNode += '<td><span class="label label-success">' + value['action'] + '</span></td>';
@@ -360,7 +360,9 @@ $(function () {
 
     tradeChart.stockEvents = stockEvents;
 
-
+    function addComma(value) {
+        return Number(value).toLocaleString('en');
+    }
 
     function addComma(value) {
         return Number(value).toLocaleString('en');
