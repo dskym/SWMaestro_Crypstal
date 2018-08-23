@@ -18,13 +18,18 @@ $(function () {
                 $.each(buyStrategy, function(index, indicatorObj) {
                     var buyIndicatorDescriptionContent = makeIndicatorDescriptionContent(indicatorObj);
 
-                    $('#buy').find('div.strategy').append(buyIndicatorDescriptionContent);
+
+                    $('#buy').find('div.strategy').append('<div class="indicator">');
+                    $('#buy').find('div.strategy').find('div.indicator:last').append(buyIndicatorDescriptionContent);
+                    $('#buy').find('div.strategy').append('</div>');
                 });
 
                 $.each(sellStrategy, function(index, indicatorObj) {
                     var sellIndicatorDescriptionContent = makeIndicatorDescriptionContent(indicatorObj);
 
-                    $('#sell').find('div.strategy').append(sellIndicatorDescriptionContent);
+                    $('#sell').find('div.strategy').append('<div class="indicator">');
+                    $('#sell').find('div.strategy').find('div.indicator:last').append(sellIndicatorDescriptionContent);
+                    $('#sell').find('div.strategy').append('</div>');
                 });
             }
         });
@@ -35,7 +40,9 @@ $(function () {
 
         $.each($strategy, function() {
             if($(this).find('div.indicator').length !== 5) {
-                $(this).append(makeIndicatorSelectorContent());
+                $(this).append('<div class="indicator">');
+                $(this).find('div.indicator:last').append(makeIndicatorSelectorContent());
+                $(this).append('</div>');
             }
         });
     });
@@ -70,15 +77,16 @@ $(function () {
 
         var indicatorObj = getStrategyObjectFromSetting($indicatorSetting);
 
-        console.log(indicatorObj);
-
         var indicatorDescriptionContent = makeIndicatorDescriptionContent(indicatorObj);
 
         $(this).closest('div.indicator').find('div.indicator-selector').remove();
 
         if($(this).closest('div.strategy').find('div.indicator').length !== 5) {
-            if($(this).closest('div.strategy').find('div.indicator-selector').length === 0)
-                $(this).closest('div.strategy').append(makeIndicatorSelectorContent);
+            if($(this).closest('div.strategy').find('div.indicator-selector').length === 0) {
+                $(this).closest('div.strategy').append('<div class="indicator">');
+                $(this).closest('div.strategy').find('div.indicator:last').append(makeIndicatorSelectorContent());
+                $(this).closest('div.strategy').append('</div>');
+            }
         }
 
         $indicatorSetting.replaceWith(indicatorDescriptionContent);
@@ -94,8 +102,6 @@ $(function () {
         var $indicatorDescriptionContent = $(this);
 
         var indicatorObj = getStrategyObjectFromDescription($indicatorDescriptionContent);
-
-        console.log(indicatorObj);
 
         var indicatorSettingContent = makeIndicatorSettingContent(indicatorObj);
 
@@ -118,11 +124,14 @@ $(function () {
         }
     });
 
+    $(document).on('click', '#modal-bot-step button[type="submit"]', function () {
+
+    }
+
     function makeIndicatorSelectorContent() {
         var indicatorSelectorContent = '';
 
         indicatorSelectorContent +=
-            '          <div class="indicator">\n' +
             '            <div class="indicator-selector">\n' +
             '              <div class="form-group">\n' +
             '                <select class="form-control">\n' +
@@ -133,8 +142,7 @@ $(function () {
             '                  <option value="Parabolic Sar">Parabolic Sar</option>\n' +
             '                </select>\n' +
             '              </div>\n' +
-            '            </div>\n' +
-            '          </div>\n';
+            '            </div>\n';
 
         return indicatorSelectorContent;
     }
@@ -149,14 +157,14 @@ $(function () {
             '                      <h6 class="box-title"><span class="name">' + obj['indicator']['name'] + '</span></h6>\n' +
             '                    </div>\n' +
             '                    <div class="box-body">\n' +
-            '                      <div class="settings">\n';
+            '                      <div class="options">\n';
 
-        $.each(obj['indicator']['settings'], function(key, value) {
+        $.each(obj['indicator']['options'], function(key, value) {
             if(key !== "trigger") {
                 indicatorSettingContent +=
                     '                        <div class="form-group">\n' +
                     '                          <label>' + key + '</label>\n' +
-                    '                          <input class="w-50 text-center" type="text" value="' + value + '" id="min">\n' +
+                    '                          <input class="w-50 text-center" type="text" value="' + value + '"">\n' +
                     '                        </div>\n';
             }
         });
@@ -165,9 +173,9 @@ $(function () {
             '                        </div>\n' +
             '                        <div class="position">\n' +
             '                          <div class="text-center">\n' +
-            '                            <span class="left">' + obj['indicator']['settings']['trigger']['left'] + '</span>\n' +
-            '                            <button type="button" class="btn btn-info btn-circle comparator">' + obj['indicator']['settings']['trigger']['comparator'] + '</button>\n' +
-            '                            <span class="right">' + obj['indicator']['settings']['trigger']['right'] + '</span>\n' +
+            '                            <span class="left">' + obj['indicator']['options']['trigger']['left'] + '</span>\n' +
+            '                            <button type="button" class="btn btn-info btn-circle comparator">' + obj['indicator']['options']['trigger']['comparator'] + '</button>\n' +
+            '                            <span class="right">' + obj['indicator']['options']['trigger']['right'] + '</span>\n' +
             '                          </div>\n' +
             '                        </div>\n';
 
@@ -210,7 +218,7 @@ $(function () {
 
         indicatorDescriptionContent += '<p>Trigger : ';
 
-        $.each(obj['indicator']['settings']['trigger'], function(key, value) {
+        $.each(obj['indicator']['options']['trigger'], function(key, value) {
             indicatorDescriptionContent += '<span class="' + key + '">' + value + '</span>' + ' ';
         });
 
@@ -219,11 +227,11 @@ $(function () {
         indicatorDescriptionContent += '</p>';
         indicatorDescriptionContent += '<div class="options">';
 
-        $.each(obj['indicator']['settings'], function(key, value) {
+        $.each(obj['indicator']['options'], function(key, value) {
             if(key !== "trigger") {
                 indicatorDescriptionContent += '<span class="option"><span class="option-key">' + key + '</span> : <span class="option-value">' + value + '</span></span>';
 
-                if(Object.keys(obj['indicator']['settings']).length - 2 !== index)
+                if(Object.keys(obj['indicator']['options']).length - 2 !== index)
                     indicatorDescriptionContent += ' / ';
             }
 
@@ -255,24 +263,22 @@ $(function () {
 
         strategy.indicator.name = obj.find('.name').text();
 
-        strategy.indicator.settings = new Object();
+        strategy.indicator.options = new Object();
 
-        $.each($indicatorSetting.find('.settings').find('.form-group'), function() {
+        $.each($indicatorSetting.find('.options').find('.form-group'), function() {
             var key = $(this).find('label').text();
             var value = $(this).find('input').val();
 
-            strategy.indicator.settings[key] = value;
+            strategy.indicator.options[key] = value;
         });
 
-        strategy.indicator.settings.position = new Object();
+        strategy.indicator.options.trigger = new Object();
 
-        strategy.indicator.settings.position.left = $indicatorSetting.find('.left').text();
-        strategy.indicator.settings.position.comparator = $indicatorSetting.find('.comparator').text();
-        strategy.indicator.settings.position.right = $indicatorSetting.find('.right').text();
+        strategy.indicator.options.trigger.left = $indicatorSetting.find('.left').text();
+        strategy.indicator.options.trigger.comparator = $indicatorSetting.find('.comparator').text();
+        strategy.indicator.options.trigger.right = $indicatorSetting.find('.right').text();
 
         strategy.weight = $indicatorSetting.find('.weight').find('input').attr('value');
-
-        console.log(strategy);
 
         return strategy;
     }
@@ -286,21 +292,20 @@ $(function () {
 
         strategy.indicator.name = $indicatorDescription.find('.name').text();
 
-        console.dir($indicatorDescription);
 
-        strategy.indicator.settings = new Object;
+        strategy.indicator.options = new Object;
 
         $.each($indicatorDescription.find('.options').find('.option'), function() {
             var key = $(this).find('.option-key').text();
             var value = $(this).find('.option-value').text();
 
-            strategy.indicator.settings[key] = value;
+            strategy.indicator.options[key] = value;
         });
 
-        strategy.indicator.settings.trigger = new Object();
-        strategy.indicator.settings.trigger.left = $indicatorDescription.find('.left').text();
-        strategy.indicator.settings.trigger.comparator = $indicatorDescription.find('.comparator').text();
-        strategy.indicator.settings.trigger.right = $indicatorDescription.find('.right').text();
+        strategy.indicator.options.trigger = new Object();
+        strategy.indicator.options.trigger.left = $indicatorDescription.find('.left').text();
+        strategy.indicator.options.trigger.comparator = $indicatorDescription.find('.comparator').text();
+        strategy.indicator.options.trigger.right = $indicatorDescription.find('.right').text();
 
         strategy.weight = $indicatorDescription.find('.weight').text();
 

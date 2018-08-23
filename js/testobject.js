@@ -39,16 +39,16 @@ strategy.indicator = new Object();
 
 strategy.indicator.name = 'MACD';
 
-strategy.indicator.settings = new Object;
+strategy.indicator.options = new Object;
 
-strategy.indicator.settings.short = 12;
-strategy.indicator.settings.long = 26;
-strategy.indicator.settings.signal = 9;
+strategy.indicator.options.short = 12;
+strategy.indicator.options.long = 26;
+strategy.indicator.options.signal = 9;
 
-strategy.indicator.settings.trigger = new Object();
-strategy.indicator.settings.trigger.left = 'MACD';
-strategy.indicator.settings.trigger.comparator = '>';
-strategy.indicator.settings.trigger.right = 'Signal';
+strategy.indicator.options.trigger = new Object();
+strategy.indicator.options.trigger.left = 'MACD';
+strategy.indicator.options.trigger.comparator = '>';
+strategy.indicator.options.trigger.right = 'Signal';
 
 strategy.weight = 1;
 
@@ -62,17 +62,17 @@ strategy.indicator = new Object();
 
 strategy.indicator.name = 'MA Double';
 
-strategy.indicator.settings = new Object;
+strategy.indicator.options = new Object;
 
-strategy.indicator.settings.shortLength = 55;
-strategy.indicator.settings.shortMaType = 'SMA';
-strategy.indicator.settings.longLength = 130;
-strategy.indicator.settings.longMaType = 'SMA';
+strategy.indicator.options.shortLength = 55;
+strategy.indicator.options.shortMaType = 'SMA';
+strategy.indicator.options.longLength = 130;
+strategy.indicator.options.longMaType = 'SMA';
 
-strategy.indicator.settings.trigger = new Object();
-strategy.indicator.settings.trigger.left = 'Short';
-strategy.indicator.settings.trigger.comparator = '>';
-strategy.indicator.settings.trigger.right = 'Long';
+strategy.indicator.options.trigger = new Object();
+strategy.indicator.options.trigger.left = 'Short';
+strategy.indicator.options.trigger.comparator = '>';
+strategy.indicator.options.trigger.right = 'Long';
 
 strategy.weight = 1;
 
@@ -89,15 +89,15 @@ strategy.indicator = new Object();
 
 strategy.indicator.name = 'Parabolic Sar';
 
-strategy.indicator.settings = new Object;
+strategy.indicator.options = new Object;
 
-strategy.indicator.settings.minAf = 0.01;
-strategy.indicator.settings.maxAf = 0.2;
+strategy.indicator.options.minAf = 0.01;
+strategy.indicator.options.maxAf = 0.2;
 
-strategy.indicator.settings.trigger = new Object();
-strategy.indicator.settings.trigger.left = '기준 종가';
-strategy.indicator.settings.trigger.comparator = '>';
-strategy.indicator.settings.trigger.right = 'SAR';
+strategy.indicator.options.trigger = new Object();
+strategy.indicator.options.trigger.left = '기준 종가';
+strategy.indicator.options.trigger.comparator = '>';
+strategy.indicator.options.trigger.right = 'SAR';
 
 strategy.weight = 1;
 
@@ -111,16 +111,16 @@ strategy.indicator = new Object();
 
 strategy.indicator.name = 'Bollinger Bands';
 
-strategy.indicator.settings = new Object;
+strategy.indicator.options = new Object;
 
-strategy.indicator.settings.period = 100;
-strategy.indicator.settings.standardDeviations = 1.1;
-strategy.indicator.settings.positionIndex = 0;
+strategy.indicator.options.period = 100;
+strategy.indicator.options.standardDeviations = 1.1;
+strategy.indicator.options.positionIndex = 0;
 
-strategy.indicator.settings.trigger = new Object();
-strategy.indicator.settings.trigger.left = '기준 종가';
-strategy.indicator.settings.trigger.comparator = '>';
-strategy.indicator.settings.trigger.right = 'Position Index';
+strategy.indicator.options.trigger = new Object();
+strategy.indicator.options.trigger.left = '기준 종가';
+strategy.indicator.options.trigger.comparator = '>';
+strategy.indicator.options.trigger.right = 'Position Index';
 
 strategy.weight = 1;
 

@@ -207,23 +207,46 @@ $(function () {
     * If user want to save current bot status or start bot, this function is called.
     * And, send data to server.
     */
+
+    /**
+     *     {
+        "name": "승윤봇",
+        "cryptoCurrency": "BTC",
+        "exchange": "UPBIT",
+        "buyStrategy": [],
+        "sellStrategy": [],
+        "buyStrategyThreshold": 3,
+        "sellStrategyThreshold": 3,
+        "tradingPeriod": 5,
+        "asset": 1000000.0,
+        "signalAlarm": true,
+        "autoTrading": false,
+        "creationTime": "2018-08-21T06:45:46.009"
+    },
+
+     */
     function saveBotSetting() {
-        var botSettingInfo = new Object();
+        var $currentBot = $('div.bot-list').find('div.bot-tab-content').find('.active').find('div.bot');
 
-        botSettingInfo.botname = $('#bot-name').text();
+        //send data to server.
+        $.each(botListData, function(index, bot) {
+            //나중에 봇ID 로 비교
+            if(bot['name'] === $currentBot.find('h4').text()) {
+                bot['name'] = $currentBot.find('h4').text();
+                bot['exchange'] = $currentBot.find('#bot-exchange option:selected').val();
+                bot['cryptoCurrency'] = $currentBot.find('#bot-coin option:selected').val();
+                bot['tradingPeriod'] = $currentBot.find('#bot-period option:selected').val();
+                bot['signalAlarm'] = $currentBot.find('#bot-alarm').is(":checked");
+                bot['autoTrading'] = $currentBot.find('#auto-trade').is(":checked");
+                bot['asset'] = $currentBot.find('.asset').find('label').text();
+            }
+        });
 
-        botSettingInfo.botexchange = $('#bot-exchange option:selected').val();
-        botSettingInfo.botcoin = $('#bot-coin option:selected').val();
-        botSettingInfo.botperiod = $('#bot-period option:selected').val();
-
+        //여기서 전략 값을 최종 저장해야 할까? 아니면 전략 설정 후 적용을 누르면 바로 저장하도록 해야 할까...
         //botSettingInfo.strategyInfo = ;
         //botSettingInfo.additionalInfo = ;
 
-        botSettingInfo.botalarm = $('.bot-list #bot-alarm').is(":checked");
-        botSettingInfo.autotrade = $('.bot-list #auto-trade').is(":checked");
-
-
-        //send data to server.
-        console.log(botSettingInfo);
+        console.log(botListData);
+        console.log('Save Current Bot Status');
     }
 });
