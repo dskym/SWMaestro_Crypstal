@@ -1,10 +1,12 @@
 $(function () {
     "use strict";
 
-    $('.profit-target-value').text($('#input-profit-target').attr('placeholder'));
-    $('.stop-loss-value').text($('#input-stop-loss').attr('placeholder'));
-    $('.trailing-stop-high-value').text($('#input-trailing-stop-high').attr('placeholder'));
-    $('.trailing-stop-low-value').text($('#input-trailing-stop-low').attr('placeholder'));
+    var $safety = $('#safety');
+
+    $safety.find('.profit-target-value').text($('#input-profit-target').attr('placeholder'));
+    $safety.find('.stop-loss-value').text($('#input-stop-loss').attr('placeholder'));
+    $safety.find('.trailing-stop-high-value').text($('#input-trailing-stop-high').attr('placeholder'));
+    $safety.find('.trailing-stop-low-value').text($('#input-trailing-stop-low').attr('placeholder'));
 
     $(document).on('keyup', '#input-profit-target', function () {
         var value = $(this).val();

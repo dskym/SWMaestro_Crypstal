@@ -116,7 +116,7 @@ $(function () {
     * Need to thinking more.
     */
     $(document).on('click', '.safety', function () {
-        $('#modal-bot-step').modal();
+        $('#modal-safety').modal();
     });
 
     /*

@@ -33,7 +33,6 @@ $(function () {
                 '                    <div class="box-body">\n' +
                 '                      <div class="asset">\n' +
                 '                        <label>' + Number(bot['asset']).toLocaleString('en') + ' KRW</label>\n' +
-                '                        <button class="btn btn-info">수정하기</button>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
@@ -81,7 +80,6 @@ $(function () {
                 '                      <div class="strategy-setting">\n' +
                 '                        <h2>전략 제목 : 바보</h2>\n' +
                 '                        <p>전략 설정 : 아무것도 못함</p>\n' +
-                '                        <button class="btn btn-info">수정하기</button>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
@@ -99,14 +97,13 @@ $(function () {
                 '                        <p>주문 수량</p>\n' +
                 '                        <p><span class="badge badge-success mr-10">매수</span><span class="order-quantity-buy" >100% (All-in)</span></p>\n' +
                 '                        <p><span class="badge badge-danger mr-10">매도</span><span class="order-quantity-sell" >100% (All-in)</span></p>\n' +
-                '                        <button class="btn btn-info">수정하기</button>\n' +
                 '                      </div>\n' +
                 '\n' +
                 '                      <div class="b-1 h-5 mt-10 mb-10"></div>\n' +
                 '\n' +
                 '                      <div class="safety">\n' +
                 '                        <p>Safety</p>\n' +
-                '                        <button class="btn btn-info">수정하기</button>\n' +
+                '                        <div class="safety-content"></div>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
@@ -244,7 +241,6 @@ $(function () {
                 '                    <div class="box-body">\n' +
                 '                      <div class="asset">\n' +
                 '                        <label>' + Number(newBot['asset']).toLocaleString('en') + ' KRW</label>\n' +
-                '                        <button class="btn btn-info">수정하기</button>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
@@ -292,7 +288,6 @@ $(function () {
                 '                      <div class="strategy-setting">\n' +
                 '                        <h2>전략 제목 : 바보</h2>\n' +
                 '                        <p>전략 설명 : 아무것도 못함</p>\n' +
-                '                        <button class="btn btn-info">수정하기</button>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
@@ -310,14 +305,12 @@ $(function () {
                 '                        <p>주문 수량</p>\n' +
                 '                        <p><span class="badge badge-success mr-10">매수</span><span class="order-quantity-buy" >100% (All-in)</span></p>\n' +
                 '                        <p><span class="badge badge-danger mr-10">매도</span><span class="order-quantity-sell" >100% (All-in)</span></p>\n' +
-                '                        <button class="btn btn-info">수정하기</button>\n' +
                 '                      </div>\n' +
                 '\n' +
                 '                      <div class="b-1 h-5 mt-10 mb-10"></div>\n' +
                 '\n' +
                 '                      <div class="safety">\n' +
                 '                        <p>Safety</p>\n' +
-                '                        <button class="btn btn-info">수정하기</button>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
