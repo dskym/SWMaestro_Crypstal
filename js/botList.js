@@ -78,8 +78,10 @@ $(function () {
                 '                      <div class="b-1 h-30px"></div><br>\n' +
                 '\n' +
                 '                      <div class="strategy-setting">\n' +
-                '                        <h2>전략 제목 : 바보</h2>\n' +
-                '                        <p>전략 설정 : 아무것도 못함</p>\n' +
+                '                        <div class="strategy-description">\n' +
+                '                          <h2>전략 제목 : <span class="strategy-description-title">바보</span></h2>\n' +
+                '                          <p>전략 설명 : <span class="strategy-description-content">아무것도 못함</span></p>\n' +
+                '                        </div>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
@@ -103,7 +105,7 @@ $(function () {
                 '\n' +
                 '                      <div class="safety">\n' +
                 '                        <p>Safety</p>\n' +
-                '                        <div class="safety-content"></div>\n' +
+                '                        <div class="safety-content">* 선택한 Safety 옵션이 없습니다.</div>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
@@ -311,6 +313,7 @@ $(function () {
                 '\n' +
                 '                      <div class="safety">\n' +
                 '                        <p>Safety</p>\n' +
+                '                        <div class="safety-content">* 선택한 Safety 옵션이 없습니다.</div>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +

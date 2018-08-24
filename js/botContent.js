@@ -41,6 +41,9 @@ $(function () {
         saveBotSetting();
     });
 
+    //botSettingInfo.botalarm = $('.bot-list #bot-alarm').is(":checked");
+    //botSettingInfo.autotrade = $('.bot-list #auto-trade').is(":checked");
+
     /*
     * If user want to save current bot status or start bot, this function is called.
     * And, send data to server.

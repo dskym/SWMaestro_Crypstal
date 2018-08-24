@@ -24,7 +24,9 @@ $(function () {
         $('#modal-asset').find('input[name="asset"]').val(asset);
     });
 
-    //clear asset input
+    /*
+    * Clear asset input.
+    */
     $('#modal-bot-step').on('hide.bs.modal', function() {
         $('#modal-asset').find('input[name="asset"]').val(0);
     });

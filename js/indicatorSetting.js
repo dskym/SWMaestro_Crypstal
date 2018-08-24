@@ -54,10 +54,23 @@ $(function () {
                 $(this).append('</div>');
             }
         });
+
+
+        var $currentBot = $('div.bot-list').find('div.tab-pane.active');
+        var $currentBotDescription = $currentBot.find('div.strategy-description');
+        var $description = $('#modal-bot-step').find('#description');
+
+        var descriptionTitle = $currentBotDescription.find('.strategy-description-title').text();
+        var descriptionContent = $currentBotDescription.find('.strategy-description-content').text();
+
+        console.log(descriptionTitle);
+        console.log(descriptionContent);
+
+        $description.find('input[name="strategy-description-title"]').val(descriptionTitle);
+        $description.find('textarea[name="strategy-description-content"]').val(descriptionContent);
     });
 
     $('#modal-bot-step').on('hide.bs.modal', function() {
-        $('div.strategy').empty();
     });
 
     $(document).on('change', 'div.indicator-selector', function () {

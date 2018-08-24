@@ -721,13 +721,13 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="label-bot-step">전략 만들기</h4>
+                <h4 class="modal-title" id="label-bot-step">전략 설정</h4>
             </div>
             <div class="modal-body">
                 <ul class="nav nav-tabs customtab" role="tablist">
-                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#buy" role="tab">매수</a></li>
-                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sell" role="tab">매도</a></li>
-                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#additional" role="tab">추가설정</a></li>
+                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#buy" role="tab">매수 전략</a></li>
+                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sell" role="tab">매도 전략</a></li>
+                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#description" role="tab">봇 설명</a></li>
                 </ul>
                 <!-- Tab panes -->
                 <div class="tab-content">
@@ -753,8 +753,16 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane pad" id="additional" role="tabpanel">
-
+                    <div class="tab-pane pad" id="description" role="tabpanel">
+                        <!-- textarea -->
+                        <div class="form-group">
+                            <label>전략 제목</label>
+                            <input type="text" class="form-control" name="strategy-description-title" placeholder="최대 30자">
+                        </div>
+                        <div class="form-group">
+                            <label>전략 설명</label>
+                            <textarea class="form-control" rows="3"  name="strategy-description-content" placeholder="최대 100자"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>

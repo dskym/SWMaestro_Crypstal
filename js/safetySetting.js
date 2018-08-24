@@ -1,18 +1,24 @@
 $(function () {
     "use strict";
 
-    var $safety = $('#safety');
+    $(document).on('click', '.safety', function () {
+        $('#modal-safety').modal();
+    });
 
-    $safety.find('.profit-target-value').text($('#input-profit-target').attr('placeholder'));
-    $safety.find('.stop-loss-value').text($('#input-stop-loss').attr('placeholder'));
-    $safety.find('.trailing-stop-high-value').text($('#input-trailing-stop-high').attr('placeholder'));
-    $safety.find('.trailing-stop-low-value').text($('#input-trailing-stop-low').attr('placeholder'));
+    $('#modal-safety').on('show.bs.modal', function() {
+        var $safety = $('#safety');
+
+        //value setting
+        $safety.find('.profit-target-value').text($('#input-profit-target').attr('placeholder'));
+        $safety.find('.stop-loss-value').text($('#input-stop-loss').attr('placeholder'));
+        $safety.find('.trailing-stop-high-value').text($('#input-trailing-stop-high').attr('placeholder'));
+        $safety.find('.trailing-stop-low-value').text($('#input-trailing-stop-low').attr('placeholder'));
+    });
 
     /*
     * Need to thinking more.
     */
-    $(document).on('click', '.safety', function () {
-        $('#modal-safety').modal();
+    $('#modal-safety').on('hide.bs.modal', function() {
     });
 
     $(document).on('keyup', '#input-profit-target', function () {
@@ -42,7 +48,4 @@ $(function () {
         if(value !== "")
             $('.trailing-stop-low-value').text(value);
     });
-
-    //botSettingInfo.botalarm = $('.bot-list #bot-alarm').is(":checked");
-    //botSettingInfo.autotrade = $('.bot-list #auto-trade').is(":checked");
 });
