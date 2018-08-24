@@ -11,32 +11,6 @@ $(function () {
     });
 
     /*
-    * If user want to change asset assigned to bot, click asset area.
-    * Appear asset setting modal.
-    */
-    $(document).on('click', 'div.asset', function () {
-        console.log('Change Bot Asset');
-
-        $('#modal-asset').modal();
-    });
-
-    /*
-    * If user decide to asset assigned to bot, user press submit button.
-    * Then, send change request to server.
-    */
-    $(document).on('click', '#modal-asset button[type="submit"]', function () {
-        var newAsset = $('input[name="asset"]').val();
-
-        var $asset = $('div.bot-list').find('div.tab-pane.active').find('.asset').find('label');
-        $asset.text(Number(newAsset).toLocaleString('en')+' KRW');
-
-        //send change request to server.
-
-        $('.box-save').css('display', 'block');
-        $('#modal-asset').modal('hide');
-    });
-
-    /*
     * Todo
     * Connect to chatbot system.
     */
