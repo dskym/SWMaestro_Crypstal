@@ -8,6 +8,13 @@ $(function () {
     $safety.find('.trailing-stop-high-value').text($('#input-trailing-stop-high').attr('placeholder'));
     $safety.find('.trailing-stop-low-value').text($('#input-trailing-stop-low').attr('placeholder'));
 
+    /*
+    * Need to thinking more.
+    */
+    $(document).on('click', '.safety', function () {
+        $('#modal-safety').modal();
+    });
+
     $(document).on('keyup', '#input-profit-target', function () {
         var value = $(this).val();
 

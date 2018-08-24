@@ -1,6 +1,15 @@
 $(function () {
     "use strict";
 
+    /*
+    * If user want to set trading strategy, click setting area.
+    */
+    $(document).on('click', '.strategy-setting', function () {
+
+        $('#modal-bot-step').modal();
+    });
+
+
     //Show indicator selector content.
     $('#modal-bot-step').on('show.bs.modal', function() {
         ////////////////////////////////////
