@@ -9,8 +9,7 @@ $(function () {
     * data
     * {
     *   'exchange' : 'UPBIT',
-    *   'marketConditionList': [
-    *   {
+    *   'marketConditionList': [{
     *     "baseCurrency": "KRW",
     *     "cryptoCurrency": "RVN",
     *     "tradePrice": 7334000.0,
@@ -18,13 +17,13 @@ $(function () {
     *     "signedChangePrice": 79000.0,
     *     "signedChangeRate": 0.010889042
     *   }],
-    *   'updatedTime' : '2018-08-21T01:10:13.896',
+    *   'updatedTime' : '2018-08-21T01:10:13.896'
     * }
     */
 
-    var webtickerUrl = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/ticker?baseCurrency=KRW';
+    var webTickerUrl = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/ticker?baseCurrency=KRW';
 
-    $.getJSON(webtickerUrl, function () {
+    $.getJSON(webTickerUrl, function () {
         console.log('Success Load Web Ticker');
     }).done(function (webTickerData) {
         setWebTickerContent(webTickerData);
@@ -33,7 +32,7 @@ $(function () {
             height:'auto',
             duplicate:true,
             startEmpty:false,
-            rssfrequency:5,
+            rssfrequency:1,
             direction: 'right'
         });
     });
@@ -54,18 +53,24 @@ $(function () {
                 value['cryptoCurrency'] +
                 '</span>';
 
-            if(value['change'] === 'FALL') {
+            if(value['change'] === 'RISE') {
                 webTickerContent +=
                     '<span class="text-right text-green">' +
                     '<i class="mdi mdi-arrow-up-bold"></i>' +
                     Number(value['signedChangePrice']).toLocaleString('en') + '(+' + (value['signedChangeRate'] * 100).toFixed(2) + '%)' +
                     '</span>';
             }
-            else if(value['change'] === 'RISE') {
+            else if(value['change'] === 'FALL') {
                 webTickerContent +=
                     '<span class="text-right text-red">' +
                     '<i class="mdi mdi-arrow-down-bold"></i>' +
-                    value['signedChangePrice'] + '(-' + (value['signedChangeRate'] * 100).toFixed(2) + '%)' +
+                    Number(value['signedChangePrice']).toLocaleString('en') + '(' + (value['signedChangeRate'] * 100).toFixed(2) + '%)' +
+                    '</span>';
+            }
+            else if(value['change'] === 'EVEN') {
+                webTickerContent +=
+                    '<span class="text-right">' +
+                    Number(value['signedChangePrice']).toLocaleString('en') + '(' + (value['signedChangeRate'] * 100).toFixed(2) + '%)' +
                     '</span>';
             }
 

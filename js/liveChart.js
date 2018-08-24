@@ -61,7 +61,7 @@ $(function () {
                 title: 'BTC',
                 type: "candlestick",
                 id: "g1",
-                balloonText: "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>Volume:<b>[[value]]</b><br>Time:<b>[[candleDateTimeKST]]</b><br>",
+                balloonText: "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>Volume:<b>[[value]]</b><br>",
                 openField: "open",
                 closeField: "close",
                 highField: "high",
@@ -129,6 +129,10 @@ $(function () {
             valueBalloonsEnabled: true
         },
 
+        panelsSettings: {
+            "usePrefixes": true
+        },
+
         periodSelector: {
             dateFormat: "YYYY-MM-DD HH:NN",
             inputFieldWidth: 150,
@@ -136,7 +140,6 @@ $(function () {
             periods: [{
                 period: "mm",
                 count: 5,
-                selected: true,
                 label: "5 min"
             }, {
                 period: "mm",
@@ -156,8 +159,10 @@ $(function () {
                 label: "2 hour"
             }, {
                 period: "MAX",
-                label: "MAX"
-            }]
+                label: "MAX",
+                selected: true
+            }],
+            selectFromStart: true
         },
 
         listeners: [

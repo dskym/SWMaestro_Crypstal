@@ -44,6 +44,8 @@ $(function () {
 
         mouseWheelZoomEnabled: true,
 
+        glueToTheEnd: true,
+
         "color": "#b0de09",
         "categoryField": "date",
 
