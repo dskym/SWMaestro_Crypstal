@@ -61,7 +61,7 @@ $(function () {
                 title: 'BTC',
                 type: "candlestick",
                 id: "g1",
-                balloonText: "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>Volume:<b>[[value]]</b><br>",
+                balloonText: "Open:<b>[[open]]</b><br>Low:<b>[[low]]</b><br>High:<b>[[high]]</b><br>Close:<b>[[close]]</b><br>",
                 openField: "open",
                 closeField: "close",
                 highField: "high",

@@ -13,6 +13,13 @@ $(function () {
         $safety.find('.stop-loss-value').text($('#input-stop-loss').attr('placeholder'));
         $safety.find('.trailing-stop-high-value').text($('#input-trailing-stop-high').attr('placeholder'));
         $safety.find('.trailing-stop-low-value').text($('#input-trailing-stop-low').attr('placeholder'));
+
+        $safety.find('#checkbox-profit-target').attr('checked', false);
+        $safety.find('#checkbox-stop-loss').attr('checked', false);
+        $safety.find('#checkbox-trailing-stop').attr('checked', false);
+        $safety.find('#checkbox-position-change').attr('checked', false);
+        $safety.find('#checkbox-sell-exit').attr('checked', false);
+        $safety.find('#checkbox-safety-exit').attr('checked', false);
     });
 
     /*
@@ -47,5 +54,10 @@ $(function () {
 
         if(value !== "")
             $('.trailing-stop-low-value').text(value);
+    });
+
+    $(document).on('click', '#modal-safety button[type="submit"]', function () {
+
+        $('#modal-safety').modal('hide');
     });
 });
