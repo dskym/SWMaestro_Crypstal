@@ -21,6 +21,8 @@ var macd = {
         'right': 'Signal',
         'comparator': '>'
     }
+
+
 }
 
 var ma_double = {

@@ -288,8 +288,8 @@ $(function () {
                 '                      <div class="b-1 h-30px"></div><br>\n' +
                 '\n' +
                 '                      <div class="strategy-setting">\n' +
-                '                        <h2>전략 제목 : 바보</h2>\n' +
-                '                        <p>전략 설명 : 아무것도 못함</p>\n' +
+                '                        <h2>전략 제목 : <span class="strategy-description-title">바보</span></h2>\n' +
+                '                        <p>전략 설명 : <span class="strategy-description-content">아무것도 못함</span></p>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +

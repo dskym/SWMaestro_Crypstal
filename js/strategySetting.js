@@ -146,8 +146,24 @@ $(function () {
         }
     });
 
+    //
     $(document).on('click', '#modal-bot-step button[type="submit"]', function () {
+        var $description = $('#modal-bot-step').find('#description');
+        var newDescriptionTitle = $description.find('input[name="strategy-description-title"]').val();
+        var newDescriptionContent = $description.find('textarea[name="strategy-description-content"]').val();
 
+        newDescriptionContent = newDescriptionContent.replace('\r\n', '<br>');
+
+        console.log(newDescriptionContent);
+        //send data to server.
+
+        //draw UI
+        var $currentBot = $('div.bot-list').find('div.tab-pane.active');
+        var $currentBotStrategy = $currentBot.find('.strategy-setting');
+        $currentBotStrategy.find('.strategy-description-title').text(newDescriptionTitle);
+        $currentBotStrategy.find('.strategy-description-content').text(newDescriptionContent);
+
+        $('#modal-bot-step').modal('hide');
     });
 
     function makeIndicatorSelectorContent() {
