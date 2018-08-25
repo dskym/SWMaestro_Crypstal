@@ -181,8 +181,6 @@ $(function () {
         },
     });
 
-
-
     var $botInfo = $('div.bot-info');
 
     var $botResult = $botInfo.find('div.bot-result');

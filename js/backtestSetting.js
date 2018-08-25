@@ -50,7 +50,25 @@ $(function () {
         else
             backtestSettingInfo.slippage = $('input[name="backtest-slippage"]').attr('placeholder') * 0.01;
 
+        //setting Strategy
+
         //send data to server.
         console.log(backtestSettingInfo);
+
+
+        //Convert Backtest UI
+        var $botContent = $('div.bot-content');
+        var $botContentTab = $botContent.find('ul.content-tab');
+        var $botContentDetail = $botContent.find('.content-detail');
+
+        var $botActiveContentTab = $botContentTab.find('.active');
+        $botActiveContentTab.removeClass('active').removeClass('show');
+        $botContentTab.find('a[href="#info"]').addClass('active').addClass('show');
+
+        var $botActiveContentDetail = $botContentDetail.find('.active');
+        $botActiveContentDetail.removeClass('active').removeClass('show');
+        $botContentDetail.find('#info').addClass('active').addClass('show');
+
+        $('#modal-backtest-setting').modal('hide');
     });
 });

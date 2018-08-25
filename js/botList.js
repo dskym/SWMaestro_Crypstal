@@ -8,23 +8,36 @@ $(function () {
     }).done(function (botLists) {
         var $botList = $('div.bot-list');
         var $botTab = $botList.find('ul.bot-tab');
-
+        
         $.each(botLists, function (index, bot) {
+
+            var botId = bot['botId'];
+            var botName = bot['botName'];
+            var targetCryptoCurrency = bot['targetCryptoCurrency'];
+            var targetExchangeName = bot['targetExchangeName'];
+            var buyStrategy = bot['buyStrategy'];
+            var sellStrategy = bot['sellStrategy'];
+            var tradingPeriod = bot['tradingPeriod'];
+            var tradingAsset = bot['tradingAsset'];
+            var signalAlarm = bot['signalAlarm'];
+            var autoTrading = bot['autoTrading'];
+
+
             var $botTabContent = $botList.find('div.bot-tab-content');
 
             var content = '';
 
             if (index === 0) {
-                $botTab.append('<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot' + (index + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/><span class="bot-name">' + bot['name'] + '</span></a></li>');
+                $botTab.append('<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot' + (index + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/><span class="bot-name">' + botName + '</span></a></li>');
                 content += '<div class="tab-pane active" id="bot' + (index + 1) + '" role="tabpanel" aria-expanded="true">';
             } else {
-                $botTab.append('<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bot' + (index + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png" />' + bot['name'] + '</a></li>');
+                $botTab.append('<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bot' + (index + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png" />' + botName + '</a></li>');
                 content += '<div class="tab-pane" id="bot' + (index + 1) + '" role="tabpanel" aria-expanded="true">';
             }
 
             content +=
                 '              <div class="bot">\n' +
-                '                <h4 class="text-bold text-center">' + bot['name'] + '</h4>\n' +
+                '                <h4 class="text-bold text-center">' + botName + '</h4>\n' +
                 '                  <div class="box">\n' +
                 '                    <div class="box-header with-border">\n' +
                 '                      <h6 class="box-title">투자 금액</h6>\n' +
@@ -32,7 +45,7 @@ $(function () {
                 '\n' +
                 '                    <div class="box-body">\n' +
                 '                      <div class="asset">\n' +
-                '                        <label>' + Number(bot['asset']).toLocaleString('en') + ' KRW</label>\n' +
+                '                        <label>' + Number(tradingAsset).toLocaleString('en') + ' KRW</label>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
@@ -136,39 +149,39 @@ $(function () {
             var $botPeriod = $botList.find('#bot' + (index + 1)).find('select.period');
 
             $.each($botExchange.children(), function() {
-                if($(this).text().toUpperCase() === bot['exchange'].toUpperCase()) {
+                if($(this).text().toUpperCase() === targetExchangeName.toUpperCase()) {
                     $(this).prop('selected', true);
                 }
             });
 
             $.each($botCoin.children(), function() {
-                if ($(this).text().toUpperCase() === bot['cryptoCurrency'].toUpperCase()) {
+                if ($(this).text().toUpperCase() === targetCryptoCurrency.toUpperCase()) {
                     $(this).prop('selected', true);
                 }
             });
 
             $.each($botPeriod.children(), function() {
-                if($(this).text() === '5m' && bot['tradingPeriod'] === 5)
+                if($(this).text() === '5m' && tradingPeriod === 5)
                     $(this).prop('selected', true);
-                else if($(this).text() === '15m' && bot['tradingPeriod'] === 15)
+                else if($(this).text() === '15m' && tradingPeriod === 15)
                     $(this).prop('selected', true);
-                else if($(this).text() === '30m' && bot['tradingPeriod'] === 30)
+                else if($(this).text() === '30m' && tradingPeriod === 30)
                     $(this).prop('selected', true);
-                else if($(this).text() === '1h' && bot['tradingPeriod'] === 60)
+                else if($(this).text() === '1h' && tradingPeriod === 60)
                     $(this).prop('selected', true);
-                else if($(this).text() === '2h' && bot['tradingPeriod'] === 120)
+                else if($(this).text() === '2h' && tradingPeriod === 120)
                     $(this).prop('selected', true);
             });
 
             var $botAlarm = $botList.find('#bot' + (index + 1)).find('input.bot-alarm');
             var $botAutoTrade = $botList.find('#bot' + (index + 1)).find('input.auto-trade');
 
-            if(bot['signalAlarm'] === true)
+            if(signalAlarm === true)
                 $botAlarm.prop('checked', true);
             else
                 $botAlarm.prop('checked', true);
 
-            if(bot['autoTrading'] === true)
+            if(autoTrading === true)
                 $botAutoTrade.prop('checked', true);
             else
                 $botAutoTrade.prop('checked', false);
@@ -219,8 +232,8 @@ $(function () {
             var $botActiveTabNode = $botTab.find('.active');
             $botActiveTabNode.removeClass('active');
 
-            var $botActiveTanContentNode = $botTabContent.find('.active');
-            $botActiveTanContentNode.removeClass('active');
+            var $botActiveTabContentNode = $botTabContent.find('.active');
+            $botActiveTabContentNode.removeClass('active');
 
             var botCount = botListData.length;
 
