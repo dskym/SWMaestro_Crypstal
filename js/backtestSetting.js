@@ -55,6 +55,8 @@ $(function () {
         //send data to server.
         console.log(backtestSettingInfo);
 
+        //send event.
+        $('div.bot-info').trigger('backtest', 'Backtest Result Object');
 
         //Convert Backtest UI
         var $botContent = $('div.bot-content');

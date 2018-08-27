@@ -1,6 +1,8 @@
 $(function () {
     "use strict";
 
+    var server_url = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/strategies/?botId=1';
+
     /*
     * If user want to set trading strategy, click setting area.
     */
@@ -9,38 +11,47 @@ $(function () {
         $('#modal-bot-step').modal();
     });
 
-
     //Show indicator selector content.
     $('#modal-bot-step').on('show.bs.modal', function() {
         ////////////////////////////////////
         //request strategy data to server.//
         ////////////////////////////////////
 
-        var botName = $('div.bot-list').find('div.bot-tab-content').find('.active').find('div.bot').find('h4').text();
+        $.getJSON(server_url, function () {
+            console.log('Success Strategy List');
+        }).done(function (strategies) {
+            $.each(strategies, function(index, strategy) {
+                if(strategy['position'] === 'BUY') {
+                    $.each(strategy['signalListenerList'], function(index, indicator) {
+                        var signalConfig = indicator['signalConfig'];
 
-        //draw modal
-        $.each(botListData, function(index, bot) {
-            if(bot['name'] === botName) {
-                var buyStrategy = bot['buyStrategy'];
-                var sellStrategy = bot['sellStrategy'];
+                        //객체 생성할 수 있도록 바꾸기...
+                        var indicatorObject = indicators[signalConfig['indicatorName']];
 
-                $.each(buyStrategy, function(index, indicatorObj) {
-                    var buyIndicatorDescriptionContent = makeIndicatorDescriptionContent(indicatorObj);
+                        indicatorObject.init(signalConfig);
+                        var buyIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
 
+                        $('#buy').find('div.strategy').append('<div class="indicator">');
+                        $('#buy').find('div.strategy').find('div.indicator:last').append(buyIndicatorDescriptionContent);
+                        $('#buy').find('div.strategy').append('</div>');
+                    });
+                }
+                else if(strategy['position'] === 'SELL') {
+                    $.each(strategy['signalListenerList'], function(index, indicator) {
+                        var signalConfig = indicator['signalConfig'];
 
-                    $('#buy').find('div.strategy').append('<div class="indicator">');
-                    $('#buy').find('div.strategy').find('div.indicator:last').append(buyIndicatorDescriptionContent);
-                    $('#buy').find('div.strategy').append('</div>');
-                });
+                        //객체 생성할 수 있도록 바꾸기...
+                        var indicatorObject = indicators[signalConfig['indicatorName']];
 
-                $.each(sellStrategy, function(index, indicatorObj) {
-                    var sellIndicatorDescriptionContent = makeIndicatorDescriptionContent(indicatorObj);
+                        indicatorObject.init(signalConfig);
+                        var buyIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
 
-                    $('#sell').find('div.strategy').append('<div class="indicator">');
-                    $('#sell').find('div.strategy').find('div.indicator:last').append(sellIndicatorDescriptionContent);
-                    $('#sell').find('div.strategy').append('</div>');
-                });
-            }
+                        $('#sell').find('div.strategy').append('<div class="indicator">');
+                        $('#sell').find('div.strategy').find('div.indicator:last').append(buyIndicatorDescriptionContent);
+                        $('#sell').find('div.strategy').append('</div>');
+                    });
+                }
+            });
         });
 
         ////////////////////////////////////
@@ -156,6 +167,33 @@ $(function () {
 
         console.log(newDescriptionContent);
         //send data to server.
+        /*
+        $.ajax({
+            url : server_url,
+            crossDomain: true,
+            data : {
+                "strategyThreshold" : "5",
+                "signalConfigList" : [
+                    {
+                        "indicatorName" : "MADouble",
+                        "serialized" : "{\"short\":\"20\", \"long\":\"100\", \"comparator\":\"<\", \"strength\":\"2\"}"
+                    },
+                    {
+                        "indicatorName" : "MACD",
+                        "serialized" : "{\"short\":\"20\", \"long\":\"100\", \"signal\":\"50\", \"comparator\":\">\", \"strength\":\"2\"}"
+                    }
+                ]
+            },
+            dataType : 'json',
+            type : 'put',
+            success : function(strategy) {
+                console.log(strategy);
+            },
+            error : function() {
+                console.log('error');
+            }
+        });
+        */
 
         //draw UI
         var $currentBot = $('div.bot-list').find('div.tab-pane.active');

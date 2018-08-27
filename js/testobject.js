@@ -137,18 +137,18 @@ botListData[0]['sellStrategy'] = sellStrategy;
 //Trade Result
 var tradeResult = new Object();
 
-tradeResult.startDate = '2017-08-14 09:00:00';
-tradeResult.endDate = '2017-08-14 12:00:00';
-tradeResult.win = 27;
-tradeResult.lose = 17;
-tradeResult.maxProfit = 44.44;
-tradeResult.maxLoss = -22.22;
-tradeResult.revenueRate = 2500.00;
+tradeResult.startDate = '2018-07-01 00:00:00';
+tradeResult.endDate = '2018-07-31 00:00:00';
+tradeResult.win = 2;
+tradeResult.lose = 2;
+tradeResult.maxProfit = 2.21;
+tradeResult.maxLoss = -1.99;
+tradeResult.revenueRate = 0.59;
 tradeResult.initialInvestmentAmount = 1000000;
-tradeResult.totalAmount = 25000000;
-tradeResult.profitAndLossAmount = 25000000;
-tradeResult.changeRate = 35.10;
-tradeResult.exchangeFee = 1000000;
+tradeResult.totalAmount = 1005894;
+tradeResult.profitAndLossAmount = 5894;
+tradeResult.changeRate = -1.76;
+tradeResult.exchangeFee = 8996;
 tradeResult.slippageRate = 0.4;
 
 
@@ -157,9 +157,117 @@ tradeResult.slippageRate = 0.4;
 //Trade History
 var tradeHistory = new Array();
 
+var tradeHistoryObj = new Object();
+
+tradeHistoryObj.date = new Date(2018, 7, 9, 2);
+
+tradeHistoryObj.action = 'Buy';
+
+tradeHistoryObj.price = 8379384;
+tradeHistoryObj.volume = 0.1192;
+tradeHistoryObj.evaluation = 999000;
+
+tradeHistory.push(tradeHistoryObj);
+
+var tradeHistoryObj = new Object();
+
+tradeHistoryObj.date = new Date(2018, 7, 9, 21);
+
+tradeHistoryObj.action = 'Sell';
+
+tradeHistoryObj.price = 8305644;
+tradeHistoryObj.volume = 0;
+tradeHistoryObj.evaluation = 989218;
+
+tradeHistory.push(tradeHistoryObj);
+
+
+var tradeHistoryObj = new Object();
+
+tradeHistoryObj.date = new Date(2018, 7, 18, 18);
+
+tradeHistoryObj.action = 'Buy';
+
+tradeHistoryObj.price = 7268960;
+tradeHistoryObj.volume = 0.136;
+tradeHistoryObj.evaluation = 988229;
+
+tradeHistory.push(tradeHistoryObj);
+
+
+var tradeHistoryObj = new Object();
+
+tradeHistoryObj.date = new Date(2018, 7, 21, 23);
+
+tradeHistoryObj.action = 'Sell';
+
+tradeHistoryObj.price = 7437132;
+tradeHistoryObj.volume = 0;
+tradeHistoryObj.evaluation = 1010081;
+
+tradeHistory.push(tradeHistoryObj);
+
+
+var tradeHistoryObj = new Object();
+
+tradeHistoryObj.date = new Date(2018, 7, 26, 18);
+
+tradeHistoryObj.action = 'Buy';
+
+tradeHistoryObj.price = 7022980;
+tradeHistoryObj.volume = 0.1437;
+tradeHistoryObj.evaluation = 1009071;
+
+tradeHistory.push(tradeHistoryObj);
+
+
+var tradeHistoryObj = new Object();
+
+tradeHistoryObj.date = new Date(2018, 7, 29, 0);
+
+tradeHistoryObj.action = 'Sell';
+
+tradeHistoryObj.price = 6890328;
+tradeHistoryObj.volume = 0;
+tradeHistoryObj.evaluation = 989022;
+
+tradeHistory.push(tradeHistoryObj);
+
+
+var tradeHistoryObj = new Object();
+
+tradeHistoryObj.date = new Date(2018, 7, 30, 22);
+
+tradeHistoryObj.action = 'Buy';
+
+tradeHistoryObj.price = 714840;
+tradeHistoryObj.volume = 0.1382;
+tradeHistoryObj.evaluation = 988033;
+
+tradeHistory.push(tradeHistoryObj);
+
+
+var tradeHistoryObj = new Object();
+
+tradeHistoryObj.date = new Date(2018, 7, 30, 23);
+
+tradeHistoryObj.action = 'Sell';
+
+tradeHistoryObj.price = 7296696;
+tradeHistoryObj.volume = 0;
+tradeHistoryObj.evaluation = 1007510;
+
+tradeHistory.push(tradeHistoryObj);
+
+
+
+/*
+//Trade History
+var tradeHistory = new Array();
+
 var baseDate = new Date(2018, 8, 14, 9, 0, 0);
 
-for(var i = 0;i<20;++i) {
+for(var i = 0;i<8;++i) {
     var tradeHistoryObj = new Object();
 
     tradeHistoryObj.date = new Date(baseDate);
@@ -176,3 +284,4 @@ for(var i = 0;i<20;++i) {
 
     tradeHistory.push(tradeHistoryObj);
 }
+*/

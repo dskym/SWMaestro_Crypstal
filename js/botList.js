@@ -38,14 +38,14 @@ $(function () {
             content +=
                 '              <div class="bot">\n' +
                 '                <h4 class="text-bold text-center">' + botName + '</h4>\n' +
-                '                  <div class="box">\n' +
+                '                  <div class="box hide">\n' +
                 '                    <div class="box-header with-border">\n' +
                 '                      <h6 class="box-title">투자 금액</h6>\n' +
                 '                    </div>\n' +
                 '\n' +
                 '                    <div class="box-body">\n' +
                 '                      <div class="asset">\n' +
-                '                        <label>' + Number(tradingAsset).toLocaleString('en') + ' KRW</label>\n' +
+                '                        <label class="mb-0">' + Number(tradingAsset).toLocaleString('en') + ' KRW</label>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
@@ -60,7 +60,7 @@ $(function () {
                 '\n' +
                 '                    <div class="box-body">\n' +
                 '                      <div class="form-group">\n' +
-                '                        <label>계정</label>\n' +
+                '                        <label>거래소</label>\n' +
                 '                        <select id="bot-exchange" class="form-control exchange bot-data">\n' +
                 '                          <option value="Bithumb">Bithumb</option>\n' +
                 '                          <option value="Upbit">Upbit</option>\n' +
@@ -88,12 +88,12 @@ $(function () {
                 '                        </select>\n' +
                 '                      </div>\n' +
                 '\n' +
-                '                      <div class="b-1 h-30px"></div><br>\n' +
+                '                      <div class="b-1 h-30px"></div>\n' +
                 '\n' +
                 '                      <div class="strategy-setting">\n' +
                 '                        <div class="strategy-description">\n' +
-                '                          <h2>전략 제목 : <span class="strategy-description-title">바보</span></h2>\n' +
-                '                          <p>전략 설명 : <span class="strategy-description-content">아무것도 못함</span></p>\n' +
+                '                          <h2 style="margin: 0.5rem 0rem">전략 제목 : <span class="strategy-description-title">제목 없음</span></h2>\n' +
+                '                          <p style="margin-bottom: 0px">전략 설명 : <span class="strategy-description-content">설명 없음</span></p>\n' +
                 '                        </div>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
@@ -237,6 +237,8 @@ $(function () {
 
             var botCount = botListData.length;
 
+            console.log(botCount);
+
             //request to add bot to server.
             var $botTabNode = $botTab.find('li:eq(' + (botCount - 1) + ')');
             $botTabNode.before('<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot' + botCount + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/><span class="bot-name">' + botname + '</span></a></li>');
@@ -248,14 +250,14 @@ $(function () {
             content += '<div class="bot">\n';
             content +=
                 '                <h4 class="text-bold text-center">' + newBot['name'] + '</h4>\n' +
-                '                  <div class="box">\n' +
+                '                  <div class="box hide">\n' +
                 '                    <div class="box-header with-border">\n' +
                 '                      <h6 class="box-title">투자 금액</h6>\n' +
                 '                    </div>\n' +
                 '\n' +
                 '                    <div class="box-body">\n' +
                 '                      <div class="asset">\n' +
-                '                        <label>' + Number(newBot['asset']).toLocaleString('en') + ' KRW</label>\n' +
+                '                        <label class="mb-0">' + Number(newBot['asset']).toLocaleString('en') + ' KRW</label>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +
@@ -270,7 +272,7 @@ $(function () {
                 '\n' +
                 '                    <div class="box-body">\n' +
                 '                      <div class="form-group">\n' +
-                '                        <label>계정</label>\n' +
+                '                        <label>거래소</label>\n' +
                 '                        <select id="bot-exchange" class="form-control exchange bot-data">\n' +
                 '                          <option value="Bithumb">Bithumb</option>\n' +
                 '                          <option value="Upbit">Upbit</option>\n' +
@@ -298,11 +300,11 @@ $(function () {
                 '                        </select>\n' +
                 '                      </div>\n' +
                 '\n' +
-                '                      <div class="b-1 h-30px"></div><br>\n' +
+                '                      <div class="b-1 h-30px"></div>\n' +
                 '\n' +
                 '                      <div class="strategy-setting">\n' +
-                '                        <h2>전략 제목 : <span class="strategy-description-title">바보</span></h2>\n' +
-                '                        <p>전략 설명 : <span class="strategy-description-content">아무것도 못함</span></p>\n' +
+                '                        <h2 style="margin: 0.5rem 0rem">전략 제목 : <span class="strategy-description-title">제목 없음</span></h2>\n' +
+                '                        <p style="margin-bottom: 0px">전략 설명 : <span class="strategy-description-content">설명 없음</span></p>\n' +
                 '                      </div>\n' +
                 '                    </div>\n' +
                 '                  </div>\n' +

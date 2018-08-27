@@ -1,3 +1,105 @@
+var ma_double = {
+    name : 'MA Double',
+    options : {
+        shortTerm: {
+            name : 'Short length',
+            domain : {
+                min : 5,
+                max : 300
+            },
+            value : 55
+        },
+        shortMAType : {
+            name : 'MA Type',
+            domain : ['Sma', 'Ema', 'Wma', 'Tma'],
+            value : 'Sma'
+        },
+        longTerm : {
+            name : 'Long length',
+            domain : {
+                min : 5,
+                max : 300
+            },
+            value : 130
+        },
+        longMAType : {
+            name : 'MA Type',
+            domain : ['Sma', 'Ema', 'Wma', 'Tma'],
+            value : 'Sma'
+        }
+    },
+    position : {
+        left: 'Short',
+        right: 'Long',
+        comparator: '>'
+    },
+    weight : 1,
+    init : function(signalConfig) {
+        this.options.shortTerm.value = signalConfig['shortTerm'];
+        this.options.longTerm.value = signalConfig['longTerm'];
+        this.position.comparator = signalConfig['comparator'];
+        this.weight = signalConfig['strength'];
+    },
+    getSettingContent : function() {
+
+    },
+    getDescriptionContent : function() {
+        var indicatorDescriptionContent = '';
+
+        var index = 0;
+
+        indicatorDescriptionContent +=
+            '                <div class="indicator-description">\n' +
+            '                  <div class="box">\n' +
+            '                    <div class="box-header with-border">\n' +
+            '                      <h6 class="box-title"><span class="name">' + this.name + '</span></h6>\n' +
+            '                    </div>\n' +
+            '                    <div class="box-body">\n';
+
+        indicatorDescriptionContent += '<p>Trigger : ';
+
+        $.each(this.position, function(key, value) {
+            indicatorDescriptionContent += '<span class="' + key + '">' + value + '</span>' + ' ';
+        });
+
+        var setting = '';
+
+        indicatorDescriptionContent += '</p>';
+        indicatorDescriptionContent += '<div class="options">';
+
+        $.each(this.options, function(key, value) {
+            if(key !== "trigger") {
+                indicatorDescriptionContent += '<span class="option"><span class="option-key">' + key + '</span> : <span class="option-value">' + value + '</span></span>';
+
+                if(Object.keys(obj['indicator']['options']).length - 2 !== index)
+                    indicatorDescriptionContent += ' / ';
+            }
+
+            index++;
+        });
+
+        indicatorDescriptionContent += '</div>';
+
+        indicatorDescriptionContent +=
+            '                    </div>\n' +
+            '                    <div class="box-footer">\n' +
+            '                      <span>이 지표의 가중치</span>\n' +
+            '                      <span class="badge badge-pill badge-info weight">' + this.weight + '</span>\n' +
+            '                    </div>\n' +
+            '                  </div>\n' +
+            '                </div>\n' +
+            '              </div>\n';
+
+        return indicatorDescriptionContent;
+    },
+    checkValidation : function() {
+        if(this.options.shortTerm.value < this.options.shortTerm.min || this.options.shortTerm.max < this.options.shortTerm.value)
+            return false;
+    }
+}
+
+/*
+
 var macd = {
     'options' : {
         'short' : {
@@ -25,33 +127,6 @@ var macd = {
 
 }
 
-var ma_double = {
-    'options' : {
-        'Short length' : {
-            'min' : 5,
-            'max' : 300,
-            'value' : 55
-        },
-        'Short MA Type' : {
-            'class' : ['Sma', 'Ema', 'Wma', 'Tma'],
-            'value' : 'Sma'
-        },
-        'Long length' : {
-            'min' : 5,
-            'max' : 300,
-            'value' : 130
-        },
-        'Long MA Type' : {
-            'class' : ['Sma', 'Ema', 'Wma', 'Tma'],
-            'value' : 'Sma'
-        }
-    },
-    'position' : {
-        'left': 'Short',
-        'right': 'Long',
-        'comparator': '>'
-    }
-}
 
 var parabolic_sar = {
     'options' : {
@@ -96,6 +171,7 @@ var bollinger_bands = {
     }
 }
 
+/*
 var rsi = {
     'options' : {
         'Period' : {
@@ -173,12 +249,13 @@ var price_comparison = {
         'comparator': '>'
     }
 }
+*/
 
 var indicators = {
-    'MACD' : macd,
-    'MA Double' : ma_double,
-    'Parabolic SAR' : parabolic_sar,
-    'Bollinger Bands' : bollinger_bands,
-    'RSI' : rsi,
-    'Stochastic(Fast)' : stochastic_fast
+//    'MACD' : macd,
+    'MADouble' : ma_double
+//    'ParabolicSAR' : parabolic_sar,
+//    'BollingerBands' : bollinger_bands,
+//    'RSI' : rsi,
+//    'Stochastic(Fast)' : stochastic_fast
 }

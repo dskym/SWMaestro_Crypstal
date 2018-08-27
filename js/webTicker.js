@@ -2,23 +2,11 @@ $(function () {
     "use strict";
 
     /*
+
     * params
     * baseCurrency
     * cryptoCurrency
     *
-    * data
-    * {
-    *   'exchange' : 'UPBIT',
-    *   'marketConditionList': [{
-    *     "baseCurrency": "KRW",
-    *     "cryptoCurrency": "RVN",
-    *     "tradePrice": 7334000.0,
-    *     "change": "FALL" or "RISE",
-    *     "signedChangePrice": 79000.0,
-    *     "signedChangeRate": 0.010889042
-    *   }],
-    *   'updatedTime' : '2018-08-21T01:10:13.896'
-    * }
     */
 
     var webTickerUrl = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/ticker?baseCurrency=KRW';
