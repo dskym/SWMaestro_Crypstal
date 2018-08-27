@@ -1,31 +1,23 @@
 var botListData = [
     {
-        "name": "승윤봇",
-        "cryptoCurrency": "BTC",
-        "exchange": "UPBIT",
-        "buyStrategy": [],
-        "sellStrategy": [],
-        "buyStrategyThreshold": 3,
-        "sellStrategyThreshold": 3,
+        "botId": "test01",
+        "botName": "승윤봇",
+        "targetCryptoCurrency": "BTC",
+        "targetExchangeName": "UPBIT",
+        "buyStrategy": {
+            "threshold": 0
+        },
+        "sellStrategy": {
+            "threshold": 0
+        },
         "tradingPeriod": 5,
-        "asset": 1000000.0,
+        "tradingAsset": 1000000.0,
         "signalAlarm": true,
         "autoTrading": false,
-        "creationTime": "2018-08-21T06:45:46.009"
-    },
-    {
-        "name": "다솔봇",
-        "cryptoCurrency": "ETH",
-        "exchange": "UPBIT",
-        "buyStrategy": [],
-        "sellStrategy": [],
-        "buyStrategyThreshold": 3,
-        "sellStrategyThreshold": 3,
-        "tradingPeriod": 5,
-        "asset": 1000000.0,
-        "signalAlarm": true,
-        "autoTrading": false,
-        "creationTime": "2018-08-21T06:45:46.009"
+        "running": false,
+        "creationTime": "2018-08-27T06:46:05.275",
+        "lastStartupTime": "2018-08-27T06:46:05.275",
+        "lastShutdownTime": "2018-08-27T06:46:05.275"
     }
 ];
 

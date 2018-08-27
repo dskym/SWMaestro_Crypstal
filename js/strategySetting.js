@@ -26,9 +26,11 @@ $(function () {
                         var signalConfig = indicator['signalConfig'];
 
                         //객체 생성할 수 있도록 바꾸기...
+                        //객체 리터럴 말고...
                         var indicatorObject = indicators[signalConfig['indicatorName']];
 
                         indicatorObject.init(signalConfig);
+
                         var buyIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
 
                         $('#buy').find('div.strategy').append('<div class="indicator">');
@@ -44,26 +46,25 @@ $(function () {
                         var indicatorObject = indicators[signalConfig['indicatorName']];
 
                         indicatorObject.init(signalConfig);
-                        var buyIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
+
+                        var sellIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
 
                         $('#sell').find('div.strategy').append('<div class="indicator">');
-                        $('#sell').find('div.strategy').find('div.indicator:last').append(buyIndicatorDescriptionContent);
+                        $('#sell').find('div.strategy').find('div.indicator:last').append(sellIndicatorDescriptionContent);
                         $('#sell').find('div.strategy').append('</div>');
                     });
                 }
             });
-        });
 
-        ////////////////////////////////////
+            var $strategy = $('div.strategy');
 
-        var $strategy = $('div.strategy');
-
-        $.each($strategy, function() {
-            if($(this).find('div.indicator').length !== 5) {
-                $(this).append('<div class="indicator">');
-                $(this).find('div.indicator:last').append(makeIndicatorSelectorContent());
-                $(this).append('</div>');
-            }
+            $.each($strategy, function() {
+                if($(this).find('div.indicator').length !== 5) {
+                    $(this).append('<div class="indicator">');
+                    $(this).find('div.indicator:last').append(makeIndicatorSelectorContent());
+                    $(this).append('</div>');
+                }
+            });
         });
 
 
@@ -74,14 +75,18 @@ $(function () {
         var descriptionTitle = $currentBotDescription.find('.strategy-description-title').text();
         var descriptionContent = $currentBotDescription.find('.strategy-description-content').text();
 
-        console.log(descriptionTitle);
-        console.log(descriptionContent);
-
         $description.find('input[name="strategy-description-title"]').val(descriptionTitle);
         $description.find('textarea[name="strategy-description-content"]').val(descriptionContent);
     });
 
     $('#modal-bot-step').on('hide.bs.modal', function() {
+        $('#buy').find('div.strategy').empty();
+        $('#sell').find('div.strategy').empty();
+
+        var $description = $('#modal-bot-step').find('#description');
+
+        $description.find('input[name="strategy-description-title"]').val('');
+        $description.find('textarea[name="strategy-description-content"]').val('');
     });
 
     $(document).on('change', 'div.indicator-selector', function () {
@@ -108,9 +113,12 @@ $(function () {
     $(document).on('click', '#apply-indicator-setting', function () {
         var $indicatorSetting = $(this).closest('div.indicator-setting');
 
+        //객체 값 변경...
+        /*
         var indicatorObj = getStrategyObjectFromSetting($indicatorSetting);
 
         var indicatorDescriptionContent = makeIndicatorDescriptionContent(indicatorObj);
+        */
 
         $(this).closest('div.indicator').find('div.indicator-selector').remove();
 
@@ -122,6 +130,10 @@ $(function () {
             }
         }
 
+        var indicatorObject = indicators['MADouble'];
+
+        var indicatorDescriptionContent = indicatorObject.getDescriptionContent();
+
         $indicatorSetting.replaceWith(indicatorDescriptionContent);
     });
 
@@ -130,13 +142,18 @@ $(function () {
     });
 
     $(document).on('click', 'div.indicator-description', function () {
-        //parse description data.
+        var indicatorObject = indicators['MADouble'];
 
+        var indicatorSettingContent = indicatorObject.getSettingContent();
+
+        /*
+        //parse description data.
         var $indicatorDescriptionContent = $(this);
 
         var indicatorObj = getStrategyObjectFromDescription($indicatorDescriptionContent);
 
         var indicatorSettingContent = makeIndicatorSettingContent(indicatorObj);
+        */
 
         $(this).replaceWith(indicatorSettingContent);
     });
@@ -165,37 +182,26 @@ $(function () {
 
         newDescriptionContent = newDescriptionContent.replace('\r\n', '<br>');
 
-        console.log(newDescriptionContent);
-        //send data to server.
-        /*
-        $.ajax({
-            url : server_url,
-            crossDomain: true,
-            data : {
-                "strategyThreshold" : "5",
-                "signalConfigList" : [
-                    {
-                        "indicatorName" : "MADouble",
-                        "serialized" : "{\"short\":\"20\", \"long\":\"100\", \"comparator\":\"<\", \"strength\":\"2\"}"
-                    },
-                    {
-                        "indicatorName" : "MACD",
-                        "serialized" : "{\"short\":\"20\", \"long\":\"100\", \"signal\":\"50\", \"comparator\":\">\", \"strength\":\"2\"}"
-                    }
-                ]
-            },
-            dataType : 'json',
-            type : 'put',
-            success : function(strategy) {
-                console.log(strategy);
-            },
-            error : function() {
-                console.log('error');
-            }
-        });
-        */
+        var buyIndicatorObject = indicators['MADouble'];
+        var sellIndicatorObject = indicators['MADouble'];
 
-        //draw UI
+        var obj = buyIndicatorObject.getSerialized();
+
+        var data = {
+            "position" : "buy",
+            "strategyThreshold" : "5",
+            "signalConfigList" : [
+            {
+                "indicatorName" : "MADouble",
+                "serialized" : obj
+            }
+        ]
+        };
+
+        //send strategy data to server.
+        sendStrategy(data);
+
+        //draw Bot Description UI
         var $currentBot = $('div.bot-list').find('div.tab-pane.active');
         var $currentBotStrategy = $currentBot.find('.strategy-setting');
         $currentBotStrategy.find('.strategy-description-title').text(newDescriptionTitle);
@@ -203,6 +209,23 @@ $(function () {
 
         $('#modal-bot-step').modal('hide');
     });
+
+    function sendStrategy(data) {
+        $.ajax({
+            url : server_url,
+            data : JSON.stringify(data),
+            dataType : 'json',
+            type : 'put',
+            contentType: "application/json",
+            success : function(strategy) {
+                console.log('success');
+                console.log(strategy);
+            },
+            error : function() {
+                console.log('error');
+            }
+        });
+    }
 
     function makeIndicatorSelectorContent() {
         var indicatorSelectorContent = '';
@@ -223,6 +246,7 @@ $(function () {
         return indicatorSelectorContent;
     }
 
+    /*
     function makeIndicatorSettingContent(obj) {
         var indicatorSettingContent = '';
 
@@ -387,4 +411,5 @@ $(function () {
 
         return strategy;
     }
+    */
 });

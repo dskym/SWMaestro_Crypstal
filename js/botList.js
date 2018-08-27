@@ -22,7 +22,6 @@ $(function () {
             var signalAlarm = bot['signalAlarm'];
             var autoTrading = bot['autoTrading'];
 
-
             var $botTabContent = $botList.find('div.bot-tab-content');
 
             var content = '';
@@ -205,6 +204,7 @@ $(function () {
 
             //receive default new bot data.
             var newBot = new Object();
+
             newBot.name = botname;
             newBot.exchange = 'Bithumb';
             newBot.cryptoCurrency = 'BTC';
@@ -236,8 +236,6 @@ $(function () {
             $botActiveTabContentNode.removeClass('active');
 
             var botCount = botListData.length;
-
-            console.log(botCount);
 
             //request to add bot to server.
             var $botTabNode = $botTab.find('li:eq(' + (botCount - 1) + ')');

@@ -34,19 +34,96 @@ var ma_double = {
         comparator: '>'
     },
     weight : 1,
+
     init : function(signalConfig) {
         this.options.shortTerm.value = signalConfig['shortTerm'];
         this.options.longTerm.value = signalConfig['longTerm'];
         this.position.comparator = signalConfig['comparator'];
         this.weight = signalConfig['strength'];
     },
-    getSettingContent : function() {
 
+    getSettingContent : function() {
+        var indicatorSettingContent = '';
+
+        indicatorSettingContent +=
+            '                <div class="indicator-setting">\n' +
+            '                  <div class="box">\n' +
+            '                    <div class="box-header with-border">\n' +
+            '                      <h6 class="box-title"><span class="name">' + this.name + '</span></h6>\n' +
+            '                    </div>\n' +
+            '                    <div class="box-body">\n' +
+            '                      <div class="options">\n';
+
+        $.each(this.options, function(key, data) {
+            if(data.domain instanceof Array) {
+                indicatorSettingContent +=
+                    '                        <div class="form-group">\n' +
+                    '                          <label>' + data.name + '</label>\n';
+
+                indicatorSettingContent +=
+                    '                        <select id="' + key + '" class="w-100 pull-right">\n';
+
+                for(var i=0;i<data.domain.length;++i) {
+                    if(data.domain[i] === data.value) {
+                        indicatorSettingContent +=
+                            '                          <option value="' + data.domain[i] + '" selected>' + data.domain[i] + '</option>\n';
+                    }
+                    else {
+                        indicatorSettingContent +=
+                            '                          <option value="' + data.domain[i] + '">' + data.domain[i] + '</option>\n';
+                    }
+                }
+
+
+                indicatorSettingContent +=
+                    '                        </select>\n' +
+                    '                        </div>\n';
+            }
+            else if(data.domain instanceof Object) {
+                indicatorSettingContent +=
+                    '                        <div class="form-group">\n' +
+                    '                          <label>' + data.name + ' (' + data.domain.min + '~' + data.domain.max + ')' + '</label>\n' +
+                    '                          <input class="w-50 text-center pull-right" type="text" value="' + data.value + '"">\n' +
+                    '                        </div>\n';
+            }
+        });
+
+        indicatorSettingContent +=
+            '                        </div>\n' +
+            '                        <div class="position">\n' +
+            '                          <div class="text-center">\n' +
+            '                            <span class="left">' + this.position.left + '</span>\n' +
+            '                            <button type="button" class="btn btn-info btn-circle comparator">' + this.position.comparator + '</button>\n' +
+            '                            <span class="right">' + this.position.right + '</span>\n' +
+            '                          </div>\n' +
+            '                        </div>\n';
+
+        indicatorSettingContent +=
+            '                        <div class="weight">\n' +
+            '                          <div class="form-group">\n' +
+            '                            <label>이 지표의 가중치</label>\n' +
+            '                            <input class="w-50 text-center" type="number" value="' + this.weight + '" id="weight">\n' +
+            '                          </div>\n' +
+            '                        </div>\n';
+
+        indicatorSettingContent +=
+            '                    </div>\n' +
+            '                    <div class="box-footer pull-right">\n' +
+            '                      <button type="button" class="btn btn-default" id="delete-indicator-setting">\n' +
+            '                        삭제\n' +
+            '                      </button>\n' +
+            '                      <button type="button" class="btn btn-default" id="apply-indicator-setting">\n' +
+            '                        적용\n' +
+            '                      </button>\n' +
+            '                    </div>\n' +
+            '                  </div>\n' +
+            '                </div>\n';
+
+        return indicatorSettingContent;
     },
+
     getDescriptionContent : function() {
         var indicatorDescriptionContent = '';
-
-        var index = 0;
 
         indicatorDescriptionContent +=
             '                <div class="indicator-description">\n' +
@@ -56,31 +133,14 @@ var ma_double = {
             '                    </div>\n' +
             '                    <div class="box-body">\n';
 
-        indicatorDescriptionContent += '<p>Trigger : ';
+        indicatorDescriptionContent += '<p>Trigger : ' + this.position.left + ' ' + this.position.comparator + ' ' + this.position.right + '</p>';
 
-        $.each(this.position, function(key, value) {
-            indicatorDescriptionContent += '<span class="' + key + '">' + value + '</span>' + ' ';
-        });
-
-        var setting = '';
-
-        indicatorDescriptionContent += '</p>';
         indicatorDescriptionContent += '<div class="options">';
 
-        $.each(this.options, function(key, value) {
-            if(key !== "trigger") {
-                indicatorDescriptionContent += '<span class="option"><span class="option-key">' + key + '</span> : <span class="option-value">' + value + '</span></span>';
-
-                if(Object.keys(obj['indicator']['options']).length - 2 !== index)
-                    indicatorDescriptionContent += ' / ';
-            }
-
-            index++;
-        });
-
-        indicatorDescriptionContent += '</div>';
+        indicatorDescriptionContent += '<p>' + this.options.shortTerm.name + ' : ' + this.options.shortTerm.value + ' (' + this.options.shortMAType.value + ')'+ ' / ' + this.options.longTerm.name + ' : ' + this.options.longTerm.value + ' (' + this.options.longMAType.value + ')' + '</p>';
 
         indicatorDescriptionContent +=
+            '                      </div>\n' +
             '                    </div>\n' +
             '                    <div class="box-footer">\n' +
             '                      <span>이 지표의 가중치</span>\n' +
@@ -91,6 +151,15 @@ var ma_double = {
             '              </div>\n';
 
         return indicatorDescriptionContent;
+    },
+    getSerialized : function() {
+        var obj = new Object();
+
+        $.each(this.options, function(key, data) {
+            obj[key] = String(data.value);
+        });
+
+        return JSON.stringify(obj);
     },
     checkValidation : function() {
         if(this.options.shortTerm.value < this.options.shortTerm.min || this.options.shortTerm.max < this.options.shortTerm.value)
