@@ -12,7 +12,7 @@ $(function () {
 
     /*
     * Todo
-    * Connect to chatbot system.
+    * Connect to chatting bot.
     */
     $(document).on('click', '.bot-list #bot-alarm', function () {
         console.log($('.bot-list #bot-alarm').is(":checked"));
@@ -48,24 +48,6 @@ $(function () {
     * If user want to save current bot status or start bot, this function is called.
     * And, send data to server.
     */
-
-    /**
-     *     {
-        "name": "승윤봇",
-        "cryptoCurrency": "BTC",
-        "exchange": "UPBIT",
-        "buyStrategy": [],
-        "sellStrategy": [],
-        "buyStrategyThreshold": 3,
-        "sellStrategyThreshold": 3,
-        "tradingPeriod": 5,
-        "asset": 1000000.0,
-        "signalAlarm": true,
-        "autoTrading": false,
-        "creationTime": "2018-08-21T06:45:46.009"
-    },
-
-     */
     function saveBotSetting() {
         var $currentBot = $('div.bot-list').find('div.bot-tab-content').find('.active').find('div.bot');
 

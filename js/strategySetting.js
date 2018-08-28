@@ -7,53 +7,66 @@ $(function () {
     * If user want to set trading strategy, click setting area.
     */
     $(document).on('click', '.strategy-setting', function () {
-
         $('#modal-bot-step').modal();
     });
 
-    //Show indicator selector content.
+    /*
+    * Show indicator selector content.
+    */
     $('#modal-bot-step').on('show.bs.modal', function() {
-        ////////////////////////////////////
-        //request strategy data to server.//
-        ////////////////////////////////////
-
+        /*
+        * Initial Setting.
+        * Load data from server and show UI.
+        */
         $.getJSON(server_url, function () {
             console.log('Success Strategy List');
         }).done(function (strategies) {
             $.each(strategies, function(index, strategy) {
                 if(strategy['position'] === 'BUY') {
+                    var $buyStrategy = $('#buy').find('div.strategy');
+                    $buyStrategy.data('strategyWeight', strategy['threshold']);
+
                     $.each(strategy['signalListenerList'], function(index, indicator) {
                         var signalConfig = indicator['signalConfig'];
 
-                        //객체 생성할 수 있도록 바꾸기...
-                        //객체 리터럴 말고...
-                        var indicatorObject = indicators[signalConfig['indicatorName']];
+                        var indicatorObject = {};
+                        var indicatorTemplate = indicators[signalConfig['indicatorName']];
+                        $.extend(true, indicatorObject, indicatorTemplate);
 
                         indicatorObject.init(signalConfig);
 
                         var buyIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
 
-                        $('#buy').find('div.strategy').append('<div class="indicator">');
-                        $('#buy').find('div.strategy').find('div.indicator:last').append(buyIndicatorDescriptionContent);
-                        $('#buy').find('div.strategy').append('</div>');
+                        $buyStrategy.append('<div class="indicator">');
+                        $buyStrategy.find('div.indicator:last').append(buyIndicatorDescriptionContent);
+                        $buyStrategy.append('</div>');
+
+                        $buyStrategy.find('div.indicator:last').data('indicatorData', indicatorObject);
                     });
                 }
                 else if(strategy['position'] === 'SELL') {
+                    var $sellStrategy = $('#sell').find('div.strategy');
+                    $sellStrategy.data('strategyWeight', strategy['threshold']);
+
                     $.each(strategy['signalListenerList'], function(index, indicator) {
                         var signalConfig = indicator['signalConfig'];
 
-                        //객체 생성할 수 있도록 바꾸기...
-                        var indicatorObject = indicators[signalConfig['indicatorName']];
+                        var indicatorObject = {};
+                        var indicatorTemplate = indicators[signalConfig['indicatorName']];
+                        $.extend(true, indicatorObject, indicatorTemplate);
 
                         indicatorObject.init(signalConfig);
 
                         var sellIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
 
-                        $('#sell').find('div.strategy').append('<div class="indicator">');
-                        $('#sell').find('div.strategy').find('div.indicator:last').append(sellIndicatorDescriptionContent);
-                        $('#sell').find('div.strategy').append('</div>');
+                        $sellStrategy.find('div.strategy').append('<div class="indicator">');
+                        $sellStrategy.find('div.strategy').find('div.indicator:last').append(sellIndicatorDescriptionContent);
+                        $sellStrategy.find('div.strategy').append('</div>');
+
+                        $sellStrategy.find('div.strategy').find('div.indicator:last').data('indicatorData', indicatorObject);
                     });
                 }
+
             });
 
             var $strategy = $('div.strategy');
@@ -67,7 +80,9 @@ $(function () {
             });
         });
 
-
+        /*
+        * Set Bot Description
+        */
         var $currentBot = $('div.bot-list').find('div.tab-pane.active');
         var $currentBotDescription = $currentBot.find('div.strategy-description');
         var $description = $('#modal-bot-step').find('#description');
@@ -79,6 +94,9 @@ $(function () {
         $description.find('textarea[name="strategy-description-content"]').val(descriptionContent);
     });
 
+    /*
+    * Reset bot description data in bot step modal.
+    */
     $('#modal-bot-step').on('hide.bs.modal', function() {
         $('#buy').find('div.strategy').empty();
         $('#sell').find('div.strategy').empty();
@@ -89,16 +107,24 @@ $(function () {
         $description.find('textarea[name="strategy-description-content"]').val('');
     });
 
+    /*
+    * Change Bot indicator setting content by Bot indicator selector.
+    */
     $(document).on('change', 'div.indicator-selector', function () {
         var $indicatorSelector = $(this);
 
         var indicatorName = $(this).find(":selected").val();
 
-        $.each(obj, function(index,value) {
-            if(value['indicator']['name'] === indicatorName) {
+        $.each(indicators, function(key, value) {
+            if(value['name'] === indicatorName) {
                 var $indicator = $indicatorSelector.parent('div.indicator');
 
-                var indicatorSettingContent = makeIndicatorSettingContent(value);
+                var indicatorObject = {};
+                var indicatorTemplate = value;
+                $.extend(true, indicatorObject, indicatorTemplate);
+
+                var indicatorSettingContent = indicatorObject.getSettingContent();
+                $indicator.data('indicatorData', indicatorObject);
 
                 if($indicator.find('div.indicator-setting').length === 0) {
                     $indicator.append(indicatorSettingContent);
@@ -110,54 +136,59 @@ $(function () {
         });
     });
 
+    /*
+    * Apply changed indicator setting data.
+    */
     $(document).on('click', '#apply-indicator-setting', function () {
+        var $strategy = $(this).closest('div.strategy');
+        var $indicator = $(this).closest('div.indicator');
         var $indicatorSetting = $(this).closest('div.indicator-setting');
 
-        //객체 값 변경...
-        /*
-        var indicatorObj = getStrategyObjectFromSetting($indicatorSetting);
-
-        var indicatorDescriptionContent = makeIndicatorDescriptionContent(indicatorObj);
-        */
-
-        $(this).closest('div.indicator').find('div.indicator-selector').remove();
-
-        if($(this).closest('div.strategy').find('div.indicator').length !== 5) {
-            if($(this).closest('div.strategy').find('div.indicator-selector').length === 0) {
-                $(this).closest('div.strategy').append('<div class="indicator">');
-                $(this).closest('div.strategy').find('div.indicator:last').append(makeIndicatorSelectorContent());
-                $(this).closest('div.strategy').append('</div>');
-            }
-        }
-
-        var indicatorObject = indicators['MADouble'];
-
+        //현재 setting 값 가져오기.
+        var indicatorObject = $indicator.data('indicatorData');
+        var newIndicatorData = indicatorObject.parseSettingContent($indicatorSetting);
+        indicatorObject.updateIndicatorData(newIndicatorData);
         var indicatorDescriptionContent = indicatorObject.getDescriptionContent();
 
         $indicatorSetting.replaceWith(indicatorDescriptionContent);
+
+        $indicator.find('div.indicator-selector').remove();
+
+        if($indicator.length !== 5) {
+            if($strategy.find('div.indicator-selector').length === 0) {
+                $strategy.append('<div class="indicator">');
+                $strategy.find('div.indicator:last').append(makeIndicatorSelectorContent());
+                $strategy.append('</div>');
+            }
+        }
     });
 
+    /*
+    * Delete indicator data.
+    */
     $(document).on('click', '#delete-indicator-setting', function () {
         $(this).closest('div.indicator').remove();
     });
 
+    /*
+    * Change UI from Indicator Description to Indicator Setting.
+    */
     $(document).on('click', 'div.indicator-description', function () {
-        var indicatorObject = indicators['MADouble'];
+        var $indicator = $(this).closest('div.indicator');
 
+        //현재 setting 값 가져오기.
+        var indicatorObject = $indicator.data('indicatorData');
         var indicatorSettingContent = indicatorObject.getSettingContent();
 
-        /*
-        //parse description data.
-        var $indicatorDescriptionContent = $(this);
-
-        var indicatorObj = getStrategyObjectFromDescription($indicatorDescriptionContent);
-
-        var indicatorSettingContent = makeIndicatorSettingContent(indicatorObj);
-        */
+        console.log('Change Indicator Description');
+        console.log(indicatorObject);
 
         $(this).replaceWith(indicatorSettingContent);
     });
 
+    /*
+    * Change Comparator UI.
+    */
     $(document).on('click', '.comparator', function () {
         var value = $(this).text();
 
@@ -174,7 +205,9 @@ $(function () {
         }
     });
 
-    //
+    /*
+    * Save Strategy in Bot data.
+    */
     $(document).on('click', '#modal-bot-step button[type="submit"]', function () {
         var $description = $('#modal-bot-step').find('#description');
         var newDescriptionTitle = $description.find('input[name="strategy-description-title"]').val();
@@ -182,21 +215,50 @@ $(function () {
 
         newDescriptionContent = newDescriptionContent.replace('\r\n', '<br>');
 
-        var buyIndicatorObject = indicators['MADouble'];
-        var sellIndicatorObject = indicators['MADouble'];
+        //Create data object.
+        var $buy = $('#buy').find('div.strategy');
 
-        var obj = buyIndicatorObject.getSerialized();
+        var data = new Object();
+        data.position = 'buy';
+        data.strategyThreshold = $buy.data('strategyWeight');
+        data.signalConfigList = new Array();
 
-        var data = {
-            "position" : "buy",
-            "strategyThreshold" : "5",
-            "signalConfigList" : [
-            {
-                "indicatorName" : "MADouble",
-                "serialized" : obj
+        $.each($buy.find('div.indicator'), function(index, value) {
+            if($(this).children().hasClass('indicator-description')) {
+                var indicatorData = $(this).data('indicatorData');
+
+                var signalConfig = new Object();
+
+                signalConfig.indicatorName = indicatorData.name;
+                signalConfig.serialized = indicatorData.getSerialized();
+
+                data.signalConfigList.push(signalConfig);
             }
-        ]
-        };
+        });
+
+        //send strategy data to server.
+        sendStrategy(data);
+
+        //Create data object.
+        var $sell = $('#sell').find('div.strategy');
+
+        var data = new Object();
+        data.position = 'sell';
+        data.strategyThreshold = $buy.data('strategyWeight');
+        data.signalConfigList = new Array();
+
+        $.each($buy.find('div.indicator'), function(index, value) {
+            if($(this).children().hasClass('indicator-description')) {
+                var indicatorData = $(this).data('indicatorData');
+
+                var signalConfig = new Object();
+
+                signalConfig.indicatorName = indicatorData.name;
+                signalConfig.serialized = indicatorData.getSerialized();
+
+                data.signalConfigList.push(signalConfig);
+            }
+        });
 
         //send strategy data to server.
         sendStrategy(data);
@@ -210,6 +272,9 @@ $(function () {
         $('#modal-bot-step').modal('hide');
     });
 
+    /*
+     * Send strategy of current bot to server.
+     */
     function sendStrategy(data) {
         $.ajax({
             url : server_url,
@@ -227,6 +292,9 @@ $(function () {
         });
     }
 
+    /*
+     * draw Indicator Selector UI.
+     */
     function makeIndicatorSelectorContent() {
         var indicatorSelectorContent = '';
 
@@ -245,171 +313,4 @@ $(function () {
 
         return indicatorSelectorContent;
     }
-
-    /*
-    function makeIndicatorSettingContent(obj) {
-        var indicatorSettingContent = '';
-
-        indicatorSettingContent +=
-            '                <div class="indicator-setting">\n' +
-            '                  <div class="box">\n' +
-            '                    <div class="box-header with-border">\n' +
-            '                      <h6 class="box-title"><span class="name">' + obj['indicator']['name'] + '</span></h6>\n' +
-            '                    </div>\n' +
-            '                    <div class="box-body">\n' +
-            '                      <div class="options">\n';
-
-        $.each(obj['indicator']['options'], function(key, value) {
-            if(key !== "trigger") {
-                indicatorSettingContent +=
-                    '                        <div class="form-group">\n' +
-                    '                          <label>' + key + '</label>\n' +
-                    '                          <input class="w-50 text-center" type="text" value="' + value + '"">\n' +
-                    '                        </div>\n';
-            }
-        });
-
-        indicatorSettingContent +=
-            '                        </div>\n' +
-            '                        <div class="position">\n' +
-            '                          <div class="text-center">\n' +
-            '                            <span class="left">' + obj['indicator']['options']['trigger']['left'] + '</span>\n' +
-            '                            <button type="button" class="btn btn-info btn-circle comparator">' + obj['indicator']['options']['trigger']['comparator'] + '</button>\n' +
-            '                            <span class="right">' + obj['indicator']['options']['trigger']['right'] + '</span>\n' +
-            '                          </div>\n' +
-            '                        </div>\n';
-
-        indicatorSettingContent +=
-            '                        <div class="weight">\n' +
-            '                          <div class="form-group">\n' +
-            '                            <label>이 지표의 가중치</label>\n' +
-            '                            <input class="w-50 text-center" type="number" value="' + obj['weight'] + '" id="weight">\n' +
-            '                          </div>\n' +
-            '                        </div>\n';
-
-        indicatorSettingContent +=
-            '                    </div>\n' +
-            '                    <div class="box-footer pull-right">\n' +
-            '                      <button type="button" class="btn btn-default" id="delete-indicator-setting">\n' +
-            '                        삭제\n' +
-            '                      </button>\n' +
-            '                      <button type="button" class="btn btn-default" id="apply-indicator-setting">\n' +
-            '                        적용\n' +
-            '                      </button>\n' +
-            '                    </div>\n' +
-            '                  </div>\n' +
-            '                </div>\n';
-
-        return indicatorSettingContent;
-    }
-
-    function makeIndicatorDescriptionContent(obj) {
-        var indicatorDescriptionContent = '';
-
-        var index = 0;
-
-        indicatorDescriptionContent +=
-            '                <div class="indicator-description">\n' +
-            '                  <div class="box">\n' +
-            '                    <div class="box-header with-border">\n' +
-            '                      <h6 class="box-title"><span class="name">' + obj['indicator']['name'] + '</span></h6>\n' +
-            '                    </div>\n' +
-            '                    <div class="box-body">\n';
-
-        indicatorDescriptionContent += '<p>Trigger : ';
-
-        $.each(obj['indicator']['options']['trigger'], function(key, value) {
-            indicatorDescriptionContent += '<span class="' + key + '">' + value + '</span>' + ' ';
-        });
-
-        var setting = '';
-
-        indicatorDescriptionContent += '</p>';
-        indicatorDescriptionContent += '<div class="options">';
-
-        $.each(obj['indicator']['options'], function(key, value) {
-            if(key !== "trigger") {
-                indicatorDescriptionContent += '<span class="option"><span class="option-key">' + key + '</span> : <span class="option-value">' + value + '</span></span>';
-
-                if(Object.keys(obj['indicator']['options']).length - 2 !== index)
-                    indicatorDescriptionContent += ' / ';
-            }
-
-            index++;
-        });
-
-        indicatorDescriptionContent += '</div>';
-
-        indicatorDescriptionContent +=
-            '                    </div>\n' +
-            '                    <div class="box-footer">\n' +
-            '                      <span>이 지표의 가중치</span>\n' +
-            '                      <span class="badge badge-pill badge-info weight">' + obj['weight'] + '</span>\n' +
-            '                    </div>\n' +
-            '                  </div>\n' +
-            '                </div>\n' +
-            '              </div>\n';
-
-        return indicatorDescriptionContent;
-    }
-
-    function getStrategyObjectFromSetting(obj) {
-
-        var $indicatorSetting = obj;
-
-        var strategy = new Object();
-
-        strategy.indicator = new Object();
-
-        strategy.indicator.name = obj.find('.name').text();
-
-        strategy.indicator.options = new Object();
-
-        $.each($indicatorSetting.find('.options').find('.form-group'), function() {
-            var key = $(this).find('label').text();
-            var value = $(this).find('input').val();
-
-            strategy.indicator.options[key] = value;
-        });
-
-        strategy.indicator.options.trigger = new Object();
-
-        strategy.indicator.options.trigger.left = $indicatorSetting.find('.left').text();
-        strategy.indicator.options.trigger.comparator = $indicatorSetting.find('.comparator').text();
-        strategy.indicator.options.trigger.right = $indicatorSetting.find('.right').text();
-
-        strategy.weight = $indicatorSetting.find('.weight').find('input').attr('value');
-
-        return strategy;
-    }
-
-    function getStrategyObjectFromDescription(obj) {
-        var $indicatorDescription = obj;
-
-        var strategy = new Object();
-
-        strategy.indicator = new Object();
-
-        strategy.indicator.name = $indicatorDescription.find('.name').text();
-
-
-        strategy.indicator.options = new Object;
-
-        $.each($indicatorDescription.find('.options').find('.option'), function() {
-            var key = $(this).find('.option-key').text();
-            var value = $(this).find('.option-value').text();
-
-            strategy.indicator.options[key] = value;
-        });
-
-        strategy.indicator.options.trigger = new Object();
-        strategy.indicator.options.trigger.left = $indicatorDescription.find('.left').text();
-        strategy.indicator.options.trigger.comparator = $indicatorDescription.find('.comparator').text();
-        strategy.indicator.options.trigger.right = $indicatorDescription.find('.right').text();
-
-        strategy.weight = $indicatorDescription.find('.weight').text();
-
-        return strategy;
-    }
-    */
 });
