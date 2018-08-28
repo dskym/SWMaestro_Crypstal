@@ -16,7 +16,17 @@ $(function () {
         * Initial Setting.
         * Load data from server and show UI.
         */
-        $.getJSON(strategyUrl, function () {
+        var $botList = $('div.bot-list');
+        var $botTab = $botList.find('ul.bot-tab');
+        var $botActiveTab = $botTab.find('.active').closest('li');
+
+        var botId = $botActiveTab.data('botId');
+
+        var botStrategyUrl = strategyUrl + '/?botId=' + botId;
+
+        console.log('Strategy Url : ' + botStrategyUrl);
+
+        $.getJSON(botStrategyUrl, function () {
             console.log('Success Strategy List');
         }).done(function (strategies) {
             $.each(strategies, function(index, strategy) {
@@ -57,11 +67,11 @@ $(function () {
 
                         var sellIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
 
-                        $sellStrategy.find('div.strategy').append('<div class="indicator">');
-                        $sellStrategy.find('div.strategy').find('div.indicator:last').append(sellIndicatorDescriptionContent);
-                        $sellStrategy.find('div.strategy').append('</div>');
+                        $sellStrategy.append('<div class="indicator">');
+                        $sellStrategy.find('div.indicator:last').append(sellIndicatorDescriptionContent);
+                        $sellStrategy.append('</div>');
 
-                        $sellStrategy.find('div.strategy').find('div.indicator:last').data('indicatorData', indicatorObject);
+                        $sellStrategy.find('div.indicator:last').data('indicatorData', indicatorObject);
                     });
                 }
 

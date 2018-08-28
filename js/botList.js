@@ -11,6 +11,7 @@ $(function () {
 
             var currentBot = new Object();
 
+            currentBot.id = bot['botId'];
             currentBot.name = bot['botName'];
             currentBot.exchange = bot['targetExchangeName'];
             currentBot.cryptoCurrency = bot['targetCryptoCurrency'];
@@ -23,6 +24,9 @@ $(function () {
             currentBot.signalAlarm = bot['signalAlarm'];
             currentBot.autoTrading = bot['autoTrading'];
 
+            var reg = /[^0-9]/g;
+
+            currentBot.id = currentBot.id.replace(reg, '');
             /*
             * draw Bot Content UI
             */
@@ -31,7 +35,8 @@ $(function () {
             var content = '';
 
             if (index === 0) {
-                $botTab.append('<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot' + (index + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/><span class="bot-name">' + currentBot.name + '</span></a></li>');
+                $botTab.append('<li class="nav-item bot' + (index + 1) +'"> <a class="nav-link active" data-toggle="tab" href="#bot' + (index + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/><span class="bot-name">' + currentBot.name + '</span></a></li>');
+                $botTab.find('li.bot' + (index+1)).data('botId', currentBot.id);
                 content += '<div class="tab-pane active" id="bot' + (index + 1) + '" role="tabpanel" aria-expanded="true">';
             } else {
                 $botTab.append('<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#bot' + (index + 1) + '" role="tab" aria-expanded="true"><img src="../images/robot.png" />' + currentBot.name + '</a></li>');
@@ -114,6 +119,7 @@ $(function () {
             */
             var newBot = new Object();
 
+            newBot.id = 2;
             newBot.name = botname;
             newBot.exchange = 'Bithumb';
             newBot.cryptoCurrency = 'BTC';
@@ -148,7 +154,8 @@ $(function () {
             var botCount = botListData.length;
 
             var $botTabNode = $botTab.find('li:eq(' + (botCount - 1) + ')');
-            $botTabNode.before('<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#bot' + botCount + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/><span class="bot-name">' + botname + '</span></a></li>');
+            $botTabNode.before('<li class="nav-item bot' + botCount + '"> <a class="nav-link active" data-toggle="tab" href="#bot' + botCount + '" role="tab" aria-expanded="true"><img src="../images/robot.png"/><span class="bot-name">' + botname + '</span></a></li>');
+            $botTab.find('li.bot' + botCount).data('botId', newBot.id);
 
             /*
             * draw Bot Content UI
