@@ -189,6 +189,9 @@ var ma_double = {
             obj[key] = String(data.value);
         });
 
+        obj['comparator'] = this.position.comparator;
+        obj['strength'] = this.weight;
+
         return JSON.stringify(obj);
     },
 
@@ -386,6 +389,9 @@ var macd = {
             obj[key] = String(data.value);
         });
 
+        obj['comparator'] = this.position.comparator;
+        obj['strength'] = this.weight;
+
         return JSON.stringify(obj);
     },
 
@@ -573,6 +579,9 @@ var parabolic_sar = {
         $.each(this.options, function(key, data) {
             obj[key] = String(data.value);
         });
+
+        obj['comparator'] = this.position.comparator;
+        obj['strength'] = this.weight;
 
         return JSON.stringify(obj);
     },
@@ -766,6 +775,9 @@ var bollinger_bands = {
         $.each(this.options, function(key, data) {
             obj[key] = String(data.value);
         });
+
+        obj['comparator'] = this.position.comparator;
+        obj['strength'] = this.weight;
 
         return JSON.stringify(obj);
     },
