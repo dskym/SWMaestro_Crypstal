@@ -1,8 +1,6 @@
 $(function () {
     "use strict";
 
-    var server_url = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/chart/candles/minutes/5';
-
     //Trade Chart
     var tradeChart = AmCharts.makeChart("tradeChart", {
         "type": "stock",
@@ -26,7 +24,7 @@ $(function () {
                 toField: "volume"
             } ],
             dataLoader: {
-                url: server_url,
+                url: chartUrl,
                 format: 'json',
             },
             categoryField: "candleDateTimeKST"

@@ -9,8 +9,6 @@ $(function () {
     *
     */
 
-    var webTickerUrl = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/ticker?baseCurrency=KRW';
-
     $.getJSON(webTickerUrl, function () {
         console.log('Success Load Web Ticker');
     }).done(function (webTickerData) {

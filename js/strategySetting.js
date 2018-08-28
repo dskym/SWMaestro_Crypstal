@@ -1,8 +1,6 @@
 $(function () {
     "use strict";
 
-    var server_url = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/strategies/?botId=1';
-
     /*
     * If user want to set trading strategy, click setting area.
     */
@@ -18,7 +16,7 @@ $(function () {
         * Initial Setting.
         * Load data from server and show UI.
         */
-        $.getJSON(server_url, function () {
+        $.getJSON(strategyUrl, function () {
             console.log('Success Strategy List');
         }).done(function (strategies) {
             $.each(strategies, function(index, strategy) {
@@ -277,7 +275,7 @@ $(function () {
      */
     function sendStrategy(data) {
         $.ajax({
-            url : server_url,
+            url : strategyUrl,
             data : JSON.stringify(data),
             dataType : 'json',
             type : 'put',

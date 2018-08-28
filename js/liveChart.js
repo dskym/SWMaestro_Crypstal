@@ -1,6 +1,4 @@
 $(function () {
-    var server_url = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.com/v1/chart/candles/minutes/5';
-
     var liveChart = AmCharts.makeChart("liveChart", {
         type: "stock",
         theme: "light",
@@ -23,7 +21,7 @@ $(function () {
                 toField: "volume"
             }],
             dataLoader: {
-                url: server_url,
+                url: chartUrl,
                 format: 'json',
             },
             categoryField: "candleDateTimeKST"
