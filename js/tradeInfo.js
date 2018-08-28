@@ -49,16 +49,6 @@ $(function () {
         "color": "#b0de09",
         "categoryField": "date",
 
-        // EVENTS
-        "stockEvents": [{
-            "date": "2018-08-14 12:00:00",
-            "type": "sign",
-            "backgroundColor": "#85CDE6",
-            "graph": "g1",
-            "text": "B",
-            "description": "This is description of an event"
-        }],
-
         panels: [ {
             title: "Price",
             showCategoryAxis: true,
@@ -120,6 +110,12 @@ $(function () {
 
         showTradeResult(tradeResult);
         showTradeHistory(tradeHistory);
+
+        var $botContentTab = $('ul.content-tab');
+        $botContentTab.find('a[href="#info"]').closest('li').removeClass('hide');
+
+        var $botChart = $('div.bot-info').find('div.bot-chart');
+        $botChart.removeClass('hide');
     });
 
     function showTradeResult(tradeResult) {
