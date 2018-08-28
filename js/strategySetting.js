@@ -255,7 +255,7 @@ $(function () {
         data.strategyThreshold = $buy.data('strategyWeight');
         data.signalConfigList = new Array();
 
-        $.each($buy.find('div.indicator'), function(index, value) {
+        $.each($sell.find('div.indicator'), function(index, value) {
             if($(this).children().hasClass('indicator-description')) {
                 var indicatorData = $(this).data('indicatorData');
 
