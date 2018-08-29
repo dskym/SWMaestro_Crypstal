@@ -29,31 +29,17 @@ $(function () {
                 format: 'json',
             },
             categoryField: "candleDateTimeKST"
-        }, {
+        }/*
+        , {
             showInCompare: false,
-            title: '15m',
             fieldMappings: [{
-                fromField: "openingPrice",
-                toField: "open"
-            }, {
-                fromField: "tradePrice",
-                toField: "close"
-            }, {
-                fromField: "highPrice",
-                toField: "high"
-            }, {
-                fromField: "lowPrice",
-                toField: "low"
-            }, {
-                fromField: "candleAccTradeVolume",
-                toField: "volume"
+                showInCompare: false,
+                fromField : 'hi',
+                toField : 'op'
             }],
-            dataLoader: {
-                url: 'https://api.upbit.com/v1/candles/minutes/15?market=KRW-BTC&count=200',
-                format: 'json',
-            },
+            dataProvider: temp,
             categoryField: "candleDateTimeKST"
-        }],
+        }*/],
 
         dataSetSelector: {
             position: 'bottom',
@@ -102,7 +88,13 @@ $(function () {
                 fillAlphas: 1,
                 useDataSetColors: false,
                 showBalloon: true
-            }],
+            }/*, {
+                title: 'MA Double',
+                type: "line",
+                id: "g2",
+                valueField: "open",
+                lineColor: "#000000",
+            }*/],
 
             stockLegend: {
                 markerType: "none",
@@ -192,12 +184,10 @@ $(function () {
             {
                 'event': 'dataUpdated',
                 'method': function () {
-                    console.log('data updated');
                 }
             }, {
                 'event': 'zoomed',
                 'method': function () {
-                    console.log('zoomed');
                 }
             }
         ]

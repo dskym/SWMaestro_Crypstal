@@ -35,11 +35,11 @@ var ma_double = {
     },
     weight : 1,
 
-    init : function(signalConfig) {
-        this.options.shortTerm.value = signalConfig['shortTerm'];
-        this.options.longTerm.value = signalConfig['longTerm'];
-        this.position.comparator = signalConfig['comparator'];
-        this.weight = signalConfig['strength'];
+    init : function(indicatorConfig) {
+        this.options.shortTerm.value = indicatorConfig['shortTerm'];
+        this.options.longTerm.value = indicatorConfig['longTerm'];
+        this.position.comparator = indicatorConfig['comparator'];
+        this.weight = indicatorConfig['weight'];
     },
 
     updateIndicatorData : function(newIndicatorData) {
@@ -190,7 +190,7 @@ var ma_double = {
         });
 
         obj['comparator'] = this.position.comparator;
-        obj['strength'] = this.weight;
+        obj['weight'] = this.weight;
 
         return JSON.stringify(obj);
     },
@@ -242,7 +242,7 @@ var macd = {
         this.options.long.value = signalConfig['long'];
         this.options.signal.value = signalConfig['signal'];
         this.position.comparator = signalConfig['comparator'];
-        this.weight = signalConfig['strength'];
+        this.weight = signalConfig['weight'];
     },
 
     updateIndicatorData : function(newIndicatorData) {
@@ -434,7 +434,7 @@ var parabolic_sar = {
         this.options.minAf.value = signalConfig['minAf'];
         this.options.maxAf.value = signalConfig['maxAf'];
         this.position.comparator = signalConfig['comparator'];
-        this.weight = signalConfig['strength'];
+        this.weight = signalConfig['weight'];
     },
 
     updateIndicatorData : function(newIndicatorData) {
@@ -628,7 +628,7 @@ var bollinger_bands = {
         this.options.standardDeviations.value = signalConfig['standardDeviations'];
         this.options.positionIndex.value = signalConfig['positionIndex'];
         this.position.comparator = signalConfig['comparator'];
-        this.weight = signalConfig['strength'];
+        this.weight = signalConfig['weight'];
     },
 
     updateIndicatorData : function(newIndicatorData) {

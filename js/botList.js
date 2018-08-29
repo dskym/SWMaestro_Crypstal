@@ -11,22 +11,14 @@ $(function () {
 
             var currentBot = new Object();
 
-            currentBot.id = bot['botId'];
-            currentBot.name = bot['botName'];
-            currentBot.exchange = bot['targetExchangeName'];
-            currentBot.cryptoCurrency = bot['targetCryptoCurrency'];
-            currentBot.buyStrategy = bot['buyStrategy'];
-            currentBot.sellStrategy = bot['sellStrategy'];
-            currentBot.buyStrategyThreshold = 1;
-            currentBot.sellStrategyThreshold = 1;
-            currentBot.tradingPeriod = bot['tradingPeriod'];
-            currentBot.asset = bot['tradingAsset'];
-            currentBot.signalAlarm = bot['signalAlarm'];
+            currentBot.id = bot['id'];
+            currentBot.name = bot['name'];
+            currentBot.exchange = bot['exchange'];
+            currentBot.cryptoCurrency = bot['crypto'];
+            currentBot.tradingPeriod = bot['period'];
+            currentBot.asset = bot['asset'];
+            currentBot.signalAlarm = bot['alarm'];
             currentBot.autoTrading = bot['autoTrading'];
-
-            var reg = /[^0-9]/g;
-
-            currentBot.id = currentBot.id.replace(reg, '');
             /*
             * draw Bot Content UI
             */
@@ -122,14 +114,10 @@ $(function () {
             newBot.id = 2;
             newBot.name = botname;
             newBot.exchange = 'Bithumb';
-            newBot.cryptoCurrency = 'BTC';
-            newBot.buyStrategy = [];
-            newBot.sellStrategy = [];
-            newBot.buyStrategyThreshold = 1;
-            newBot.sellStrategyThreshold = 1;
-            newBot.tradingPeriod = '5';
+            newBot.crypto = 'BTC';
+            newBot.period = '5';
             newBot.asset = 0.0;
-            newBot.signalAlarm = false;
+            newBot.alarm = false;
             newBot.autoTrading = false;
 
             botListData.push(newBot);
@@ -191,9 +179,6 @@ $(function () {
     * Draw bot content UI using bot data.
     */
     function getBotContent(index, bot) {
-        console.log(index);
-        console.log(bot);
-
         var content = '';
 
         content +=

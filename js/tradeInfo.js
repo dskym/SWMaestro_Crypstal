@@ -29,6 +29,8 @@ $(function () {
         var initialAsset = tradeResult['asset']['initial'];
         var finalAsset = tradeResult['asset']['final'];
         var profitAsset = tradeResult['asset']['profit'];
+        var exchangeFee = tradeResult['exchange']['fee'];
+        var exchangeSlippage = tradeResult['exchange']['slippage'];
         var tradingCount = tradeResult['trading']['count'];
         var tradingWinCount = tradeResult['trading']['win'];
         var tradingLoseCount = tradeResult['trading']['lose'];
@@ -37,8 +39,6 @@ $(function () {
         var tradingWinningRate = tradeResult['trading']['winningRate'];
         var tradingReturnRate = tradeResult['trading']['returnRate'];
         var tradingAmountChangeRate = tradeResult['trading']['amountChangeRate'];
-        var exchangeFee = tradeResult['exchange']['fee'];
-        var exchangeSlippage = tradeResult['exchange']['slippage'];
 
         var $botInfo = $('div.bot-info');
 
@@ -167,7 +167,7 @@ $(function () {
         tableNode +=
             '                                      <tr>\n' +
             '                                        <td>거래소 수수료</td>\n' +
-            '                                        <td colspan="4"><span class="text-red">'+ addComma(fetchEvents) +' KRW</span></td>\n' +
+            '                                        <td colspan="4"><span class="text-red">'+ addComma(exchangeFee) +' KRW</span></td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
@@ -216,9 +216,9 @@ $(function () {
                 tableNode += '<tr>';
                 tableNode += '<td><a href="javascript:void(0)"><span class="text-black">' + value['time'] + '</span></a></td>';
 
-                if (key === 'buy')
+                if (key === 'BUY')
                     tableNode += '<td><span class="label label-success">' + key + '</span></td>';
-                else if(key === 'sell')
+                else if(key === 'SELL')
                     tableNode += '<td><span class="label label-danger">' + key + '</span></td>';
 
                 tableNode += '<td>' + addComma(value['price']) + '</td>';
@@ -385,7 +385,6 @@ $(function () {
 
         tradeChart.dataSets[0].stockEvents = stockEvents;
 
-        /*
         var shortMADouble = new Array();
         var longMADouble = new Array();
 
@@ -406,13 +405,13 @@ $(function () {
 
                 //26days
                 if(index >= 25) {
-                    longMADouble.push(shortSum / 26);
+                    longMADouble.push(longSum / 26);
                     longSum -= chartData[index - 25]['tradePrice'];
                 }
             });
 
-            console.log(shortMADouble);
-            console.log(longMADouble);
+            //console.log(shortMADouble);
+            //console.log(longMADouble);
         });
 
         tradeChart.panels[0].stockGraphs.push({
@@ -426,9 +425,8 @@ $(function () {
             type: "line",
             valueField: longMADouble,
         });
-        console.log(tradeChart);
 
-        */
+        console.log(tradeChart);
     }
 
     function addComma(value) {

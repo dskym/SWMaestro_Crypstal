@@ -2,7 +2,8 @@ var baseUrl = 'http://crypstal-env.7xcrjvhg9m.ap-northeast-2.elasticbeanstalk.co
 
 var botListUrl = baseUrl + '/v1/bots';
 
-var strategyUrl = baseUrl + '/v1/strategies';
+var strategyUrl = baseUrl + '/v1/rules';
+//var strategyUrl = baseUrl + '/v1/strategies';
 
 var chartUrl = baseUrl + '/v1/chart/candles/minutes/5';
 

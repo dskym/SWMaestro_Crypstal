@@ -21,10 +21,13 @@ var botListData = [
     }
 ];
 
-
-
 var botStrategy = new Object();
 
+var temp = [];
+
+for(var i=0;i<200;++i) {
+    temp.push({'hi':7000000});
+}
 
 /*
 //Trade Result

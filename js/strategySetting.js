@@ -315,19 +315,19 @@ $(function () {
 
     //Draw Strategy UI.
     function makeStrategyUI(strategies) {
-        $.each(strategies, function(index, strategy) {
-            if(strategy['position'] === 'BUY') {
+        $.each(strategies, function(key, strategy) {
+            if(key === 'BUY') {
                 var $buyStrategy = $('#buy').find('div.strategy');
-                $buyStrategy.data('strategyWeight', strategy['threshold']);
+                //$buyStrategy.data('strategyWeight', strategy['threshold']);
 
-                $.each(strategy['signalListenerList'], function(index, indicator) {
-                    var signalConfig = indicator['signalConfig'];
+                $.each(strategy, function(index, indicator) {
+                    var indicatorConfig = JSON.parse(indicator);
 
                     var indicatorObject = {};
-                    var indicatorTemplate = indicators[signalConfig['indicatorName']];
+                    var indicatorTemplate = indicators[indicatorConfig['indicator']];
                     $.extend(true, indicatorObject, indicatorTemplate);
 
-                    indicatorObject.init(signalConfig);
+                    indicatorObject.init(indicatorConfig);
 
                     var buyIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
 
@@ -338,18 +338,18 @@ $(function () {
                     $buyStrategy.find('div.indicator:last').data('indicatorData', indicatorObject);
                 });
             }
-            else if(strategy['position'] === 'SELL') {
+            else if(key === 'SELL') {
                 var $sellStrategy = $('#sell').find('div.strategy');
-                $sellStrategy.data('strategyWeight', strategy['threshold']);
+                //$sellStrategy.data('strategyWeight', strategy['threshold']);
 
-                $.each(strategy['signalListenerList'], function(index, indicator) {
-                    var signalConfig = indicator['signalConfig'];
+                $.each(strategy, function(index, indicator) {
+                    var indicatorConfig = JSON.parse(indicator);
 
                     var indicatorObject = {};
-                    var indicatorTemplate = indicators[signalConfig['indicatorName']];
+                    var indicatorTemplate = indicators[indicatorConfig['indicator']];
                     $.extend(true, indicatorObject, indicatorTemplate);
 
-                    indicatorObject.init(signalConfig);
+                    indicatorObject.init(indicatorConfig);
 
                     var sellIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
 

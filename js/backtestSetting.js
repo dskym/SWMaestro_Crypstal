@@ -50,17 +50,17 @@ $(function () {
         var startDate = $('div.daterangepicker').find('input[name="daterangepicker_start"]').val();
 
         if(startDate === "")
-            backtestSettingInfo.startDate = moment().subtract(1, 'months').format("YYYY-MM-DD");
+            backtestSettingInfo.from = moment().subtract(1, 'months').format("YYYY-MM-DD");
         else
-            backtestSettingInfo.startDate = startDate;
+            backtestSettingInfo.from = startDate;
 
         //set end date.
         var endDate = $('div.daterangepicker').find('input[name="daterangepicker_end"]').val();
 
         if(endDate === "")
-            backtestSettingInfo.endDate = moment().format("YYYY-MM-DD");
+            backtestSettingInfo.to = moment().format("YYYY-MM-DD");
         else
-            backtestSettingInfo.endDate = endDate;
+            backtestSettingInfo.to = endDate;
 
         //set amount.
         var amount = $('input[name="backtest-amount"]').val();
@@ -103,8 +103,7 @@ $(function () {
 
         var query = $.param(backtestSettingInfo);
 
-        var backtestUrl = baseUrl + '/v1/bots/' + botId + '/backtest?' + query
-        console.log(backtestUrl);
+        var backtestUrl = baseUrl + '/v1/bots/' + botId + '/backtest?' + query;
 
         $.getJSON(backtestUrl, function() {
         }).done(function (backtestResponse) {
