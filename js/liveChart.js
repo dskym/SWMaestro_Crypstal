@@ -27,16 +27,10 @@ $(function () {
             categoryField: "candleDateTimeKST"
         }],
 
-        dataDateFormat: "YYYY-MM-DD HH:NN",
-
-        valueAxesSettings: {
-            minPeriod: "5mm",
-            equalSpacing: true,
-        },
-
         categoryAxesSettings: {
             minPeriod: "5mm",
             equalSpacing: true,
+            groupToPeriods: ['5mm', '15mm', '30mm', '1hh', '2hh']
         },
 
         mouseWheelZoomEnabled: true,
@@ -115,6 +109,7 @@ $(function () {
         },
 
         periodSelector: {
+            periodsText: 'Period : ',
             dateFormat: "YYYY-MM-DD HH:NN",
             inputFieldWidth: 150,
             position: "bottom",
@@ -143,7 +138,13 @@ $(function () {
                 label: "MAX",
                 selected: true
             }],
-            selectFromStart: true
+            selectFromStart: false,
+            listeners: [
+                {
+                    'event' : 'changed',
+                    'method' : periodChangeEvent
+                }
+            ]
         },
 
         listeners: [
@@ -152,8 +153,7 @@ $(function () {
                 'method': function () {
                     console.log('data updated');
                 }
-            },
-            {
+            }, {
                 'event': 'zoomed',
                 'method': function () {
                     console.log('zoomed');
@@ -161,4 +161,22 @@ $(function () {
             }
         ]
     });
+
+    getCoinData();
+
+    function getCoinData() {
+        var date = '2018-08-20 00:00:00';
+        var url = 'https://api.upbit.com/v1/candles/minutes/5?market=KRW-BTC&to=' + date + '&count=200';
+
+        $.getJSON(url, function () {
+        }).done(function (data) {
+            date = moment(data['candle_date_time_kst']).format('YYYY-MM-DD HH:MM:SS');
+        });
+
+    }
 });
+
+var periodChangeEvent = function(event) {
+    console.log('Period Event');
+    console.log(event);
+};

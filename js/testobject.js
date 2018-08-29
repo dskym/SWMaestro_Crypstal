@@ -45,7 +45,7 @@ tradeResult.slippageRate = 0.4;
 
 
 
-
+/*
 //Trade History
 var tradeHistory = new Array();
 
@@ -150,20 +150,19 @@ tradeHistoryObj.volume = 0;
 tradeHistoryObj.evaluation = 1007510;
 
 tradeHistory.push(tradeHistoryObj);
+*/
 
 
-
-/*
 //Trade History
 var tradeHistory = new Array();
 
-var baseDate = new Date(2018, 8, 14, 9, 0, 0);
+var baseDate = new Date(2018, 7, 14, 9, 0, 0);
 
 for(var i = 0;i<8;++i) {
     var tradeHistoryObj = new Object();
 
     tradeHistoryObj.date = new Date(baseDate);
-    baseDate.setMinutes(baseDate.getMinutes() + 5);
+    baseDate.setMinutes(baseDate.getMinutes() + 30);
 
     if(i % 2 === 0)
         tradeHistoryObj.action = 'Buy';
@@ -176,4 +175,3 @@ for(var i = 0;i<8;++i) {
 
     tradeHistory.push(tradeHistoryObj);
 }
-*/
