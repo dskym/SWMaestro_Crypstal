@@ -102,12 +102,17 @@ $(function () {
     /*
     * Custom Backtest Event from backtest setting UI.
     */
-    $('div.bot-info').on('backtest', function(e, data) {
+    $('div.bot-info').on('backtest', function(event, data) {
         console.log('Backtest Custom Event');
         console.log(data);
 
         showTradeResult(tradeResult);
         showTradeHistory(tradeHistory);
+
+        /*
+        showTradeResult(data['tradeResult']);
+        showTradeHistory(data['tradeHistory']);
+        */
 
         var $botContentTab = $('ul.content-tab');
         $botContentTab.find('a[href="#info"]').closest('li').removeClass('hide');

@@ -2,11 +2,9 @@ $(function () {
     "use strict";
 
     /*
-
     * params
     * baseCurrency
     * cryptoCurrency
-    *
     */
 
     $.getJSON(webTickerUrl, function () {
@@ -24,7 +22,6 @@ $(function () {
     });
 
     function setWebTickerContent(webTickerData) {
-
         $.each(webTickerData['marketConditionList'], function(index, value) {
             var webTickerContent = '';
 

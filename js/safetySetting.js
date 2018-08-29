@@ -5,6 +5,9 @@ $(function () {
         $('#modal-safety').modal();
     });
 
+    /*
+    * Set safety data.
+    */
     $('#modal-safety').on('show.bs.modal', function() {
         var $safety = $('#safety');
 
@@ -23,9 +26,22 @@ $(function () {
     });
 
     /*
-    * Need to thinking more.
+    * Reset safety data.
     */
     $('#modal-safety').on('hide.bs.modal', function() {
+        var $safety = $('#safety');
+
+        $safety.find('.profit-target-value').text('');
+        $safety.find('.stop-loss-value').text('');
+        $safety.find('.trailing-stop-high-value').text('');
+        $safety.find('.trailing-stop-low-value').text('');
+
+        $safety.find('#checkbox-profit-target').attr('checked', false);
+        $safety.find('#checkbox-stop-loss').attr('checked', false);
+        $safety.find('#checkbox-trailing-stop').attr('checked', false);
+        $safety.find('#checkbox-position-change').attr('checked', false);
+        $safety.find('#checkbox-sell-exit').attr('checked', false);
+        $safety.find('#checkbox-safety-exit').attr('checked', false);
     });
 
     $(document).on('keyup', '#input-profit-target', function () {

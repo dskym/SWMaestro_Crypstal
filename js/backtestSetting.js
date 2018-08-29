@@ -46,19 +46,23 @@ $(function () {
         //backtest information object.
         var backtestSettingInfo = new Object();
 
+        //set start date.
         var startDate = $('div.daterangepicker').find('input[name="daterangepicker_start"]').val();
-        var endDate = $('div.daterangepicker').find('input[name="daterangepicker_end"]').val()
 
         if(startDate === "")
-            backtestSettingInfo.startDate = moment().subtract(1, 'months').format("YYYY/MM/DD");
+            backtestSettingInfo.startDate = moment().subtract(1, 'months').format("YYYY-MM-DD");
         else
             backtestSettingInfo.startDate = startDate;
 
+        //set end date.
+        var endDate = $('div.daterangepicker').find('input[name="daterangepicker_end"]').val();
+
         if(endDate === "")
-            backtestSettingInfo.endDate = moment().format("YYYY/MM/DD");
+            backtestSettingInfo.endDate = moment().format("YYYY-MM-DD");
         else
             backtestSettingInfo.endDate = endDate;
 
+        //set amount.
         var amount = $('input[name="backtest-amount"]').val();
 
         if (amount !== "")
@@ -66,7 +70,7 @@ $(function () {
         else
             backtestSettingInfo.amount = parseInt($('input[name="backtest-amount"]').attr('placeholder'));
 
-
+        //set fee.
         var fee = $('input[name="backtest-fee"]').val();
 
         if (fee !== "")
@@ -74,7 +78,7 @@ $(function () {
         else
             backtestSettingInfo.fee = $('input[name="backtest-fee"]').attr('placeholder') * 0.01;
 
-
+        //set slippage.
         var slippage = $('input[name="backtest-slippage"]').val();
 
         if (slippage !== "")
@@ -86,6 +90,41 @@ $(function () {
 
         //send data to server.
         console.log(backtestSettingInfo);
+
+        /*
+         * Send backtest request to server.
+         */
+        $.ajax({
+            url : '',
+            data : backtestSettingInfo,
+            dataType : 'json',
+            type : 'get',
+            contentType: "application/json",
+            success : function(result) {
+                console.log('Success to send backtest request');
+                console.log(result);
+
+                /*
+                //Convert Backtest UI
+                var $botContent = $('div.bot-content');
+                var $botContentTab = $botContent.find('ul.content-tab');
+                var $botContentDetail = $botContent.find('.content-detail');
+
+                var $botActiveContentTab = $botContentTab.find('.active');
+                $botActiveContentTab.removeClass('active').removeClass('show');
+                $botContentTab.find('a[href="#info"]').addClass('active').addClass('show');
+
+                var $botActiveContentDetail = $botContentDetail.find('.active');
+                $botActiveContentDetail.removeClass('active').removeClass('show');
+                $botContentDetail.find('#info').addClass('active').addClass('show');
+
+                $('div.bot-info').trigger('backtest', result);
+                 */
+            },
+            error : function() {
+                console.log('error');
+            }
+        });
 
         //Convert Backtest UI
         var $botContent = $('div.bot-content');

@@ -13,80 +13,37 @@ $(function () {
     */
     $('#modal-bot-step').on('show.bs.modal', function() {
         /*
-        * Initial Setting.
-        * Load data from server and show UI.
+        * If strategy object doesn't have data which key is bot id, add data.
+        * Otherwise, search strategy object.
         */
+
+        //get bot id
         var $botList = $('div.bot-list');
         var $botTab = $botList.find('ul.bot-tab');
         var $botActiveTab = $botTab.find('.active').closest('li');
 
         var botId = $botActiveTab.data('botId');
 
-        var botStrategyUrl = strategyUrl + '/?botId=' + botId;
+        if(botStrategy[botId] === undefined) {
+            var botStrategyUrl = strategyUrl + '/?botId=' + botId;
+            console.log('Strategy Url : ' + botStrategyUrl);
 
-        console.log('Strategy Url : ' + botStrategyUrl);
-
-        $.getJSON(botStrategyUrl, function () {
-            console.log('Success Strategy List');
-        }).done(function (strategies) {
-            $.each(strategies, function(index, strategy) {
-                if(strategy['position'] === 'BUY') {
-                    var $buyStrategy = $('#buy').find('div.strategy');
-                    $buyStrategy.data('strategyWeight', strategy['threshold']);
-
-                    $.each(strategy['signalListenerList'], function(index, indicator) {
-                        var signalConfig = indicator['signalConfig'];
-
-                        var indicatorObject = {};
-                        var indicatorTemplate = indicators[signalConfig['indicatorName']];
-                        $.extend(true, indicatorObject, indicatorTemplate);
-
-                        indicatorObject.init(signalConfig);
-
-                        var buyIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
-
-                        $buyStrategy.append('<div class="indicator">');
-                        $buyStrategy.find('div.indicator:last').append(buyIndicatorDescriptionContent);
-                        $buyStrategy.append('</div>');
-
-                        $buyStrategy.find('div.indicator:last').data('indicatorData', indicatorObject);
-                    });
-                }
-                else if(strategy['position'] === 'SELL') {
-                    var $sellStrategy = $('#sell').find('div.strategy');
-                    $sellStrategy.data('strategyWeight', strategy['threshold']);
-
-                    $.each(strategy['signalListenerList'], function(index, indicator) {
-                        var signalConfig = indicator['signalConfig'];
-
-                        var indicatorObject = {};
-                        var indicatorTemplate = indicators[signalConfig['indicatorName']];
-                        $.extend(true, indicatorObject, indicatorTemplate);
-
-                        indicatorObject.init(signalConfig);
-
-                        var sellIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
-
-                        $sellStrategy.append('<div class="indicator">');
-                        $sellStrategy.find('div.indicator:last').append(sellIndicatorDescriptionContent);
-                        $sellStrategy.append('</div>');
-
-                        $sellStrategy.find('div.indicator:last').data('indicatorData', indicatorObject);
-                    });
-                }
-
+            $.getJSON(botStrategyUrl, function () {
+                console.log('Success Strategy List');
+            }).done(function (strategies) {
+                makeStrategyUI(strategies);
             });
 
-            var $strategy = $('div.strategy');
-
-            $.each($strategy, function() {
-                if($(this).find('div.indicator').length !== 5) {
-                    $(this).append('<div class="indicator">');
-                    $(this).find('div.indicator:last').append(makeIndicatorSelectorContent());
-                    $(this).append('</div>');
-                }
-            });
-        });
+        } else {
+            console.log('Read bot Strategy Object.');
+            console.log(botStrategy);
+            console.log(botStrategy[botId]);
+            makeStrategyUI(botStrategy[botId]);
+        }
+        /*
+        * Initial Setting.
+        * Load data from server and show UI.
+        */
 
         /*
         * Set Bot Description
@@ -217,6 +174,15 @@ $(function () {
     * Save Strategy in Bot data.
     */
     $(document).on('click', '#modal-bot-step button[type="submit"]', function () {
+        //get bot id
+        var $botList = $('div.bot-list');
+        var $botTab = $botList.find('ul.bot-tab');
+        var $botActiveTab = $botTab.find('.active').closest('li');
+
+        var botId = $botActiveTab.data('botId');
+        //botStrategy[botId] = new Array();
+
+        //Set Bot Strategy Description.
         var $description = $('#modal-bot-step').find('#description');
         var newDescriptionTitle = $description.find('input[name="strategy-description-title"]').val();
         var newDescriptionContent = $description.find('textarea[name="strategy-description-content"]').val();
@@ -227,7 +193,7 @@ $(function () {
         var $buy = $('#buy').find('div.strategy');
 
         var data = new Object();
-        data.position = 'buy';
+        data.position = 'BUY';
         data.strategyThreshold = $buy.data('strategyWeight');
         data.signalConfigList = new Array();
 
@@ -246,12 +212,28 @@ $(function () {
 
         //send strategy data to server.
         sendStrategy(data);
+        console.log(data);
+
+        /*
+        var temp = new Object;
+        temp.position = 'BUY';
+        temp.strategyThreshold = $buy.data('strategyWeight');
+        temp.signalConfigList = new Array();
+
+        $.each(JSON.parse(data.signalConfigList), function(index, value) {
+            $.each(JSON.parse(value.serialized), function(index, value) {
+                temp.signalConfigList.signalConfig[key] = value;
+            });
+        });
+
+        botStrategy[botId].push(temp);
+        */
 
         //Create data object.
         var $sell = $('#sell').find('div.strategy');
 
         var data = new Object();
-        data.position = 'sell';
+        data.position = 'SELL';
         data.strategyThreshold = $buy.data('strategyWeight');
         data.signalConfigList = new Array();
 
@@ -264,12 +246,21 @@ $(function () {
                 signalConfig.indicatorName = indicatorData.name;
                 signalConfig.serialized = indicatorData.getSerialized();
 
+                /*
+                $.each(JSON.parse(indicatorData.getSerialized()), function(key, value) {
+                    signalConfig[key] = value;
+                });
+
+                botStrategy[botId].push(data);
+                */
+
                 data.signalConfigList.push(signalConfig);
             }
         });
 
         //send strategy data to server.
         sendStrategy(data);
+        console.log(data);
 
         //draw Bot Description UI
         var $currentBot = $('div.bot-list').find('div.tab-pane.active');
@@ -291,7 +282,7 @@ $(function () {
             type : 'put',
             contentType: "application/json",
             success : function(strategy) {
-                console.log('success');
+                console.log('Success to send strategy data');
                 console.log(strategy);
             },
             error : function() {
@@ -320,5 +311,66 @@ $(function () {
             '            </div>\n';
 
         return indicatorSelectorContent;
+    }
+
+    //Draw Strategy UI.
+    function makeStrategyUI(strategies) {
+        $.each(strategies, function(index, strategy) {
+            if(strategy['position'] === 'BUY') {
+                var $buyStrategy = $('#buy').find('div.strategy');
+                $buyStrategy.data('strategyWeight', strategy['threshold']);
+
+                $.each(strategy['signalListenerList'], function(index, indicator) {
+                    var signalConfig = indicator['signalConfig'];
+
+                    var indicatorObject = {};
+                    var indicatorTemplate = indicators[signalConfig['indicatorName']];
+                    $.extend(true, indicatorObject, indicatorTemplate);
+
+                    indicatorObject.init(signalConfig);
+
+                    var buyIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
+
+                    $buyStrategy.append('<div class="indicator">');
+                    $buyStrategy.find('div.indicator:last').append(buyIndicatorDescriptionContent);
+                    $buyStrategy.append('</div>');
+
+                    $buyStrategy.find('div.indicator:last').data('indicatorData', indicatorObject);
+                });
+            }
+            else if(strategy['position'] === 'SELL') {
+                var $sellStrategy = $('#sell').find('div.strategy');
+                $sellStrategy.data('strategyWeight', strategy['threshold']);
+
+                $.each(strategy['signalListenerList'], function(index, indicator) {
+                    var signalConfig = indicator['signalConfig'];
+
+                    var indicatorObject = {};
+                    var indicatorTemplate = indicators[signalConfig['indicatorName']];
+                    $.extend(true, indicatorObject, indicatorTemplate);
+
+                    indicatorObject.init(signalConfig);
+
+                    var sellIndicatorDescriptionContent = indicatorObject.getDescriptionContent();
+
+                    $sellStrategy.append('<div class="indicator">');
+                    $sellStrategy.find('div.indicator:last').append(sellIndicatorDescriptionContent);
+                    $sellStrategy.append('</div>');
+
+                    $sellStrategy.find('div.indicator:last').data('indicatorData', indicatorObject);
+                });
+            }
+
+        });
+
+        var $strategy = $('div.strategy');
+
+        $.each($strategy, function() {
+            if($(this).find('div.indicator').length !== 5) {
+                $(this).append('<div class="indicator">');
+                $(this).find('div.indicator:last').append(makeIndicatorSelectorContent());
+                $(this).append('</div>');
+            }
+        });
     }
 });
