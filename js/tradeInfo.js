@@ -8,13 +8,12 @@ $(function () {
         console.log('Backtest Custom Event');
         console.log(data);
 
+        var tradeResult = data['result'];
+        var tradeHistory = data['history'];
+
         showTradeResult(tradeResult);
         showTradeHistory(tradeHistory);
-        chartEvent();
-        /*
-        showTradeResult(data['tradeResult']);
-        showTradeHistory(data['tradeHistory']);
-        */
+        chartEvent(tradeHistory);
 
         var $botContentTab = $('ul.content-tab');
         $botContentTab.find('a[href="#info"]').closest('li').removeClass('hide');
@@ -24,6 +23,22 @@ $(function () {
     });
 
     function showTradeResult(tradeResult) {
+
+        var startDate = tradeResult['period']['from'];
+        var endDate = tradeResult['period']['to'];
+        var initialAsset = tradeResult['asset']['initial'];
+        var finalAsset = tradeResult['asset']['final'];
+        var profitAsset = tradeResult['asset']['profit'];
+        var tradingCount = tradeResult['trading']['count'];
+        var tradingWinCount = tradeResult['trading']['win'];
+        var tradingLoseCount = tradeResult['trading']['lose'];
+        var tradingMaxProfit = tradeResult['trading']['maxProfit'];
+        var tradingMaxLoss = tradeResult['trading']['maxLoss'];
+        var tradingWinningRate = tradeResult['trading']['winningRate'];
+        var tradingReturnRate = tradeResult['trading']['returnRate'];
+        var tradingAmountChangeRate = tradeResult['trading']['amountChangeRate'];
+        var exchangeFee = tradeResult['exchange']['fee'];
+        var exchangeSlippage = tradeResult['exchange']['slippage'];
 
         var $botInfo = $('div.bot-info');
 
@@ -45,106 +60,106 @@ $(function () {
         tableNode +=
             '                                      <tr>\n' +
             '                                        <th>테스트 기간</th>\n' +
-            '                                        <td colspan="5">' + tradeResult['startDate'] + ' ~ ' + tradeResult['endDate'] + '</td>\n' +
+            '                                        <td colspan="5">' + startDate + ' ~ ' + endDate + '</td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
             '                                      <tr>\n' +
             '                                        <th rowspan="2">거래 횟수</th>\n' +
             '                                        <td>WIN</td>\n' +
-            '                                        <td><span class="text-green">' + addComma(tradeResult['win']) + '</span></td>\n' +
+            '                                        <td><span class="text-green">' + addComma(tradingWinCount) + '</span></td>\n' +
             '                                        <th rowspan="2">승률</th>\n' +
             '                                        <td>최대 이익</td>\n';
 
-        if(tradeResult['maxProfit'] > 0) {
+        if(tradingMaxProfit > 0) {
             tableNode +=
-                '                                        <td><span class="text-green">+' + addComma(tradeResult['maxProfit']) + '%</span></td>\n' +
+                '                                        <td><span class="text-green">+' + addComma(tradingMaxProfit) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
-        else if(tradeResult['maxProfit'] < 0){
+        else if(tradingMaxProfit < 0){
             tableNode +=
-                '                                        <td><span class="text-red">' + addComma(tradeResult['maxProfit']) + '%</span></td>\n' +
+                '                                        <td><span class="text-red">' + addComma(tradingMaxProfit) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
         else {
             tableNode +=
-                '                                        <td><span>-' + addComma(tradeResult['maxProfit']) + '%</span></td>\n' +
+                '                                        <td><span>-' + addComma(tradingMaxProfit) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
 
         tableNode +=
             '                                      <tr>\n' +
             '                                        <td>LOSE</td>\n' +
-            '                                        <td><span class="text-red">' + addComma(tradeResult['lose']) + '</span></td>\n' +
+            '                                        <td><span class="text-red">' + addComma(tradingLoseCount) + '</span></td>\n' +
             '                                        <td>최대 손실</td>\n';
 
-        if(tradeResult['maxLoss'] > 0) {
+        if(tradingMaxLoss > 0) {
             tableNode +=
-                '                                        <td><span class="text-green">+' + addComma(tradeResult['maxLoss']) + '%</span></td>\n' +
+                '                                        <td><span class="text-green">+' + addComma(tradingMaxLoss) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
-        else if(tradeResult['maxLoss'] < 0){
+        else if(tradingMaxLoss < 0){
             tableNode +=
-                '                                        <td><span class="text-red">'  + addComma(tradeResult['maxLoss']) + '%</span></td>\n' +
+                '                                        <td><span class="text-red">'  + addComma(tradingMaxLoss) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
         else {
             tableNode +=
-                '                                        <td><span>' + addComma(tradeResult['maxLoss']) + '%</span></td>\n' +
+                '                                        <td><span>' + addComma(tradingMaxLoss) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
 
         tableNode +=
             '                                      <tr>\n';
 
-        if(tradeResult['revenueRate'] > 0) {
+        if(tradingReturnRate > 0) {
             tableNode +=
-                '                                        <th rowspan="6"><div>수익률</div><div class="text-green">+' + addComma(tradeResult['revenueRate']) + '%</div></th>\n';
+                '                                        <th rowspan="6"><div>수익률</div><div class="text-green">+' + addComma(tradingReturnRate) + '%</div></th>\n';
         }
-        else if(tradeResult['revenueRate'] < 0) {
+        else if(tradingReturnRate < 0) {
             tableNode +=
-                '                                        <th rowspan="6"><div>수익률</div><div class="text-red">' + addComma(tradeResult['revenueRate']) + '%</div></th>\n';
+                '                                        <th rowspan="6"><div>수익률</div><div class="text-red">' + addComma(tradingReturnRate) + '%</div></th>\n';
         }
         else {
             tableNode +=
-                '                                        <th rowspan="6"><div>수익률</div><div>' + addComma(tradeResult['revenueRate']) + '%</div></th>\n';
+                '                                        <th rowspan="6"><div>수익률</div><div>' + addComma(tradingReturnRate) + '%</div></th>\n';
         }
 
 
         tableNode +=
             '                                        <td>초기투자금액</td>\n' +
-            '                                        <td colspan="4">' + addComma(tradeResult['initialInvestmentAmount']) +' KRW</td>\n' +
+            '                                        <td colspan="4">' + addComma(initialAsset) +' KRW</td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
             '                                      <tr>\n' +
             '                                        <td>총 자산</td>\n' +
-            '                                        <td colspan="4"><span class="text-green">' + addComma(tradeResult['totalAmount']) + ' KRW</span></td>\n' +
+            '                                        <td colspan="4"><span class="text-green">' + addComma(finalAsset) + ' KRW</span></td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
             '                                      <tr>\n' +
             '                                        <td>손익 자산</td>\n' +
-            '                                        <td colspan="4"><span class="text-green">' + addComma(tradeResult['profitAndLossAmount']) + ' KRW</span></td>\n' +
+            '                                        <td colspan="4"><span class="text-green">' + addComma(profitAsset) + ' KRW</span></td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
             '                                      <tr>\n' +
             '                                        <td>코인가격 변동률</td>\n';
 
-        if(tradeResult['changeRate'] > 0) {
+        if(tradingAmountChangeRate > 0) {
             tableNode +=
-                '                                        <td colspan="4"><span class="text-green">+' + addComma(tradeResult['changeRate']) + '%</span></td>\n' +
+                '                                        <td colspan="4"><span class="text-green">+' + addComma(tradingAmountChangeRate) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
-        else if(tradeResult['changeRate'] < 0) {
+        else if(tradingAmountChangeRate < 0) {
             tableNode +=
-                '                                        <td colspan="4"><span class="text-red">'+ addComma(tradeResult['changeRate']) +'%</span></td>\n' +
+                '                                        <td colspan="4"><span class="text-red">'+ addComma(tradingAmountChangeRate) +'%</span></td>\n' +
                 '                                      </tr>\n';
         }
         else {
             tableNode +=
-                '                                        <td colspan="4"><span>' + addComma(tradeResult['changeRate']) + '%</span></td>\n' +
+                '                                        <td colspan="4"><span>' + addComma(tradingAmountChangeRate) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
 
@@ -152,13 +167,13 @@ $(function () {
         tableNode +=
             '                                      <tr>\n' +
             '                                        <td>거래소 수수료</td>\n' +
-            '                                        <td colspan="4"><span class="text-red">'+ addComma(tradeResult['exchangeFee']) +' KRW</span></td>\n' +
+            '                                        <td colspan="4"><span class="text-red">'+ addComma(fetchEvents) +' KRW</span></td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
             '                                      <tr>\n' +
             '                                        <td>슬리피지 비율</td>\n' +
-            '                                        <td colspan="4">' + addComma(tradeResult['slippageRate']) + '%</td>\n' +
+            '                                        <td colspan="4">' + addComma(exchangeSlippage) + '%</td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
@@ -196,19 +211,21 @@ $(function () {
             '                                                                                <th>평가금액</th>\n' +
             '                                                                            </tr>\n';
 
-        $.each(tradeHistory, function (index, value) {
-            tableNode += '<tr>';
-            tableNode += '<td><a href="javascript:void(0)"><span class="text-black">' + moment(value['date']).format('YYYY-MM-DD hh:mm') + '</span></a></td>';
+        $.each(tradeHistory, function (index, historyElement) {
+            $.each(historyElement, function(key, value) {
+                tableNode += '<tr>';
+                tableNode += '<td><a href="javascript:void(0)"><span class="text-black">' + value['time'] + '</span></a></td>';
 
-            if (value['action'] === 'Buy')
-                tableNode += '<td><span class="label label-success">' + value['action'] + '</span></td>';
-            else
-                tableNode += '<td><span class="label label-danger">' + value['action'] + '</span></td>';
+                if (key === 'buy')
+                    tableNode += '<td><span class="label label-success">' + key + '</span></td>';
+                else if(key === 'sell')
+                    tableNode += '<td><span class="label label-danger">' + key + '</span></td>';
 
-            tableNode += '<td>' + addComma(value['price']) + '</td>';
-            tableNode += '<td>' + addComma(value['volume']) + '</td>';
-            tableNode += '<td>' + addComma(value['evaluation']) + '</td>';
-            tableNode += '</tr>';
+                tableNode += '<td>' + addComma(value['price']) + '</td>';
+                tableNode += '<td>' + addComma(value['amount']) + '</td>';
+                tableNode += '<td>' + addComma(value['asset']) + '</td>';
+                tableNode += '</tr>';
+            });
         });
 
         tableNode +=
@@ -220,11 +237,13 @@ $(function () {
         $botHistory.append(tableNode);
     }
 
-    function chartEvent() {
+    function chartEvent(tradeHistory) {
         //Trade Chart
         var tradeChart = AmCharts.makeChart("tradeChart", {
             "type": "stock",
             "theme": "light",
+
+            autoDisplay: true,
 
             "dataSets": [{
                 fieldMappings: [ {
@@ -250,7 +269,7 @@ $(function () {
                 categoryField: "candleDateTimeKST"
             }],
 
-            dataDateFormat: "YYYY-MM-DD HH:NN",
+            dataDateFormat: "YYYY-MM-DD HH:NN:SS",
 
             valueAxesSettings: {
                 minPeriod: "5mm",
@@ -291,10 +310,6 @@ $(function () {
                     fillAlphas: 1,
                     useDataSetColors: false,
                     showBalloon: true,
-                }, {
-                    title: 'MACD',
-                    type: "line",
-                    valueField: "open",
                 }],
 
                 stockLegend: {
@@ -344,31 +359,76 @@ $(function () {
         //set stock event.
         var stockEvents = new Array();
 
-        $.each(tradeHistory, function(index, value) {
-            var stockEventsObj = new Object();
+        $.each(tradeHistory, function (index, historyElement) {
+            $.each(historyElement, function(key, value) {
+                var stockEvent = new Object();
 
-            stockEventsObj.date = moment(value['date']).format("YYYY-MM-DD hh:mm:ss");
-            stockEventsObj.type = 'sign';
-            stockEventsObj.graph = 'g1';
-            stockEventsObj.color = '#ffffff';
-            stockEventsObj.rollOverColor = '#00ff00';
-            stockEventsObj.description = moment(value['date']).format("YYYY-MM-DD hh:mm:ss");
+                stockEvent.date = moment(value['time']).format("YYYY-MM-DD hh:mm:ss");
+                stockEvent.type = 'sign';
+                stockEvent.graph = 'g1';
+                stockEvent.color = '#ffffff';
+                stockEvent.rollOverColor = '#00ff00';
+                stockEvent.description = moment(value['time']).format("YYYY-MM-DD hh:mm:ss");
 
-            if(value['action'] === 'Buy') {
-                stockEventsObj.text = 'B';
-                stockEventsObj.backgroundColor = '#ff0000';
-            }
-            else if(value['action'] === 'Sell') {
-                stockEventsObj.text = 'S';
-                stockEventsObj.backgroundColor = '#0000ff';
-            }
+                if (key === 'buy') {
+                    stockEvent.text = 'B';
+                    stockEvent.backgroundColor = '#ff0000';
+                }
+                else if (key === 'sell') {
+                    stockEvent.text = 'S';
+                    stockEvent.backgroundColor = '#0000ff';
+                }
 
-            stockEvents.push(stockEventsObj);
+                stockEvents.push(stockEvent);
+            });
         });
 
         tradeChart.dataSets[0].stockEvents = stockEvents;
 
+        /*
+        var shortMADouble = new Array();
+        var longMADouble = new Array();
+
+        $.getJSON(chartUrl, function () {
+        }).done(function(chartData) {
+            var shortSum = 0;
+            var longSum = 0;
+
+            $.each(chartData, function(index, value) {
+                shortSum += value['tradePrice'];
+                longSum += value['tradePrice'];
+                //9days
+
+                if(index >= 8) {
+                    shortMADouble.push(shortSum / 9);
+                    shortSum -= chartData[index - 8]['tradePrice'];
+                }
+
+                //26days
+                if(index >= 25) {
+                    longMADouble.push(shortSum / 26);
+                    longSum -= chartData[index - 25]['tradePrice'];
+                }
+            });
+
+            console.log(shortMADouble);
+            console.log(longMADouble);
+        });
+
+        tradeChart.panels[0].stockGraphs.push({
+            title: 'MA Double-9',
+            type: "line",
+            valueField: shortMADouble,
+        });
+
+        tradeChart.panels[0].stockGraphs.push({
+            title: 'MA Double-26',
+            type: "line",
+            valueField: longMADouble,
+        });
         console.log(tradeChart);
+
+        */
     }
 
     function addComma(value) {

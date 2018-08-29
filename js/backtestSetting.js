@@ -66,9 +66,9 @@ $(function () {
         var amount = $('input[name="backtest-amount"]').val();
 
         if (amount !== "")
-            backtestSettingInfo.amount = parseInt(amount);
+            backtestSettingInfo.asset = parseInt(amount);
         else
-            backtestSettingInfo.amount = parseInt($('input[name="backtest-amount"]').attr('placeholder'));
+            backtestSettingInfo.asset = parseInt($('input[name="backtest-amount"]').attr('placeholder'));
 
         //set fee.
         var fee = $('input[name="backtest-fee"]').val();
@@ -94,54 +94,37 @@ $(function () {
         /*
          * Send backtest request to server.
          */
-        $.ajax({
-            url : '',
-            data : backtestSettingInfo,
-            dataType : 'json',
-            type : 'get',
-            contentType: "application/json",
-            success : function(result) {
-                console.log('Success to send backtest request');
-                console.log(result);
+        //get bot id
+        var $botList = $('div.bot-list');
+        var $botTab = $botList.find('ul.bot-tab');
+        var $botActiveTab = $botTab.find('.active').closest('li');
 
-                /*
-                //Convert Backtest UI
-                var $botContent = $('div.bot-content');
-                var $botContentTab = $botContent.find('ul.content-tab');
-                var $botContentDetail = $botContent.find('.content-detail');
+        var botId = $botActiveTab.data('botId');
 
-                var $botActiveContentTab = $botContentTab.find('.active');
-                $botActiveContentTab.removeClass('active').removeClass('show');
-                $botContentTab.find('a[href="#info"]').addClass('active').addClass('show');
+        var query = $.param(backtestSettingInfo);
 
-                var $botActiveContentDetail = $botContentDetail.find('.active');
-                $botActiveContentDetail.removeClass('active').removeClass('show');
-                $botContentDetail.find('#info').addClass('active').addClass('show');
+        var backtestUrl = baseUrl + '/v1/bots/' + botId + '/backtest?' + query
+        console.log(backtestUrl);
 
-                $('div.bot-info').trigger('backtest', result);
-                 */
-            },
-            error : function() {
-                console.log('error');
-            }
+        $.getJSON(backtestUrl, function() {
+        }).done(function (backtestResponse) {
+            //Convert Backtest UI
+            var $botContent = $('div.bot-content');
+            var $botContentTab = $botContent.find('ul.content-tab');
+            var $botContentDetail = $botContent.find('.content-detail');
+
+            var $botActiveContentTab = $botContentTab.find('.active');
+            $botActiveContentTab.removeClass('active').removeClass('show');
+            $botContentTab.find('a[href="#info"]').addClass('active').addClass('show');
+
+            var $botActiveContentDetail = $botContentDetail.find('.active');
+            $botActiveContentDetail.removeClass('active').removeClass('show');
+            $botContentDetail.find('#info').addClass('active').addClass('show');
+
+            //send event.
+            $('div.bot-info').trigger('backtest', backtestResponse);
+
+            $('#modal-backtest-setting').modal('hide');
         });
-
-        //Convert Backtest UI
-        var $botContent = $('div.bot-content');
-        var $botContentTab = $botContent.find('ul.content-tab');
-        var $botContentDetail = $botContent.find('.content-detail');
-
-        var $botActiveContentTab = $botContentTab.find('.active');
-        $botActiveContentTab.removeClass('active').removeClass('show');
-        $botContentTab.find('a[href="#info"]').addClass('active').addClass('show');
-
-        var $botActiveContentDetail = $botContentDetail.find('.active');
-        $botActiveContentDetail.removeClass('active').removeClass('show');
-        $botContentDetail.find('#info').addClass('active').addClass('show');
-
-        //send event.
-        $('div.bot-info').trigger('backtest', 'Backtest Result Object');
-
-        $('#modal-backtest-setting').modal('hide');
     });
 });

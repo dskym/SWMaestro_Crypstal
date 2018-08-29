@@ -26,6 +26,7 @@ var botListData = [
 var botStrategy = new Object();
 
 
+/*
 //Trade Result
 var tradeResult = new Object();
 
@@ -42,7 +43,7 @@ tradeResult.profitAndLossAmount = 5894;
 tradeResult.changeRate = -1.76;
 tradeResult.exchangeFee = 8996;
 tradeResult.slippageRate = 0.4;
-
+*/
 
 
 /*
@@ -152,7 +153,7 @@ tradeHistoryObj.evaluation = 1007510;
 tradeHistory.push(tradeHistoryObj);
 */
 
-
+/*
 //Trade History
 var tradeHistory = new Array();
 
@@ -175,3 +176,4 @@ for(var i = 0;i<8;++i) {
 
     tradeHistory.push(tradeHistoryObj);
 }
+*/

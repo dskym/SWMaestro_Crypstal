@@ -3,7 +3,11 @@ $(function () {
         type: "stock",
         theme: "light",
 
+        autoDisplay: true,
+
         dataSets: [{
+            showInCompare: false,
+            title: '5m',
             fieldMappings: [{
                 fromField: "openingPrice",
                 toField: "open"
@@ -25,7 +29,42 @@ $(function () {
                 format: 'json',
             },
             categoryField: "candleDateTimeKST"
+        }, {
+            showInCompare: false,
+            title: '15m',
+            fieldMappings: [{
+                fromField: "openingPrice",
+                toField: "open"
+            }, {
+                fromField: "tradePrice",
+                toField: "close"
+            }, {
+                fromField: "highPrice",
+                toField: "high"
+            }, {
+                fromField: "lowPrice",
+                toField: "low"
+            }, {
+                fromField: "candleAccTradeVolume",
+                toField: "volume"
+            }],
+            dataLoader: {
+                url: 'https://api.upbit.com/v1/candles/minutes/15?market=KRW-BTC&count=200',
+                format: 'json',
+            },
+            categoryField: "candleDateTimeKST"
         }],
+
+        dataSetSelector: {
+            position: 'bottom',
+            selectText: 'Period ',
+            listeners: [{
+                'event': 'dataSetSelected' ,
+                'method': function (event) {
+                    console.log(event);
+                }
+           }]
+        },
 
         categoryAxesSettings: {
             minPeriod: "5mm",
@@ -43,6 +82,7 @@ $(function () {
             percentHeight: 80,
 
             categoryAxis: {
+                parseDates: true,
                 minPeriod: "mm"
             },
 
@@ -89,9 +129,13 @@ $(function () {
                 markerSize: 0,
                 labelText: "",
             }
-        }
-        ],
+        }],
 
+        panelsSettings: {
+            "usePrefixes": false
+        },
+
+        /*
         chartScrollbarSettings: {
             graph: "g1",
             graphType: "line",
@@ -104,13 +148,9 @@ $(function () {
             valueBalloonsEnabled: true
         },
 
-        panelsSettings: {
-            "usePrefixes": false
-        },
-
         periodSelector: {
             periodsText: 'Period : ',
-            dateFormat: "YYYY-MM-DD HH:NN",
+            dateFormat: "YYYY-MM-DD HH:NN:SS",
             inputFieldWidth: 150,
             position: "bottom",
             periods: [{
@@ -146,6 +186,7 @@ $(function () {
                 }
             ]
         },
+        */
 
         listeners: [
             {
@@ -162,18 +203,7 @@ $(function () {
         ]
     });
 
-    getCoinData();
-
-    function getCoinData() {
-        var date = '2018-08-20 00:00:00';
-        var url = 'https://api.upbit.com/v1/candles/minutes/5?market=KRW-BTC&to=' + date + '&count=200';
-
-        $.getJSON(url, function () {
-        }).done(function (data) {
-            date = moment(data['candle_date_time_kst']).format('YYYY-MM-DD HH:MM:SS');
-        });
-
-    }
+    console.log(liveChart);
 });
 
 var periodChangeEvent = function(event) {
