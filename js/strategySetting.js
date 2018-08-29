@@ -26,17 +26,16 @@ $(function () {
 
         if(botStrategy[botId] === undefined) {
             var botStrategyUrl = strategyUrl + '/?botId=' + botId;
-            console.log('Strategy Url : ' + botStrategyUrl);
 
             $.getJSON(botStrategyUrl, function () {
                 console.log('Success Strategy List');
             }).done(function (strategies) {
+                console.log(strategies);
                 makeStrategyUI(strategies);
             });
 
         } else {
             console.log('Read bot Strategy Object.');
-            console.log(botStrategy);
             console.log(botStrategy[botId]);
             makeStrategyUI(botStrategy[botId]);
         }
@@ -180,7 +179,7 @@ $(function () {
         var $botActiveTab = $botTab.find('.active').closest('li');
 
         var botId = $botActiveTab.data('botId');
-        //botStrategy[botId] = new Array();
+        botStrategy[botId] = new Object();
 
         //Set Bot Strategy Description.
         var $description = $('#modal-bot-step').find('#description');
@@ -211,23 +210,17 @@ $(function () {
         });
 
         //send strategy data to server.
-        sendStrategy(data);
-        console.log(data);
+        //sendStrategy(data);
+        //console.log(data);
 
-        /*
         var temp = new Object;
-        temp.position = 'BUY';
-        temp.strategyThreshold = $buy.data('strategyWeight');
-        temp.signalConfigList = new Array();
+        botStrategy[botId]['BUY'] = new Array();
 
-        $.each(JSON.parse(data.signalConfigList), function(index, value) {
-            $.each(JSON.parse(value.serialized), function(index, value) {
-                temp.signalConfigList.signalConfig[key] = value;
-            });
+        $.each(data.signalConfigList, function(index, value) {
+            botStrategy[botId]['BUY'].push(value.serialized);
         });
 
-        botStrategy[botId].push(temp);
-        */
+
 
         //Create data object.
         var $sell = $('#sell').find('div.strategy');
@@ -246,21 +239,22 @@ $(function () {
                 signalConfig.indicatorName = indicatorData.name;
                 signalConfig.serialized = indicatorData.getSerialized();
 
-                /*
-                $.each(JSON.parse(indicatorData.getSerialized()), function(key, value) {
-                    signalConfig[key] = value;
-                });
-
-                botStrategy[botId].push(data);
-                */
-
                 data.signalConfigList.push(signalConfig);
             }
         });
 
         //send strategy data to server.
-        sendStrategy(data);
-        console.log(data);
+        //sendStrategy(data);
+        //console.log(data);
+
+        var temp = new Object;
+        botStrategy[botId]['SELL'] = new Array();
+
+        $.each(data.signalConfigList, function(index, value) {
+            botStrategy[botId]['SELL'].push(value.serialized);
+        });
+
+        console.log(botStrategy);
 
         //draw Bot Description UI
         var $currentBot = $('div.bot-list').find('div.tab-pane.active');

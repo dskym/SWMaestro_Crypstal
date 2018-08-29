@@ -9,7 +9,7 @@ var ma_double = {
             },
             value : 55
         },
-        shortMAType : {
+        shortTermMAType : {
             name : 'MA Type',
             domain : ['Sma', 'Ema', 'Wma', 'Tma'],
             value : 'Sma'
@@ -22,7 +22,7 @@ var ma_double = {
             },
             value : 130
         },
-        longMAType : {
+        longTermMAType : {
             name : 'MA Type',
             domain : ['Sma', 'Ema', 'Wma', 'Tma'],
             value : 'Sma'
@@ -37,16 +37,18 @@ var ma_double = {
 
     init : function(indicatorConfig) {
         this.options.shortTerm.value = indicatorConfig['shortTerm'];
+        this.options.shortTermMAType.value = indicatorConfig['shortTermMAType'];
         this.options.longTerm.value = indicatorConfig['longTerm'];
+        this.options.longTermMAType.value = indicatorConfig['longTermMAType'];
         this.position.comparator = indicatorConfig['comparator'];
         this.weight = indicatorConfig['weight'];
     },
 
     updateIndicatorData : function(newIndicatorData) {
         this.options.shortTerm.value = newIndicatorData.shortTerm;
-        this.options.shortMAType.value = newIndicatorData.shortMAType;
+        this.options.shortTermMAType.value = newIndicatorData.shortTermMAType;
         this.options.longTerm.value = newIndicatorData.longTerm;
-        this.options.longMAType.value = newIndicatorData.longMAType;
+        this.options.longTermMAType.value = newIndicatorData.longTermMAType;
         this.position.comparator = newIndicatorData.comparator;
         this.weight = newIndicatorData.weight;
     },
@@ -55,9 +57,9 @@ var ma_double = {
         var indicatorObject = new Object();
 
         indicatorObject.shortTerm = $indicatorSetting.find('#shortTerm').val();
-        indicatorObject.shortMAType = $indicatorSetting.find('#shortMAType').val();
+        indicatorObject.shortTermMAType = $indicatorSetting.find('#shortTermMAType').val();
         indicatorObject.longTerm = $indicatorSetting.find('#longTerm').val();
-        indicatorObject.longMAType = $indicatorSetting.find('#longMAType').val();
+        indicatorObject.longTermMAType = $indicatorSetting.find('#longTermMAType').val();
         indicatorObject.comparator = $indicatorSetting.find('.position').find('.comparator').text();
         indicatorObject.weight = $indicatorSetting.find('.weight').find('#weight').val();
 
@@ -166,7 +168,7 @@ var ma_double = {
 
         indicatorDescriptionContent += '<div class="options">';
 
-        indicatorDescriptionContent += '<p>' + this.options.shortTerm.name + ' : ' + this.options.shortTerm.value + ' (' + this.options.shortMAType.value + ')'+ ' / ' + this.options.longTerm.name + ' : ' + this.options.longTerm.value + ' (' + this.options.longMAType.value + ')' + '</p>';
+        indicatorDescriptionContent += '<p>' + this.options.shortTerm.name + ' : ' + this.options.shortTerm.value + ' (' + this.options.shortTermMAType.value + ')'+ ' / ' + this.options.longTerm.name + ' : ' + this.options.longTerm.value + ' (' + this.options.longTermMAType.value + ')' + '</p>';
 
         indicatorDescriptionContent +=
             '                      </div>\n' +
@@ -184,6 +186,8 @@ var ma_double = {
 
     getSerialized : function() {
         var obj = new Object();
+
+        obj['indicator'] = this.name.replace(/ /gi, "");
 
         $.each(this.options, function(key, data) {
             obj[key] = String(data.value);
@@ -385,12 +389,14 @@ var macd = {
     getSerialized : function() {
         var obj = new Object();
 
+        obj['indicator'] = this.name.replace(/ /gi, "");
+
         $.each(this.options, function(key, data) {
             obj[key] = String(data.value);
         });
 
         obj['comparator'] = this.position.comparator;
-        obj['strength'] = this.weight;
+        obj['weight'] = this.weight;
 
         return JSON.stringify(obj);
     },
@@ -576,12 +582,14 @@ var parabolic_sar = {
     getSerialized : function() {
         var obj = new Object();
 
+        obj['indicator'] = this.name.replace(/ /gi, "");
+
         $.each(this.options, function(key, data) {
             obj[key] = String(data.value);
         });
 
         obj['comparator'] = this.position.comparator;
-        obj['strength'] = this.weight;
+        obj['weight'] = this.weight;
 
         return JSON.stringify(obj);
     },
@@ -772,12 +780,14 @@ var bollinger_bands = {
     getSerialized : function() {
         var obj = new Object();
 
+        obj['indicator'] = this.name.replace(/ /gi, "");
+
         $.each(this.options, function(key, data) {
             obj[key] = String(data.value);
         });
 
         obj['comparator'] = this.position.comparator;
-        obj['strength'] = this.weight;
+        obj['weight'] = this.weight;
 
         return JSON.stringify(obj);
     },
@@ -871,7 +881,7 @@ var price_comparison = {
 var indicators = {
     'MACD' : macd,
     'MADouble' : ma_double,
-    'ParabolicSAR' : parabolic_sar,
+    'ParabolicSar' : parabolic_sar,
     'BollingerBands' : bollinger_bands
 //    'RSI' : rsi,
 //    'Stochastic(Fast)' : stochastic_fast

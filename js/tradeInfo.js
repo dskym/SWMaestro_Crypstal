@@ -114,15 +114,15 @@ $(function () {
 
         if(tradingReturnRate > 0) {
             tableNode +=
-                '                                        <th rowspan="6"><div>수익률</div><div class="text-green">+' + addComma(tradingReturnRate) + '%</div></th>\n';
+                '                                        <th rowspan="6"><div>수익률</div><div class="text-green">+' + addComma(Number(tradingReturnRate).toFixed(2)) + '%</div></th>\n';
         }
         else if(tradingReturnRate < 0) {
             tableNode +=
-                '                                        <th rowspan="6"><div>수익률</div><div class="text-red">' + addComma(tradingReturnRate) + '%</div></th>\n';
+                '                                        <th rowspan="6"><div>수익률</div><div class="text-red">' + addComma(Number(tradingReturnRate).toFixed(2)) + '%</div></th>\n';
         }
         else {
             tableNode +=
-                '                                        <th rowspan="6"><div>수익률</div><div>' + addComma(tradingReturnRate) + '%</div></th>\n';
+                '                                        <th rowspan="6"><div>수익률</div><div>' + addComma(Number(tradingReturnRate).toFixed(2)) + '%</div></th>\n';
         }
 
 
@@ -134,13 +134,13 @@ $(function () {
         tableNode +=
             '                                      <tr>\n' +
             '                                        <td>총 자산</td>\n' +
-            '                                        <td colspan="4"><span class="text-green">' + addComma(finalAsset) + ' KRW</span></td>\n' +
+            '                                        <td colspan="4"><span class="text-green">' + addComma(Number(finalAsset).toFixed()) + ' KRW</span></td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
             '                                      <tr>\n' +
             '                                        <td>손익 자산</td>\n' +
-            '                                        <td colspan="4"><span class="text-green">' + addComma(profitAsset) + ' KRW</span></td>\n' +
+            '                                        <td colspan="4"><span class="text-green">' + addComma(Number(profitAsset).toFixed()) + ' KRW</span></td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
@@ -223,7 +223,7 @@ $(function () {
 
                 tableNode += '<td>' + addComma(value['price']) + '</td>';
                 tableNode += '<td>' + addComma(value['amount']) + '</td>';
-                tableNode += '<td>' + addComma(value['asset']) + '</td>';
+                tableNode += '<td>' + addComma(Number(value['asset']).toFixed()) + '</td>';
                 tableNode += '</tr>';
             });
         });
