@@ -27,13 +27,15 @@ $(function () {
             categoryField: "candleDateTimeKST"
         }],
 
+        dataDateFormat: "YYYY-MM-DD HH:NN",
+
         valueAxesSettings: {
-            minPeriod: "mm",
+            minPeriod: "5mm",
             equalSpacing: true,
         },
 
         categoryAxesSettings: {
-            minPeriod: "mm",
+            minPeriod: "5mm",
             equalSpacing: true,
         },
 
@@ -45,14 +47,9 @@ $(function () {
             title: "Price",
             showCategoryAxis: true,
             percentHeight: 80,
-            valueAxes: [{
-                id: "v1",
-                dashLength: 5
-            }],
 
             categoryAxis: {
-                minPeriod: "mm",
-                dashLength: 5
+                minPeriod: "mm"
             },
 
             stockGraphs: [{
@@ -64,61 +61,47 @@ $(function () {
                 closeField: "close",
                 highField: "high",
                 lowField: "low",
-                categoryField: "candleDateTimeKST",
                 lineColor: "#0000ff",
                 fillColors: "#0000ff",
                 negativeLineColor: "#ff0000",
                 negativeFillColors: "#ff0000",
                 fillAlphas: 1,
                 useDataSetColors: false,
-                comparable: true,
-                showBalloon: true,
-                proCandlesticks: true,
-                gapField: 10
+                showBalloon: true
             }],
 
             stockLegend: {
-                valueTextRegular: undefined,
-                periodValueTextComparing: "[[percents.value.close]]%"
+                markerType: "none",
+                markerSize: 0,
+                labelText: "",
             }
-        },
-            {
-                title: "Volume",
-                percentHeight: 20,
-                marginTop: 1,
-                showCategoryAxis: true,
-                valueAxes: [{
-                    id: "v3",
-                    dashLength: 5
-                }],
+        }, {
+            title: "Volume",
+            percentHeight: 20,
+            showCategoryAxis: false,
 
-                categoryAxis: {
-                    dashLength: 5
-                },
+            stockGraphs: [{
+                valueField: "volume",
+                type: "column",
+                useDataSetColors: false,
+                lineColor: "#2B4073",
+                balloonText: "Volume<br><b><span style='font-size:14px;'>Volume: [[value]]</span></b>",
+                showBalloon: true,
+                fillAlphas: false
+            }],
 
-                stockGraphs: [{
-                    valueField: "volume",
-                    type: "column",
-                    useDataSetColors: false,
-                    lineColor: "#2B4073",
-                    balloonText: "Volume<br><b><span style='font-size:14px;'>Volume: [[value]]</span></b>",
-                    showBalloon: true,
-                    fillAlphas: false
-                }],
-
-                stockLegend: {
-                    markerType: "none",
-                    markerSize: 0,
-                    labelText: "",
-                    periodValueTextRegular: "[[value.close]]"
-                }
+            stockLegend: {
+                markerType: "none",
+                markerSize: 0,
+                labelText: "",
             }
+        }
         ],
 
         chartScrollbarSettings: {
             graph: "g1",
             graphType: "line",
-            usePeriod: "mm"
+            usePeriod: "5mm"
         },
 
         chartCursorSettings: {
@@ -128,7 +111,7 @@ $(function () {
         },
 
         panelsSettings: {
-            "usePrefixes": true
+            "usePrefixes": false
         },
 
         periodSelector: {

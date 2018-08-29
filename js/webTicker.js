@@ -13,11 +13,11 @@ $(function () {
         setWebTickerContent(webTickerData);
 
         $("#webticker").webTicker({
-            height:'auto',
+            height:'100%',
             duplicate:true,
             startEmpty:false,
             rssfrequency:1,
-            direction: 'right'
+            direction: 'right',
         });
     });
 
