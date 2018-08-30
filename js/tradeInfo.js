@@ -370,11 +370,11 @@ $(function () {
                 stockEvent.rollOverColor = '#00ff00';
                 stockEvent.description = moment(value['time']).format("YYYY-MM-DD hh:mm:ss");
 
-                if (key === 'buy') {
+                if (key === 'BUY') {
                     stockEvent.text = 'B';
                     stockEvent.backgroundColor = '#ff0000';
                 }
-                else if (key === 'sell') {
+                else if(key === 'SELL') {
                     stockEvent.text = 'S';
                     stockEvent.backgroundColor = '#0000ff';
                 }
@@ -385,6 +385,7 @@ $(function () {
 
         tradeChart.dataSets[0].stockEvents = stockEvents;
 
+        /*
         var shortMADouble = new Array();
         var longMADouble = new Array();
 
@@ -426,7 +427,7 @@ $(function () {
             valueField: longMADouble,
         });
 
-        console.log(tradeChart);
+        */
     }
 
     function addComma(value) {
