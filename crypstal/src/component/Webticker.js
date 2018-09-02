@@ -4,7 +4,8 @@ class Webticker extends Component {
     render() {
         return (
             <div>
-
+                <div id="webticker">
+                </div>
             </div>
         );
     }
