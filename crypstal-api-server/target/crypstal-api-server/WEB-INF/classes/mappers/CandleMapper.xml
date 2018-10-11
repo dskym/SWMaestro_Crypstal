@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.crypstal.api.CandleMapper">
+	
+	<resultMap id="candle" type="org.ta4j.core.BaseBar">
+		<constructor>
+   			<arg column="candle_date_time_kst" javaType="java.time.ZonedDateTime"/>
+   			<arg column="opening_price" javaType="_double"/>
+   			<arg column="high_price" javaType="_double"/>
+   			<arg column="low_price" javaType="_double"/>
+   			<arg column="trade_price" javaType="_double" />
+   			<arg column="candle_acc_trade_volume" javaType="_double"/>
+		</constructor>
+	</resultMap>
+ 
+	<select id="selectListFromUpbitBtc5minCandle"  resultMap="candle">
+		SELECT candle_date_time_kst, opening_price, high_price, low_price, trade_price, candle_acc_trade_volume
+		FROM upbit_btc_5min_candle
+		<choose>
+			<when test="from != null">
+			WHERE candle_date_time_kst BETWEEN #{from} AND #{to}
+			</when>
+			<otherwise>
+			WHERE candle_date_time_kst <![CDATA[<]]> #{to}
+			</otherwise>
+		</choose>
+		ORDER BY candle_date_time_kst DESC
+		<if test="from == null">
+			LIMIT 0, #{count}
+		</if>
+	</select>
+	
+</mapper>

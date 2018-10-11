@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.crypstal.api.CryptoPriceMapper">
+
+	<resultMap id="chartData" type="com.crypstal.api.model.ChartData">
+  		<id property="id" column="id" />
+  		<result property="date" column="timestamp" typeHandler="com.crypstal.api.typehandler.StringTypeHandler" />
+  		<result property="open" column="open_price" />
+  		<result property="high" column="high_price" />
+  		<result property="low" column="low_price" />
+  		<result property="close" column="close_price" />
+  		<result property="volume" column="volume" />
+	</resultMap>
+
+	<select id="selectCryptoPriceList" resultMap="chartData">
+		SELECT id, timestamp, open_price, high_price, low_price, close_price, volume 
+		FROM upbit
+		LIMIT 0, 100
+	</select>
+  
+</mapper>
