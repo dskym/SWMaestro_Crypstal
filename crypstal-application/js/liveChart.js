@@ -3,10 +3,42 @@ $(function () {
 
     $.getJSON(chartUrl, function () {
         console.log('Success Load Chart Data');
-    }).done(function (stockData) {
-        console.log(stockData);
+    }).done(function (tempData) {
+        console.log(tempData);
+
+        var stockData = [];
+
+        $.each(tempData['candles'], function(index) {
+            stockData.unshift(tempData['candles'][index]);
+        });
+
         injectStockData(stockData);
     });
+
+    /*
+    var tempUrl = 'https://api.upbit.com/v1/candles/minutes/5?market=KRW-BTC&count=200';
+
+    $.getJSON(tempUrl, function () {
+        console.log('Success Load Chart Data');
+    }).done(function (tempData) {
+
+        var stockData = [];
+
+        $.each(tempData, function(index) {
+            var len = tempData.length;
+
+            stockData.push({
+                'time': tempData[len - index - 1]['candle_date_time_kst'],
+                'open': tempData[len - index - 1]['opening_price'],
+                'close': tempData[len - index - 1]['trade_price'],
+                'high': tempData[len - index - 1]['high_price'],
+                'low': tempData[len - index - 1]['low_price'],
+                'volume': tempData[len - index - 1]['candle_acc_trade_volume']
+            });
+        });
+        injectStockData(stockData);
+    });
+    */
 
     function injectStockData(stockData) {
         var liveChart = AmCharts.makeChart("liveChart", {
@@ -40,8 +72,6 @@ $(function () {
                     format: 'json',
                     init: function (data) {
                         console.log(data);
-                        console.log(this);
-                        console.log('hi');
                     }
                 },
                 */

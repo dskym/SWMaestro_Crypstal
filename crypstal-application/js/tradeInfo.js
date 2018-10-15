@@ -4,7 +4,7 @@ $(function () {
     /*
     * Custom Backtest Event from backtest setting UI.
     */
-    $('div.bot-info').on('backtest', function(event, data) {
+    $('div.bot-info').on('backtest', function (event, data) {
         console.log('Backtest Custom Event');
         console.log(data);
 
@@ -15,14 +15,133 @@ $(function () {
         showTradeHistory(tradeHistory);
 
 
+        var stockData = [];
+
+        /*
         $.getJSON(chartUrl, function () {
             console.log('Success Load Chart Data');
-        }).done(function (chartData) {
-            console.log(chartData);
-            chartEvent(tradeHistory, chartData);
+        }).done(function (tempData) {
+            console.log(tempData);
+
+            var stockData = [];
+
+            $.each(tempData['candles'], function(index) {
+                stockData.unshift(tempData['candles'][index]);
+            });
+
+            chartEvent(tradeHistory, stockData);
         });
+        */
 
+        $.getJSON(tempUrl, function () {
+            console.log('Success Load Backtest Chart Data');
+        }).done(function (tempData) {
 
+            $.each(tempData, function (index) {
+                stockData.unshift({
+                    'time': new Date(moment(tempData[index]['candle_date_time_kst']).format("YYYY-MM-DD HH:mm:ss")),
+                    'open': tempData[index]['opening_price'],
+                    'close': tempData[index]['trade_price'],
+                    'high': tempData[index]['high_price'],
+                    'low': tempData[index]['low_price'],
+                    'volume': tempData[index]['candle_acc_trade_volume']
+                });
+            });
+
+            var tempUrl = 'https://api.upbit.com/v1/candles/minutes/5?market=KRW-BTC&to=2018-08-25%2016%3A20%3A00&count=200';
+
+            $.getJSON(tempUrl, function () {
+                console.log('Success Load Backtest Chart Data');
+            }).done(function (tempData) {
+
+                $.each(tempData, function (index) {
+                    stockData.unshift({
+                        'time': new Date(moment(tempData[index]['candle_date_time_kst']).format("YYYY-MM-DD HH:mm:ss")),
+                        'open': tempData[index]['opening_price'],
+                        'close': tempData[index]['trade_price'],
+                        'high': tempData[index]['high_price'],
+                        'low': tempData[index]['low_price'],
+                        'volume': tempData[index]['candle_acc_trade_volume']
+                    });
+                });
+
+                var tempUrl = 'https://api.upbit.com/v1/candles/minutes/5?market=KRW-BTC&to=2018-08-25%2008%3A40%3A00&count=200';
+
+                $.getJSON(tempUrl, function () {
+                    console.log('Success Load Backtest Chart Data');
+                }).done(function (tempData) {
+
+                    $.each(tempData, function (index) {
+                        stockData.unshift({
+                            'time': new Date(moment(tempData[index]['candle_date_time_kst']).format("YYYY-MM-DD HH:mm:ss")),
+                            'open': tempData[index]['opening_price'],
+                            'close': tempData[index]['trade_price'],
+                            'high': tempData[index]['high_price'],
+                            'low': tempData[index]['low_price'],
+                            'volume': tempData[index]['candle_acc_trade_volume']
+                        });
+                    });
+
+                    var tempUrl = 'https://api.upbit.com/v1/candles/minutes/5?market=KRW-BTC&to=2018-08-25%2001%3A00%3A00&count=200';
+
+                    $.getJSON(tempUrl, function () {
+                        console.log('Success Load Backtest Chart Data');
+                    }).done(function (tempData) {
+
+                        $.each(tempData, function (index) {
+                            stockData.unshift({
+                                'time': new Date(moment(tempData[index]['candle_date_time_kst']).format("YYYY-MM-DD HH:mm:ss")),
+                                'open': tempData[index]['opening_price'],
+                                'close': tempData[index]['trade_price'],
+                                'high': tempData[index]['high_price'],
+                                'low': tempData[index]['low_price'],
+                                'volume': tempData[index]['candle_acc_trade_volume']
+                            });
+                        });
+
+                        var tempUrl = 'https://api.upbit.com/v1/candles/minutes/5?market=KRW-BTC&to=2018-08-24%2017%3A20%3A00&count=200';
+
+                        $.getJSON(tempUrl, function () {
+                            console.log('Success Load Backtest Chart Data');
+                        }).done(function (tempData) {
+
+                            $.each(tempData, function (index) {
+                                stockData.unshift({
+                                    'time': new Date(moment(tempData[index]['candle_date_time_kst']).format("YYYY-MM-DD HH:mm:ss")),
+                                    'open': tempData[index]['opening_price'],
+                                    'close': tempData[index]['trade_price'],
+                                    'high': tempData[index]['high_price'],
+                                    'low': tempData[index]['low_price'],
+                                    'volume': tempData[index]['candle_acc_trade_volume']
+                                });
+                            });
+
+                            var tempUrl = 'https://api.upbit.com/v1/candles/minutes/5?market=KRW-BTC&to=2018-08-24%2009%3A40%3A00&count=200';
+
+                            $.getJSON(tempUrl, function () {
+                                console.log('Success Load Backtest Chart Data');
+                            }).done(function (tempData) {
+
+                                $.each(tempData, function (index) {
+                                    stockData.unshift({
+                                        'time': new Date(moment(tempData[index]['candle_date_time_kst']).format("YYYY-MM-DD HH:mm:ss")),
+                                        'open': tempData[index]['opening_price'],
+                                        'close': tempData[index]['trade_price'],
+                                        'high': tempData[index]['high_price'],
+                                        'low': tempData[index]['low_price'],
+                                        'volume': tempData[index]['candle_acc_trade_volume']
+                                    });
+                                });
+
+                                console.log(stockData);
+
+                                chartEvent(tradeHistory, stockData);
+                            });
+                        });
+                    });
+                });
+            });
+        });
 
         var $botContentTab = $('ul.content-tab');
         $botContentTab.find('a[href="#info"]').closest('li').removeClass('hide');
@@ -80,12 +199,12 @@ $(function () {
             '                                        <th rowspan="2">승률</th>\n' +
             '                                        <td>최대 이익</td>\n';
 
-        if(tradingMaxProfit > 0) {
+        if (tradingMaxProfit > 0) {
             tableNode +=
                 '                                        <td><span class="text-green">+' + addComma(tradingMaxProfit) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
-        else if(tradingMaxProfit < 0){
+        else if (tradingMaxProfit < 0) {
             tableNode +=
                 '                                        <td><span class="text-red">' + addComma(tradingMaxProfit) + '%</span></td>\n' +
                 '                                      </tr>\n';
@@ -102,14 +221,14 @@ $(function () {
             '                                        <td><span class="text-red">' + addComma(tradingLoseCount) + '</span></td>\n' +
             '                                        <td>최대 손실</td>\n';
 
-        if(tradingMaxLoss > 0) {
+        if (tradingMaxLoss > 0) {
             tableNode +=
                 '                                        <td><span class="text-green">+' + addComma(tradingMaxLoss) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
-        else if(tradingMaxLoss < 0){
+        else if (tradingMaxLoss < 0) {
             tableNode +=
-                '                                        <td><span class="text-red">'  + addComma(tradingMaxLoss) + '%</span></td>\n' +
+                '                                        <td><span class="text-red">' + addComma(tradingMaxLoss) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
         else {
@@ -121,11 +240,11 @@ $(function () {
         tableNode +=
             '                                      <tr>\n';
 
-        if(tradingReturnRate > 0) {
+        if (tradingReturnRate > 0) {
             tableNode +=
                 '                                        <th rowspan="6"><div>수익률</div><div class="text-green">+' + addComma(Number(tradingReturnRate).toFixed(2)) + '%</div></th>\n';
         }
-        else if(tradingReturnRate < 0) {
+        else if (tradingReturnRate < 0) {
             tableNode +=
                 '                                        <th rowspan="6"><div>수익률</div><div class="text-red">' + addComma(Number(tradingReturnRate).toFixed(2)) + '%</div></th>\n';
         }
@@ -137,7 +256,7 @@ $(function () {
 
         tableNode +=
             '                                        <td>초기투자금액</td>\n' +
-            '                                        <td colspan="4">' + addComma(initialAsset) +' KRW</td>\n' +
+            '                                        <td colspan="4">' + addComma(initialAsset) + ' KRW</td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
@@ -156,14 +275,14 @@ $(function () {
             '                                      <tr>\n' +
             '                                        <td>코인가격 변동률</td>\n';
 
-        if(tradingAmountChangeRate > 0) {
+        if (tradingAmountChangeRate > 0) {
             tableNode +=
                 '                                        <td colspan="4"><span class="text-green">+' + addComma(tradingAmountChangeRate) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
-        else if(tradingAmountChangeRate < 0) {
+        else if (tradingAmountChangeRate < 0) {
             tableNode +=
-                '                                        <td colspan="4"><span class="text-red">'+ addComma(tradingAmountChangeRate) +'%</span></td>\n' +
+                '                                        <td colspan="4"><span class="text-red">' + addComma(tradingAmountChangeRate) + '%</span></td>\n' +
                 '                                      </tr>\n';
         }
         else {
@@ -176,7 +295,7 @@ $(function () {
         tableNode +=
             '                                      <tr>\n' +
             '                                        <td>거래소 수수료</td>\n' +
-            '                                        <td colspan="4"><span class="text-red">'+ addComma(exchangeFee) +' KRW</span></td>\n' +
+            '                                        <td colspan="4"><span class="text-red">' + addComma(exchangeFee) + ' KRW</span></td>\n' +
             '                                      </tr>\n';
 
         tableNode +=
@@ -221,6 +340,25 @@ $(function () {
             '                                                                            </tr>\n';
 
         $.each(tradeHistory, function (index, historyElement) {
+            $.each(historyElement, function (key, value) {
+                if (new Date(value['time']).getTime() >= new Date(2018,7,24,2,0,0).getTime()) {
+                    tableNode += '<tr>';
+                    tableNode += '<td><a href="javascript:void(0)"><span class="text-black">' + value['time'] + '</span></a></td>';
+
+                    if (key === 'BUY')
+                        tableNode += '<td><span class="label label-success">' + key + '</span></td>';
+                    else if (key === 'SELL')
+                        tableNode += '<td><span class="label label-danger">' + key + '</span></td>';
+
+                    tableNode += '<td>' + addComma(value['price']) + '</td>';
+                    tableNode += '<td>' + addComma(value['amount']) + '</td>';
+                    tableNode += '<td>' + addComma(Number(value['asset']).toFixed()) + '</td>';
+                    tableNode += '</tr>';
+                }
+            });
+        });
+        /*
+        $.each(tradeHistory, function (index, historyElement) {
             $.each(historyElement, function(key, value) {
                 tableNode += '<tr>';
                 tableNode += '<td><a href="javascript:void(0)"><span class="text-black">' + value['time'] + '</span></a></td>';
@@ -236,6 +374,7 @@ $(function () {
                 tableNode += '</tr>';
             });
         });
+        */
 
         tableNode +=
             '                                                                        </table>\n' +
@@ -255,43 +394,43 @@ $(function () {
             autoDisplay: true,
 
             "dataSets": [{
-                fieldMappings: [ {
-                    fromField: "openingPrice",
+                fieldMappings: [{
+                    fromField: "open",
                     toField: "open"
-                },{
-                    fromField: "tradePrice",
+                }, {
+                    fromField: "close",
                     toField: "close"
-                },{
-                    fromField: "highPrice",
+                }, {
+                    fromField: "high",
                     toField: "high"
-                },{
-                    fromField: "lowPrice",
+                }, {
+                    fromField: "low",
                     toField: "low"
-                },{
-                    fromField: "candleAccTradeVolume",
+                }, {
+                    fromField: "volume",
                     toField: "volume"
-                } ],
+                }],
                 dataProvider: chartData,
-                categoryField: "candleDateTimeKST"
+                categoryField: "time"
             }],
 
             dataDateFormat: "YYYY-MM-DD HH:NN:SS",
 
             valueAxesSettings: {
                 minPeriod: "5mm",
-                equalSpacing : true,
+                equalSpacing: true,
             },
 
             categoryAxesSettings: {
                 minPeriod: "5mm",
-                equalSpacing : true,
+                equalSpacing: true,
             },
 
             mouseWheelZoomEnabled: true,
 
             glueToTheEnd: true,
 
-            panels: [ {
+            panels: [{
                 title: "Price",
                 showCategoryAxis: true,
                 percentHeight: 80,
@@ -300,7 +439,7 @@ $(function () {
                     minPeriod: "5mm"
                 },
 
-                stockGraphs: [ {
+                stockGraphs: [{
                     title: 'BTC',
                     type: "candlestick",
                     id: "g1",
@@ -354,7 +493,7 @@ $(function () {
             chartCursorSettings: {
                 valueLineBalloonEnabled: true,
                 valueLineEnabled: true,
-                valueBalloonsEnabled:true
+                valueBalloonsEnabled: true
             },
 
             panelsSettings: {
@@ -366,21 +505,22 @@ $(function () {
         var stockEvents = new Array();
 
         $.each(tradeHistory, function (index, historyElement) {
-            $.each(historyElement, function(key, value) {
+            $.each(historyElement, function (key, value) {
                 var stockEvent = new Object();
 
-                stockEvent.date = moment(value['time']).format("YYYY-MM-DD hh:mm:ss");
+                stockEvent.date = new Date(moment(value['time']).format("YYYY-MM-DD HH:mm:ss"));
                 stockEvent.type = 'sign';
                 stockEvent.graph = 'g1';
                 stockEvent.color = '#ffffff';
+                stockEvent.fontSize = '20';
                 stockEvent.rollOverColor = '#00ff00';
-                stockEvent.description = moment(value['time']).format("YYYY-MM-DD hh:mm:ss");
+                stockEvent.description = moment(value['time']).format("YYYY-MM-DD HH:mm:ss");
 
                 if (key === 'BUY') {
                     stockEvent.text = 'B';
                     stockEvent.backgroundColor = '#ff0000';
                 }
-                else if(key === 'SELL') {
+                else if (key === 'SELL') {
                     stockEvent.text = 'S';
                     stockEvent.backgroundColor = '#0000ff';
                 }
@@ -390,7 +530,7 @@ $(function () {
         });
 
         tradeChart.dataSets[0].stockEvents = stockEvents;
-
+        tradeChart.validateData();
         /*
         var shortMADouble = new Array();
         var longMADouble = new Array();
