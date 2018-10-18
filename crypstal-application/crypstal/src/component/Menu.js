@@ -3,6 +3,10 @@ import React, { Component } from 'react';
 class Menu extends Component {
     render() {
         return (
+            <div>
+                Menu
+            </div>
+            /*
             <div className="navbar-custom-menu">
                 <ul className="nav navbar-nav">
                     <li className="dropdown notifications-menu">
@@ -115,6 +119,7 @@ class Menu extends Component {
                     </li>
                 </ul>
             </div>
+            */
         );
     }
 }

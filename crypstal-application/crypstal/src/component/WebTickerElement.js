@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import jQuery from 'jquery';
 
 class WebTickerElement extends Component {
     constructor(props) {

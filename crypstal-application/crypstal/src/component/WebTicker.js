@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import jQuery from 'jquery';
 import WebTickerElement from "./WebTickerElement";
 
-class Webticker extends Component {
+class WebTicker extends Component {
     constructor(props) {
         super(props);
 
@@ -31,11 +30,11 @@ class Webticker extends Component {
 
     render() {
         const webTickerElements = this.state.marketConditionList.map((coin) =>
-            <WebTickerElement exchange={ this.state.exchange } coin={coin}></WebTickerElement>
+            <WebTickerElement exchange={ this.state.exchange } coin={coin} />
         );
 
         return (
-            <div>
+            <div className="webticker">
                 <div id="webticker">
                     { webTickerElements }
                 </div>
@@ -44,4 +43,4 @@ class Webticker extends Component {
     }
 }
 
-export default Webticker;
+export default WebTicker;

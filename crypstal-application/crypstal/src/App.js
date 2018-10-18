@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
-import {Container, Row, Col} from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import WebTicker from './component/WebTicker';
 import BotList from './component/BotList';
 import BotSetting from './component/BotSetting';
@@ -11,11 +11,8 @@ import Menu from './component/Menu';
 class App extends Component {
     render() {
         return (
-            <WebTicker className="webticker">
-            </WebTicker>
-            /*
             <div>
-                <div className="wrappter">
+                <div className="wrapper">
                     <div className="main-header">
                         <div className="logo">
                             <nav className="navbar navbar-static-top">
@@ -26,8 +23,8 @@ class App extends Component {
                                             </Logo>
                                         </Col>
                                         <Col md="8" lg="8">
-                                            <Webticker className="webticker">
-                                            </Webticker>
+                                            <WebTicker>
+                                            </WebTicker>
                                         </Col>
                                         <Col md="2" lg="2">
                                             <Menu>
@@ -43,24 +40,21 @@ class App extends Component {
                             <Container>
                                 <Row>
                                     <Col md="3">
-                                        <BotList className="bot-list">
-                                        </BotList>
+                                        <BotList />
                                     </Col>
                                     <Col md="9">
-                                        <BotSetting className="bot-setting">
-                                        </BotSetting>
+                                        <BotSetting />
                                     </Col>
                                 </Row>
-                            <div className="bot">
-                            </div>
-                            <Info className="info">
-                            </Info>
+                                <div className="bot">
+                                </div>
+                                <Info className="info">
+                                </Info>
                             </Container>
                         </div>
                     </div>
                 </div>
             </div>
-            */
         );
     }
 }
