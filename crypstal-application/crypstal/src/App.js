@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {Container, Row, Col} from 'reactstrap';
-import Webticker from './component/Webticker';
+import WebTicker from './component/WebTicker';
 import BotList from './component/BotList';
 import BotSetting from './component/BotSetting';
 import Info from './component/Info';
@@ -11,6 +11,9 @@ import Menu from './component/Menu';
 class App extends Component {
     render() {
         return (
+            <WebTicker className="webticker">
+            </WebTicker>
+            /*
             <div>
                 <div className="wrappter">
                     <div className="main-header">
@@ -57,6 +60,7 @@ class App extends Component {
                     </div>
                 </div>
             </div>
+            */
         );
     }
 }
