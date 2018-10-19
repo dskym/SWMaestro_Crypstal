@@ -9,12 +9,6 @@ const BotSettingComponent = styled.div`
     flex-direction: column;
 `;
 
-const mapStateToProps = (state) => (
-    {
-        botState: state.bot[0]
-    }
-);
-
 const BotName = ({botName}) => {
     return (
         <h4 className="text-bold text-center">{botName}</h4>
@@ -201,4 +195,4 @@ class BotSetting extends Component {
     }
 }
 
-export default connect(mapStateToProps)(BotSetting);
+export default BotSetting;

@@ -1,34 +1,52 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import styled from "styled-components";
-import {connect} from 'react-redux';
+import {TabContent, TabPane} from 'reactstrap';
 
-import TradeResult from "./TradeResult";
-import TradeHistory from "./TradeHistory";
-import TradeChart from "./TradeChart";
-import BotStore from "./BotStore";
-import Chart from "./Chart";
 import ContentTab from "./ContentTab";
+import Chart from "./Chart";
+import Trade from "./Trade";
+import BotStore from "./BotStore";
 
 const InfoComponent = styled.div`    
     flex: 6;
 `;
 
-const mapStateToProps = (state) => (
-    {
-        backtestState: state.backtest
-    }
-);
-
 class Info extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            activeTab: 'chart'
+        };
+
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle(tab) {
+        if(this.state.activeTab !== tab) {
+            this.setState({
+                activeTab: tab
+            });
+        }
     }
 
     render() {
-        const {result, history} = this.props.backtestState;
-
         return (
             <InfoComponent>
+                <ContentTab toggle={this.toggle}/>
+
+                <TabContent activeTab={this.state.activeTab}>
+                    <TabPane tabId="chart">
+                        <Chart/>
+                    </TabPane>
+                    <TabPane tabId="trade">
+                        <Trade/>
+                    </TabPane>
+                    <TabPane tabId="store">
+                        <BotStore/>
+                    </TabPane>
+                </TabContent>
+                {/*
                 <div className="box box-default mb-0">
                     <div className="box-body p-5">
                         <ContentTab/>
@@ -61,9 +79,10 @@ class Info extends Component {
                         </div>
                     </div>
                 </div>
+                */}
             </InfoComponent>
         );
     }
 }
 
-export default connect(mapStateToProps)(Info);
+export default Info;

@@ -13,9 +13,8 @@ class ContentTabElement extends Component {
     render() {
         return (
             <ContentTabElementComponent>
-                <a className="nav-link active" data-toggle="tab" href={ '#' + this.props.content } role="tab">
-                    <img src={window.location.origin + '/images/chart.png'} />Chart
-                </a>
+                <img src={window.location.origin + '/images/chart.png'} />
+                {this.props.contentName}
             </ContentTabElementComponent>
         );
     }

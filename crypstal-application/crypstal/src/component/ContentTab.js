@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import {Nav, NavItem, NavLink} from 'reactstrap';
+
 import ContentTabElement from "./ContentTabElement";
 import styled from "styled-components";
+import classnames from 'classnames';
 
 const ContentTabComponent = styled.ul`    
     display: flex;
@@ -12,20 +15,33 @@ class ContentTab extends Component {
         super(props);
 
         this.state = {
-            contentList:['chart', 'info', 'store']
+            contentList: ['chart', 'trade', 'store']
         };
     }
 
     render() {
         const contentTabElement = this.state.contentList.map((content) =>
-            <ContentTabElement contentName={ content } />
+            <NavItem>
+                <NavLink
+                    className={classnames({active: this.state.activeTab === content})}
+                    onClick={() => {this.props.toggle(content);}}
+                >
+                    <ContentTabElement contentName={content}/>
+                </NavLink>
+            </NavItem>
         );
 
         return (
-            <ContentTabComponent>
-                { contentTabElement }
-            </ContentTabComponent>
-        );
+            <Nav tabs>
+                {contentTabElement}
+            </Nav>
+            /*
+                <ContentTabComponent>
+                    { contentTabElement }
+                </ContentTabComponent>
+                */
+        )
+            ;
     }
 }
 
