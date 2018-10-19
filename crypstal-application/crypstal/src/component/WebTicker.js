@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import WebTickerElement from "./WebTickerElement";
+import styled from "styled-components";
+
+const WebTickerComponent = styled.div`    
+    display: flex;
+    flex-direction: row;    
+
+    flex: 6;
+`;
 
 class WebTicker extends Component {
     constructor(props) {
@@ -34,11 +42,9 @@ class WebTicker extends Component {
         );
 
         return (
-            <div className="webticker">
-                <div id="webticker">
-                    { webTickerElements }
-                </div>
-            </div>
+            <WebTickerComponent>
+                { webTickerElements }
+            </WebTickerComponent>
         );
     }
 }

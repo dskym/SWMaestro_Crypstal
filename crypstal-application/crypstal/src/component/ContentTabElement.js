@@ -1,4 +1,9 @@
 import React, {Component} from 'react';
+import styled from "styled-components";
+
+const ContentTabElementComponent = styled.li`
+    flex: 1;
+`;
 
 class ContentTabElement extends Component {
     constructor(props) {
@@ -7,11 +12,11 @@ class ContentTabElement extends Component {
 
     render() {
         return (
-            <li className="nav-item">
+            <ContentTabElementComponent>
                 <a className="nav-link active" data-toggle="tab" href={ '#' + this.props.content } role="tab">
                     <img src={window.location.origin + '/images/chart.png'} />Chart
                 </a>
-            </li>
+            </ContentTabElementComponent>
         );
     }
 }

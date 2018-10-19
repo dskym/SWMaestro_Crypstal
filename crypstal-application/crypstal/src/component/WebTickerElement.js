@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import styled from "styled-components";
 
 class WebTickerElement extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class WebTickerElement extends Component {
             changeRate = '';
 
         return (
-            <li className="p-1">
+            <li>
                 <div className="webTickerContent">
                     <div className="box m-0">
                         <div className="box-body p-5">

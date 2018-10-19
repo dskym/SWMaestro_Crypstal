@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import styled from "styled-components";
+
+const MenuComponent = styled.div`
+    flex: 2;
+`;
 
 class Menu extends Component {
     render() {
         return (
-            <div>
+            <MenuComponent>
                 Menu
-            </div>
+            </MenuComponent>
             /*
             <div className="navbar-custom-menu">
                 <ul className="nav navbar-nav">

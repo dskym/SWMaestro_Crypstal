@@ -8,8 +8,6 @@ import botApp from './reducer/reducers'
 
 import { Provider } from 'react-redux';
 
-import './index.css';
-
 import registerServiceWorker from './registerServiceWorker';
 
 const store = createStore(botApp);

@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import ContentTabElement from "./ContentTabElement";
+import styled from "styled-components";
+
+const ContentTabComponent = styled.ul`    
+    display: flex;
+    flex-direction: row;    
+`;
 
 class ContentTab extends Component {
     constructor(props) {
@@ -14,12 +20,11 @@ class ContentTab extends Component {
         const contentTabElement = this.state.contentList.map((content) =>
             <ContentTabElement contentName={ content } />
         );
+
         return (
-            <div>
-                <ul className="nav nav-tabs content-tab" role="tablist">
-                    { contentTabElement }
-                </ul>
-            </div>
+            <ContentTabComponent>
+                { contentTabElement }
+            </ContentTabComponent>
         );
     }
 }
