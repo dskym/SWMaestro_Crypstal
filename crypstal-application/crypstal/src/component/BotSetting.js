@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import styled from "styled-components";
+import {connect} from 'react-redux';
 
 const BotSettingComponent = styled.div`    
     flex: 2;
@@ -8,13 +9,19 @@ const BotSettingComponent = styled.div`
     flex-direction: column;
 `;
 
-const BotName = () => {
+const mapStateToProps = (state) => (
+    {
+        botState: state.bot[0]
+    }
+);
+
+const BotName = ({botName}) => {
     return (
-        <h4 className="text-bold text-center">승윤봇</h4>
+        <h4 className="text-bold text-center">{botName}</h4>
     );
 };
 
-const InvestmentAmount = () => {
+const InvestmentAmount = ({botAsset}) => {
     return (
         <div className="box hide">
             <div className="box-header with-border">
@@ -23,14 +30,14 @@ const InvestmentAmount = () => {
 
             <div className="box-body">
                 <div className="asset">
-                    <label className="mb-0">1,000,000 KRW</label>
+                    <label className="mb-0">{botAsset} KRW</label>
                 </div>
             </div>
         </div>
     );
 };
 
-const BotStrategy = () => {
+const BotStrategy = ({botStrategy}) => {
     return (
         <div className="box">
             <div className="box-header with-border">
@@ -123,19 +130,19 @@ const OrderQuantity = () => {
     );
 };
 
-const BotAlaram = () => {
+const BotAlarm = ({botAlarm}) => {
     return (
         <div>
-            <input type="checkbox" id="bot-alarm" className="filled-in bot-alarm bot-data"/>
+            <input type="checkbox" id="bot-alarm" className="filled-in bot-alarm bot-data" checked={botAlarm}/>
             <label htmlFor="bot-alarm">챗봇 알림 받기</label>
         </div>
     );
 };
 
-const BotAutoTrade = () => {
+const BotAutoTrade = ({botAutoTrading}) => {
     return (
         <div>
-            <input type="checkbox" id="auto-trade" className="filled-in auto-trade bot-data"/>
+            <input type="checkbox" id="auto-trade" className="filled-in auto-trade bot-data" checked={botAutoTrading}/>
             <label htmlFor="auto-trade">자동 거래</label>
         </div>
     );
@@ -164,15 +171,28 @@ class BotSetting extends Component {
     }
 
     render() {
+        const botState = this.props.botState;
+
+        const {
+            name,
+            crypto,
+            exchange,
+            period,
+            asset,
+            alarm,
+            autoTrading
+        } = this.props.botState;
+
         return (
             <BotSettingComponent>
-                <BotName/>
-                <InvestmentAmount/>
-                <BotStrategy/>
+                <BotName botName={name}/>
+                <InvestmentAmount botAsset={asset}/>
+                <BotStrategy botStrategy={crypto, exchange, period}/>
+
                 <AdditionalSetting/>
 
-                <BotAlaram/>
-                <BotAutoTrade/>
+                <BotAlarm botAlarm={alarm}/>
+                <BotAutoTrade botAutoTrade={autoTrading}/>
 
                 <BotSave/>
                 <BotSubmit/>
@@ -181,4 +201,4 @@ class BotSetting extends Component {
     }
 }
 
-export default BotSetting;
+export default connect(mapStateToProps)(BotSetting);

@@ -4,42 +4,27 @@ import ContentTabElement from "./ContentTabElement";
 class TradeHistory extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            tradeHistoryList:[
-                {
-                    time:'2018-08-24 08:00',
-                    buyAndSell:'BUY',
-                    price:7420000,
-                    amount:0.135,
-                    asset:1004875
-                },
-                {
-                    time:'2018-08-25 03:25',
-                    buyAndSell:'SELL',
-                    price:7480000,
-                    amount:0.135,
-                    asset:1013001
-                }
-            ]
-        };
     }
 
     render() {
-        const tradeHistoryElement = this.state.tradeHistoryList.map((tradeHistoryNode) =>
-            <tr>
-                <td>
-                    <a href="javascript:void(0)">
-                        <span className="text-black">{ tradeHistoryNode.time }</span>
-                    </a>
-                </td>
-                <td>
-                    <span className="label label-success">{ tradeHistoryNode.buyAndSell }</span>
-                </td>
-                <td>{ tradeHistoryNode.price }</td>
-                <td>{ tradeHistoryNode.amount }</td>
-                <td>{ tradeHistoryNode.asset }</td>
-            </tr>
+        const history = this.props.history;
+
+        const tradeHistoryElement = history.map((tradeHistoryNode) =>
+            Object.keys(tradeHistoryNode).map((key) =>
+                <tr>
+                    <td>
+                        <a href="javascript:void(0)">
+                            <span className="text-black">{tradeHistoryNode[key].time}</span>
+                        </a>
+                    </td>
+                    <td>
+                        <span className="label label-success">{key}</span>
+                    </td>
+                    <td>{tradeHistoryNode[key].price}</td>
+                    <td>{tradeHistoryNode[key].amount}</td>
+                    <td>{tradeHistoryNode[key].asset}</td>
+                </tr>
+            )
         );
 
         return (
@@ -60,7 +45,7 @@ class TradeHistory extends Component {
                                     <th>평가금액</th>
                                 </tr>
 
-                                { tradeHistoryElement }
+                                {tradeHistoryElement}
 
                                 </tbody>
                             </table>

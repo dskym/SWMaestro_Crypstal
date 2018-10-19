@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
-import Bot from './Bot.js'
+import React, {Component} from "react";
+import styled from "styled-components";
+
+import Bot from './Bot'
 import BotAddButton from "./BotAddButton";
 import BotDeleteButton from "./BotDeleteButton";
-import styled from "styled-components";
 
 const BotListComponent = styled.div`    
     flex: 1;

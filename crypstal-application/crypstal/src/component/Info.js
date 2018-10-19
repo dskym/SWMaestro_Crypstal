@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
+import {connect} from 'react-redux';
 
 import TradeResult from "./TradeResult";
 import TradeHistory from "./TradeHistory";
@@ -12,8 +13,20 @@ const InfoComponent = styled.div`
     flex: 6;
 `;
 
+const mapStateToProps = (state) => (
+    {
+        backtestState: state.backtest
+    }
+);
+
 class Info extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+        const {result, history} = this.props.backtestState;
+
         return (
             <InfoComponent>
                 <div className="box box-default mb-0">
@@ -28,11 +41,11 @@ class Info extends Component {
                                     <div className="pad">
                                         <div className="row">
                                             <div className="col-lg-6 col-12">
-                                                <TradeResult/>
+                                                <TradeResult result={result}/>
                                             </div>
 
                                             <div className="col-lg-6 col-12">
-                                                <TradeHistory/>
+                                                <TradeHistory history={history}/>
                                             </div>
 
                                             <div className="col-lg-12 col-12">
@@ -53,4 +66,4 @@ class Info extends Component {
     }
 }
 
-export default Info;
+export default connect(mapStateToProps)(Info);
