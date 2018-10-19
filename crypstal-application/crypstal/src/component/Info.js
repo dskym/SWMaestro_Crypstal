@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ContentTab from "./ContentTab";
 
 class Info extends Component {
     render() {
@@ -6,31 +7,8 @@ class Info extends Component {
             <div>
                 <div className="box box-default mb-0">
                     <div className="box-body p-5">
-                        <ul className="nav nav-tabs content-tab" role="tablist">
-                            <li className="nav-item"><a className="nav-link active" data-toggle="tab" href="#chart"
-                                                        role="tab"><img src="../images/chart.png"/>Chart</a></li>
-                            <li className="nav-item info hide"><a className="nav-link" data-toggle="tab"
-                                                                  href="#info" role="tab"><img
-                                src="../images/information.png"/>Info</a></li>
-                            <li className="nav-item hide"><a className="nav-link" data-toggle="tab" href="#store"
-                                                             role="tab"><img src="../images/shop.png"/>Store</a>
-                            </li>
-                        </ul>
+                        <ContentTab />
                         <div className="tab-content tabcontent-border content-detail">
-                            <div className="tab-pane active" id="chart" role="tabpanel">
-                                <div className="coin-chart">
-                                    <div className="pad">
-                                        <div className="box">
-                                            <div className="box-body">
-                                                <div className="chart">
-                                                    {/*<div id="liveChart" style="height: 720px;"}></div>*/}
-                                                    <div id="liveChart"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div className="tab-pane" id="info" role="tabpanel">
                                 <div className="bot-info">
                                     <div className="pad">
