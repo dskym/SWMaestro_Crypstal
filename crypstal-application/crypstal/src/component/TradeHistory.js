@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import ContentTabElement from "./ContentTabElement";
+import styled from "styled-components";
+
+import {Table, Badge } from "reactstrap";
+
+const TradeHistoryComponent = styled.div`
+    flex: 1;
+`;
 
 class TradeHistory extends Component {
     constructor(props) {
@@ -9,16 +15,19 @@ class TradeHistory extends Component {
     render() {
         const history = this.props.history;
 
+
+
         const tradeHistoryElement = history.map((tradeHistoryNode) =>
             Object.keys(tradeHistoryNode).map((key) =>
                 <tr>
                     <td>
-                        <a href="javascript:void(0)">
-                            <span className="text-black">{tradeHistoryNode[key].time}</span>
-                        </a>
+                        {tradeHistoryNode[key].time}
                     </td>
                     <td>
-                        <span className="label label-success">{key}</span>
+                        { key === "BUY" ?
+                            <Badge color="success">{key}</Badge>
+                            : <Badge color="danger">{key}</Badge>
+                        }
                     </td>
                     <td>{tradeHistoryNode[key].price}</td>
                     <td>{tradeHistoryNode[key].amount}</td>
@@ -28,31 +37,31 @@ class TradeHistory extends Component {
         );
 
         return (
-            <div className="bot-history">
+            <TradeHistoryComponent>
                 <div className="box">
                     <div className="box-header without-border">
                         <h6 className="box-title">Trade History</h6>
                     </div>
                     <div className="box-body">
                         <div className="table-responsive">
-                            <table className="table table-hover">
+                            <Table bordered>
+                                <thead>
+                                    <tr>
+                                        <th>거래시간</th>
+                                        <th>매수/매도</th>
+                                        <th>가격</th>
+                                        <th>수량</th>
+                                        <th>평가금액</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                <tr>
-                                    <th>거래시간</th>
-                                    <th>매수/매도</th>
-                                    <th>가격</th>
-                                    <th>수량</th>
-                                    <th>평가금액</th>
-                                </tr>
-
-                                {tradeHistoryElement}
-
+                                    {tradeHistoryElement}
                                 </tbody>
-                            </table>
+                            </Table>
                         </div>
                     </div>
                 </div>
-            </div>
+            </TradeHistoryComponent>
         );
     }
 }

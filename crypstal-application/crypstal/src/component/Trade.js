@@ -11,6 +11,20 @@ const TradeComponent = styled.div`
     flex-direction: column;
 `;
 
+const TradeInformationComponent = styled.div`
+    display: flex;
+    flex-direction: row;
+    
+    flex: 1;
+`;
+
+const TradeChartComponent = styled.div`
+    display: flex;
+    flex-direction: column;
+    
+    flex: 2;
+`;
+
 const mapStateToProps = (state) => (
     {
         backtestState: state.backtest
@@ -27,9 +41,13 @@ class Trade extends Component {
 
         return (
             <TradeComponent>
-                <TradeResult result={result}/>
-                <TradeHistory history={history}/>
-                <TradeChart/>
+                <TradeInformationComponent>
+                    <TradeResult result={result}/>
+                    <TradeHistory history={history}/>
+                </TradeInformationComponent>
+                <TradeChartComponent>
+                    <TradeChart/>
+                </TradeChartComponent>
             </TradeComponent>
         );
     }

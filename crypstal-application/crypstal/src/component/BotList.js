@@ -6,6 +6,7 @@ import Bot from './Bot'
 import BotAddButton from "./BotAddButton";
 import BotDeleteButton from "./BotDeleteButton";
 import classnames from "classnames";
+import BotAddModal from "./BotAddModal";
 
 const BotListComponent = styled.div`    
     flex: 1;
@@ -17,6 +18,18 @@ const BotListComponent = styled.div`
 class BotList extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            modal: false
+        };
+
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle() {
+        this.setState({
+            modal: !this.state.modal
+        });
     }
 
     render() {
@@ -37,9 +50,10 @@ class BotList extends Component {
                     {bots}
                     <NavItem>
                         <NavLink
-                            onClick={() => {}}
+                            onClick={this.toggle}
                         >
                             <BotAddButton/>
+                            <BotAddModal modal={this.state.modal} toggle={this.toggle}/>
                         </NavLink>
                     </NavItem>
                     <NavItem>

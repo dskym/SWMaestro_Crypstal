@@ -3,9 +3,8 @@ import styled from 'styled-components';
 
 import Header from './component/Header';
 
-import BotList from './component/BotList';
-import BotSetting from './component/BotSetting';
 import Content from "./component/Content";
+import BotAddModal from "./component/BotAddModal";
 
 const Wrapper = styled.div`
     display: flex;
@@ -13,6 +12,10 @@ const Wrapper = styled.div`
 `;
 
 class App extends Component {
+    componentDidMount() {
+        document.title = "Crypstal";
+    }
+
     render() {
         return (
             <Wrapper>
