@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styled from "styled-components";
-import { connect } from 'react-redux';
+import { Button } from "reactstrap";
+import BacktestSettingModal from './BacktestSettingModal';
 
 const BotSettingComponent = styled.div`    
     flex: 2;
@@ -150,11 +151,12 @@ const BotSave = () => {
     );
 };
 
-const BotSubmit = () => {
+const BotSubmit = (props) => {
     return (
         <div className="box-submit">
-            <button className="btn btn-info backtest">백테스팅</button>
-            <button className="btn btn-info bot-start">봇 시작</button>
+            <Button onClick={props.toggle}>백테스팅</Button>
+            <BacktestSettingModal  modal={props.modal} toggle={props.toggle}/>
+            <Button className="btn btn-info bot-start">봇 시작</Button>
         </div>
     );
 };
@@ -162,6 +164,18 @@ const BotSubmit = () => {
 class BotSetting extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            modal: false
+        };
+
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle() {
+        this.setState({
+            modal: !this.state.modal
+        });
     }
 
     render() {
@@ -189,7 +203,7 @@ class BotSetting extends Component {
                 <BotAutoTrade botAutoTrade={autoTrading}/>
 
                 <BotSave/>
-                <BotSubmit/>
+                <BotSubmit modal={this.state.modal} toggle={this.toggle}/>
             </BotSettingComponent>
         );
     }
