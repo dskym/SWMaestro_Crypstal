@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button } from "reactstrap";
 import BacktestSettingModal from './BacktestSettingModal';
 import SafetyModal from "./SafetyModal";
+import OrderQuantityModal from "./OrderQuantityModal";
 
 const BotSettingComponent = styled.div`    
     flex: 2;
@@ -98,7 +99,7 @@ const AdditionalSetting = (props) => {
             </div>
 
             <div className="box-body">
-                <OrderQuantity/>
+                <OrderQuantity modal={props.orderQuantityModal} toggle={props.orderQuantityToggle}/>
                 <div className="b-1 h-5 mt-10 mb-10"/>
                 <Safety modal={props.safetyModal} toggle={props.safetyToggle}/>
             </div>
@@ -117,14 +118,15 @@ const Safety = (props) => {
     );
 };
 
-const OrderQuantity = () => {
+const OrderQuantity = (props) => {
     return (
-        <div className="order-quantity">
+        <div className="order-quantity" onClick={props.toggle}>
             <p>주문 수량</p>
             <p><span className="badge badge-success mr-10">매수</span><span
                 className="order-quantity-buy">100% (All-in)</span></p>
             <p><span className="badge badge-danger mr-10">매도</span><span
                 className="order-quantity-sell">100% (All-in)</span></p>
+            <OrderQuantityModal modal={props.modal} toggle={props.toggle}/>
         </div>
     );
 };
@@ -170,12 +172,21 @@ class BotSetting extends Component {
         super(props);
 
         this.state = {
+            orderQuantityModal: false,
             safetyModal: false,
             backtestModal: false
         };
 
+        this.orderQuantityToggle = this.orderQuantityToggle.bind(this);
         this.safetyToggle = this.safetyToggle.bind(this);
         this.backtestToggle = this.backtestToggle.bind(this);
+    }
+
+    orderQuantityToggle() {
+        this.setState({
+            ...this.state,
+            orderQuantityModal: !this.state.orderQuantityModal
+        });
     }
 
     safetyToggle() {
@@ -212,6 +223,8 @@ class BotSetting extends Component {
                 <BotStrategy botStrategy={crypto, exchange, period}/>
 
                 <AdditionalSetting
+                    orderQuantityModal={this.state.orderQuantityModal}
+                    orderQuantityToggle={this.orderQuantityToggle}
                     safetyModal={this.state.safetyModal}
                     safetyToggle={this.safetyToggle}
                 />
