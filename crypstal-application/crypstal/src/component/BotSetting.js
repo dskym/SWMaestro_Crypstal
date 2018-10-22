@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styled from "styled-components";
 import { Button } from "reactstrap";
+import BotStrategySettingModal from './BotStrategySettingModal';
 import AssetModal from './AssetModal';
 import BacktestSettingModal from './BacktestSettingModal';
 import SafetyModal from "./SafetyModal";
@@ -31,12 +32,12 @@ const InvestmentAmount = ({botAsset, assetModal, assetToggle}) => {
                     <label className="mb-0">{botAsset} KRW</label>
                 </div>
             </div>
-            <AssetModal modal={assetModal} toggle={assetToggle} />
+            <AssetModal modal={assetModal} toggle={assetToggle}/>
         </div>
     );
 };
 
-const BotStrategy = ({botStrategy}) => {
+const BotStrategy = ({botStrategy, botStrategyModal, botStrategyModalToggle}) => {
     return (
         <div className="box">
             <div className="box-header with-border">
@@ -78,12 +79,13 @@ const BotStrategy = ({botStrategy}) => {
 
                 <div className="b-1 h-30px"/>
 
-                <div className="strategy-setting">
+                <div className="strategy-setting" onClick={botStrategyModalToggle}>
                     <h4 style={{margin: '0.5rem 0rem'}}>전략 제목 : <span
                         className="strategy-description-title">제목 없음</span></h4>
                     <p style={{marginBottom: '0px'}}>전략 설명 : <span
                         className="strategy-description-content">설명 없음</span></p>
                 </div>
+                <BotStrategySettingModal modal={botStrategyModal} toggle={botStrategyModalToggle}/>
             </div>
         </div>
     );
@@ -172,16 +174,25 @@ class BotSetting extends Component {
         super(props);
 
         this.state = {
+            botStrategytModal: false,
             assetModal: false,
             orderQuantityModal: false,
             safetyModal: false,
             backtestModal: false
         };
 
+        this.botStrategyToggle = this.botStrategyToggle.bind(this);
         this.assetToggle = this.assetToggle.bind(this);
         this.orderQuantityToggle = this.orderQuantityToggle.bind(this);
         this.safetyToggle = this.safetyToggle.bind(this);
         this.backtestToggle = this.backtestToggle.bind(this);
+    }
+
+    botStrategyToggle() {
+        this.setState({
+            ...this.state,
+            botStrategytModal: !this.state.botStrategytModal
+        });
     }
 
     assetToggle() {
@@ -233,7 +244,11 @@ class BotSetting extends Component {
                     assetModal={this.state.assetModal}
                     assetToggle={this.assetToggle}
                 />
-                <BotStrategy botStrategy={crypto, exchange, period}/>
+                <BotStrategy
+                    botStrategy={crypto, exchange, period}
+                    botStrategyModal={this.state.botStrategytModal}
+                    botStrategyModalToggle={this.botStrategyToggle}
+                />
 
                 <AdditionalSetting
                     orderQuantityModal={this.state.orderQuantityModal}
