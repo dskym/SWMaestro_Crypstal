@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import styled from "styled-components";
 import { Button } from "reactstrap";
 import BacktestSettingModal from './BacktestSettingModal';
+import SafetyModal from "./SafetyModal";
 
 const BotSettingComponent = styled.div`    
     flex: 2;
@@ -85,7 +86,8 @@ const BotStrategy = ({botStrategy}) => {
     );
 }
 
-const AdditionalSetting = () => {
+const AdditionalSetting = (props) => {
+    console.log(props);
     return (
         <div className="box">
             <div className="box-header with-border">
@@ -98,17 +100,19 @@ const AdditionalSetting = () => {
             <div className="box-body">
                 <OrderQuantity/>
                 <div className="b-1 h-5 mt-10 mb-10"/>
-                <Safety/>
+                <Safety modal={props.safetyModal} toggle={props.safetyToggle}/>
             </div>
         </div>
     );
 };
 
-const Safety = () => {
+const Safety = (props) => {
+    console.log(props);
     return (
-        <div className="safety">
+        <div className="safety" onClick={props.toggle}>
             <p>Safety</p>
             <div className="safety-content">* 선택한 Safety 옵션이 없습니다.</div>
+            <SafetyModal modal={props.modal} toggle={props.toggle}/>
         </div>
     );
 };
@@ -166,15 +170,25 @@ class BotSetting extends Component {
         super(props);
 
         this.state = {
-            modal: false
+            safetyModal: false,
+            backtestModal: false
         };
 
-        this.toggle = this.toggle.bind(this);
+        this.safetyToggle = this.safetyToggle.bind(this);
+        this.backtestToggle = this.backtestToggle.bind(this);
     }
 
-    toggle() {
+    safetyToggle() {
         this.setState({
-            modal: !this.state.modal
+            ...this.state,
+            safetyModal: !this.state.safetyModal
+        });
+    }
+
+    backtestToggle() {
+        this.setState({
+            ...this.state,
+            backtestModal: !this.state.backtestModal
         });
     }
 
@@ -197,13 +211,16 @@ class BotSetting extends Component {
                 <InvestmentAmount botAsset={asset}/>
                 <BotStrategy botStrategy={crypto, exchange, period}/>
 
-                <AdditionalSetting/>
+                <AdditionalSetting
+                    safetyModal={this.state.safetyModal}
+                    safetyToggle={this.safetyToggle}
+                />
 
                 <BotAlarm botAlarm={alarm}/>
                 <BotAutoTrade botAutoTrade={autoTrading}/>
 
                 <BotSave/>
-                <BotSubmit modal={this.state.modal} toggle={this.toggle}/>
+                <BotSubmit modal={this.state.backtestModal} toggle={this.backtestToggle}/>
             </BotSettingComponent>
         );
     }
