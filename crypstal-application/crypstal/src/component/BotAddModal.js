@@ -4,7 +4,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Bu
 class BotAddModal extends Component {
     render() {
         return (
-            <Modal isOpen={this.props.modal}>
+            <Modal isOpen={this.props.modal} toggle={this.props.toggle} backdrop={true}>
                 <ModalHeader>
                     <h4>봇 추가</h4>
                 </ModalHeader>

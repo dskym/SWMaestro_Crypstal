@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 
-import ContentTab from "./ContentTab";
-import Chart from "./Chart";
 import Info from "./Info";
 import BotList from "./BotList";
 import BotSetting from "./BotSetting";

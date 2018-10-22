@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styled from "styled-components";
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 const BotSettingComponent = styled.div`    
     flex: 2;

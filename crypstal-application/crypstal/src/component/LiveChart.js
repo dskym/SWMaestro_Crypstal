@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from "prop-types";
 
 import {format} from "d3-format";
@@ -39,7 +39,7 @@ function getData() {
     return promiseMSFT;
 }
 
-class TradeChart extends Component {
+class LiveChart extends Component {
     componentDidMount() {
         getData().then(data => {
             this.setState({data});
@@ -95,11 +95,11 @@ class TradeChart extends Component {
     }
 }
 
-TradeChart.propTypes = {
+LiveChart.propTypes = {
     width: PropTypes.number.isRequired,
     ratio: PropTypes.number.isRequired,
 };
 
-TradeChart = fitWidth(TradeChart);
+LiveChart = fitWidth(LiveChart);
 
-export default TradeChart;
+export default LiveChart;

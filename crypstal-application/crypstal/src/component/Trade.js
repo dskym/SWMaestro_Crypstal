@@ -18,11 +18,8 @@ const TradeInformationComponent = styled.div`
     flex: 1;
 `;
 
-const TradeChartComponent = styled.div`
-    display: flex;
-    flex-direction: column;
-    
-    flex: 2;
+const TradeChartComponent = styled.div`    
+    flex: 1;
 `;
 
 const mapStateToProps = (state) => (

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Header from './component/Header';
 
 import Content from "./component/Content";
-import BotAddModal from "./component/BotAddModal";
 
 const Wrapper = styled.div`
     display: flex;

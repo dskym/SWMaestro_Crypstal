@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {TabContent, TabPane} from 'reactstrap';
 
 import ContentTab from "./ContentTab";
-import Chart from "./Chart";
+import LiveChart from "./LiveChart";
 import Trade from "./Trade";
 import BotStore from "./BotStore";
 
@@ -37,7 +37,7 @@ class Info extends Component {
 
                 <TabContent activeTab={this.state.activeTab}>
                     <TabPane tabId="chart">
-                        <Chart/>
+                        <LiveChart/>
                     </TabPane>
                     <TabPane tabId="trade">
                         <Trade/>
