@@ -38,14 +38,14 @@ const BotStrategy = ({botStrategy, botStrategyModal, botStrategyModalToggle}) =>
         <Card>
             <CardHeader>봇의 전략</CardHeader>
             <CardBody>
-                    <FormGroup>
-                        <Label for="exchange">거래소</Label>
-                        <Input type="select" name="exchange" id="exchange">
-                            <option value="Bithumb">Bithumb</option>
-                            <option value="Upbit">Upbit</option>
-                            <option value="Coinone">Coinone</option>
-                        </Input>
-                    </FormGroup>
+                <FormGroup>
+                    <Label for="exchange">거래소</Label>
+                    <Input type="select" name="exchange" id="exchange">
+                        <option value="Bithumb">Bithumb</option>
+                        <option value="Upbit">Upbit</option>
+                        <option value="Coinone">Coinone</option>
+                    </Input>
+                </FormGroup>
 
                 <FormGroup>
                     <Label for="coin">코인</Label>
@@ -209,8 +209,6 @@ class BotSetting extends Component {
     }
 
     render() {
-        const botState = this.props.botState;
-
         const {
             name,
             crypto,
@@ -230,7 +228,7 @@ class BotSetting extends Component {
                     assetToggle={this.assetToggle}
                 />
                 <BotStrategy
-                    botStrategy={crypto, exchange, period}
+                    botStrategy={{crypto, exchange, period}}
                     botStrategyModal={this.state.botStrategytModal}
                     botStrategyModalToggle={this.botStrategyToggle}
                 />
