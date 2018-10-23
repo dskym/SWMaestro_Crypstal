@@ -71,7 +71,7 @@ class LiveChart extends Component {
                          ratio={ratio}
                          width={width}
                          margin={{left: 50, right: 50, top: 10, bottom: 30}}
-                         type='svg'
+                         type='hybrid'
                          seriesName="MSFT"
                          data={data}
                          xScale={xScale}
@@ -83,12 +83,12 @@ class LiveChart extends Component {
                 <Chart id={1} height={400} yExtents={d => [d.high, d.low]}>
                     <YAxis axisAt="right" orient="right" ticks={5}/>
                     <XAxis axisAt="bottom" orient="bottom" showTicks={false}/>
-                    <CandlestickSeries/>
+                    <CandlestickSeries fill={(d) => d.close > d.open ? "blue" : "red"}/>
                 </Chart>
                 <Chart id={2} origin={(w, h) => [0, h - 150]} height={150} yExtents={d => d.volume}>
                     <XAxis axisAt="bottom" orient="bottom"/>
                     <YAxis axisAt="left" orient="left" ticks={5} tickFormat={format(".2s")}/>
-                    <BarSeries yAccessor={d => d.volume} fill={(d) => d.close > d.open ? "#6BA583" : "red"}/>
+                    <BarSeries yAccessor={d => d.volume} fill={(d) => d.close > d.open ? "blue" : "red"}/>
                 </Chart>
             </ChartCanvas>
         );

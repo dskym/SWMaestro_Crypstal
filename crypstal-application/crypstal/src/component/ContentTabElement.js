@@ -3,6 +3,9 @@ import styled from "styled-components";
 
 const ContentTabElementComponent = styled.li`
     flex: 1;
+    
+    display: flex;
+    flex-direction: column;
 `;
 
 class ContentTabElement extends Component {
@@ -11,10 +14,12 @@ class ContentTabElement extends Component {
     }
 
     render() {
+        const contentName = this.props.contentName;
+
         return (
             <ContentTabElementComponent>
-                <img src={window.location.origin + '/images/chart.png'} />
-                {this.props.contentName}
+                <img src={window.location.origin + '/images/' + contentName + '.png'} />
+                <span>{contentName}</span>
             </ContentTabElementComponent>
         );
     }

@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import styled from "styled-components";
-import { Button } from "reactstrap";
+import {Button, Card, CardHeader, CardBody, CardText, FormGroup, Label, Input} from "reactstrap";
 import BotStrategySettingModal from './BotStrategySettingModal';
 import AssetModal from './AssetModal';
 import BacktestSettingModal from './BacktestSettingModal';
 import SafetyModal from "./SafetyModal";
 import OrderQuantityModal from "./OrderQuantityModal";
+
 
 const BotSettingComponent = styled.div`    
     flex: 2;
@@ -22,62 +23,51 @@ const BotName = ({botName}) => {
 
 const InvestmentAmount = ({botAsset, assetModal, assetToggle}) => {
     return (
-        <div className="box" onClick={assetToggle}>
-            <div className="box-header with-border">
-                <h6 className="box-title">투자 금액</h6>
-            </div>
-
-            <div className="box-body">
-                <div className="asset">
-                    <label className="mb-0">{botAsset} KRW</label>
-                </div>
-            </div>
-            <AssetModal modal={assetModal} toggle={assetToggle}/>
-        </div>
+        <Card onClick={assetToggle}>
+            <CardHeader>투자 금액</CardHeader>
+            <CardBody>
+                <CardText>{botAsset} KRW</CardText>
+                <AssetModal modal={assetModal} toggle={assetToggle}/>
+            </CardBody>
+        </Card>
     );
 };
 
 const BotStrategy = ({botStrategy, botStrategyModal, botStrategyModalToggle}) => {
     return (
-        <div className="box">
-            <div className="box-header with-border">
-                <h6 className="box-title">봇의 전략</h6>
-                <ul className="box-controls pull-right">
-                    <li><a className="box-btn-slide" href="#"/></li>
-                </ul>
-            </div>
+        <Card>
+            <CardHeader>봇의 전략</CardHeader>
+            <CardBody>
+                    <FormGroup>
+                        <Label for="exchange">거래소</Label>
+                        <Input type="select" name="exchange" id="exchange">
+                            <option value="Bithumb">Bithumb</option>
+                            <option value="Upbit">Upbit</option>
+                            <option value="Coinone">Coinone</option>
+                        </Input>
+                    </FormGroup>
 
-            <div className="box-body">
-                <div className="form-group">
-                    <label>거래소</label>
-                    <select id="bot-exchange" className="form-control exchange bot-data">
-                        <option value="Bithumb">Bithumb</option>
-                        <option value="Upbit">Upbit</option>
-                        <option value="Coinone">Coinone</option>
-                    </select>
-                </div>
-
-                <div className="form-group">
-                    <label>코인</label>
-                    <select id="bot-coin" className="form-control coin bot-data">
+                <FormGroup>
+                    <Label for="coin">코인</Label>
+                    <Input type="select" name="coin" id="coin">
                         <option value="BTC">BTC</option>
                         <option value="ETH">ETH</option>
                         <option value="XRP">XRP</option>
-                    </select>
-                </div>
+                    </Input>
+                </FormGroup>
 
-                <div className="form-group">
-                    <label>주기</label>
-                    <select id="bot-period" className="form-control period bot-data">
+                <FormGroup>
+                    <Label for="period">주기</Label>
+                    <Input type="select" name="period" id="period">
                         <option value="5m">5m</option>
                         <option value="15m">15m</option>
                         <option value="30m">30m</option>
                         <option value="1h">1h</option>
                         <option value="2h">2h</option>
-                    </select>
-                </div>
+                    </Input>
+                </FormGroup>
 
-                <div className="b-1 h-30px"/>
+                <hr className="b-1 h-30px"/>
 
                 <div className="strategy-setting" onClick={botStrategyModalToggle}>
                     <h4 style={{margin: '0.5rem 0rem'}}>전략 제목 : <span
@@ -85,28 +75,23 @@ const BotStrategy = ({botStrategy, botStrategyModal, botStrategyModalToggle}) =>
                     <p style={{marginBottom: '0px'}}>전략 설명 : <span
                         className="strategy-description-content">설명 없음</span></p>
                 </div>
+
                 <BotStrategySettingModal modal={botStrategyModal} toggle={botStrategyModalToggle}/>
-            </div>
-        </div>
+            </CardBody>
+        </Card>
     );
 }
 
 const AdditionalSetting = (props) => {
     return (
-        <div className="box">
-            <div className="box-header with-border">
-                <h6 className="box-title">추가 설정</h6>
-                <ul className="box-controls pull-right">
-                    <li><a className="box-btn-slide" href="#"/></li>
-                </ul>
-            </div>
-
-            <div className="box-body">
+        <Card>
+            <CardHeader>추가 설정</CardHeader>
+            <CardBody>
                 <OrderQuantity modal={props.orderQuantityModal} toggle={props.orderQuantityToggle}/>
-                <div className="b-1 h-5 mt-10 mb-10"/>
+                <hr className="b-1 h-5 mt-10 mb-10"/>
                 <Safety modal={props.safetyModal} toggle={props.safetyToggle}/>
-            </div>
-        </div>
+            </CardBody>
+        </Card>
     );
 };
 
@@ -163,7 +148,7 @@ const BotSubmit = (props) => {
     return (
         <div className="box-submit">
             <Button onClick={props.toggle}>백테스팅</Button>
-            <BacktestSettingModal  modal={props.modal} toggle={props.toggle}/>
+            <BacktestSettingModal modal={props.modal} toggle={props.toggle}/>
             <Button className="btn btn-info bot-start">봇 시작</Button>
         </div>
     );
