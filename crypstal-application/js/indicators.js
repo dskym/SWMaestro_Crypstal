@@ -1,3 +1,174 @@
+var highlow = {
+    name : 'High Low',
+    options : {
+        price: {
+            name : 'Target Price',
+            value : 1000000
+        },
+    },
+    position : {
+        left: 'Target Price',
+        right: 'Current Price',
+        comparator: '='
+    },
+    weight : 1,
+
+    init : function(indicatorConfig) {
+        this.options.price.value = indicatorConfig['price'];
+        this.position.comparator = indicatorConfig['comparator'];
+        this.weight = indicatorConfig['weight'];
+    },
+
+    updateIndicatorData : function(newIndicatorData) {
+        this.options.price.value = newIndicatorData.price;
+        this.position.comparator = newIndicatorData.comparator;
+        this.weight = newIndicatorData.weight;
+    },
+
+    parseSettingContent : function($indicatorSetting) {
+        var indicatorObject = new Object();
+
+        indicatorObject.price = $indicatorSetting.find('#price').val();
+        indicatorObject.comparator = $indicatorSetting.find('.position').find('.comparator').text();
+        indicatorObject.weight = $indicatorSetting.find('.weight').find('#weight').val();
+
+        return indicatorObject;
+    },
+
+    getSettingContent : function() {
+        var indicatorSettingContent = '';
+
+        indicatorSettingContent +=
+            '                <div class="indicator-setting">\n' +
+            '                  <div class="box">\n' +
+            '                    <div class="box-header with-border">\n' +
+            '                      <h6 class="box-title"><span class="name">' + this.name + '</span></h6>\n' +
+            '                    </div>\n' +
+            '                    <div class="box-body">\n' +
+            '                      <div class="options">\n';
+
+        $.each(this.options, function(key, data) {
+            if(data.domain instanceof Array) {
+                indicatorSettingContent +=
+                    '                        <div class="form-group">\n' +
+                    '                          <label>' + data.name + '</label>\n';
+
+                indicatorSettingContent +=
+                    '                        <select id="' + key + '" class="w-100 pull-right">\n';
+
+                for(var i=0;i<data.domain.length;++i) {
+                    if(data.domain[i] === data.value) {
+                        indicatorSettingContent +=
+                            '                          <option value="' + data.domain[i] + '" selected>' + data.domain[i] + '</option>\n';
+                    }
+                    else {
+                        indicatorSettingContent +=
+                            '                          <option value="' + data.domain[i] + '">' + data.domain[i] + '</option>\n';
+                    }
+                }
+
+
+                indicatorSettingContent +=
+                    '                        </select>\n' +
+                    '                        </div>\n';
+            }
+            else if(data.domain instanceof Object) {
+                indicatorSettingContent +=
+                    '                        <div class="form-group">\n' +
+                    '                          <label>' + data.name + ' (' + data.domain.min + '~' + data.domain.max + ')' + '</label>\n' +
+                    '                          <input class="w-50 text-center pull-right" id="' + key + '" type="text" value="' + data.value + '"">\n' +
+                    '                        </div>\n';
+            }
+            else {
+                indicatorSettingContent +=
+                    '                        <div class="form-group">\n' +
+                    '                          <label>' + data.name + '</label>\n' +
+                    '                          <input class="w-100 text-center pull-right" id="' + key + '" type="text" value="' + data.value + '"">\n' +
+                    '                        </div>\n';
+            }
+        });
+
+        indicatorSettingContent +=
+            '                        </div>\n' +
+            '                        <div class="position">\n' +
+            '                          <div class="text-center">\n' +
+            '                            <span class="left">' + this.position.left + '</span>\n' +
+            '                            <button type="button" class="btn btn-info btn-circle comparator">' + this.position.comparator + '</button>\n' +
+            '                            <span class="right">' + this.position.right + '</span>\n' +
+            '                          </div>\n' +
+            '                        </div>\n';
+
+        indicatorSettingContent +=
+            '                        <div class="weight">\n' +
+            '                          <div class="form-group">\n' +
+            '                            <label>이 지표의 가중치</label>\n' +
+            '                            <input class="w-50 text-center" type="number" value="' + this.weight + '" id="weight">\n' +
+            '                          </div>\n' +
+            '                        </div>\n';
+
+        indicatorSettingContent +=
+            '                    </div>\n' +
+            '                    <div class="box-footer pull-right">\n' +
+            '                      <button type="button" class="btn btn-default" id="delete-indicator-setting">\n' +
+            '                        삭제\n' +
+            '                      </button>\n' +
+            '                      <button type="button" class="btn btn-default" id="apply-indicator-setting">\n' +
+            '                        적용\n' +
+            '                      </button>\n' +
+            '                    </div>\n' +
+            '                  </div>\n' +
+            '                </div>\n';
+
+        return indicatorSettingContent;
+    },
+
+    getDescriptionContent : function() {
+        var indicatorDescriptionContent = '';
+
+        indicatorDescriptionContent +=
+            '                <div class="indicator-description">\n' +
+            '                  <div class="box">\n' +
+            '                    <div class="box-header with-border">\n' +
+            '                      <h6 class="box-title"><span class="name">' + this.name + '</span></h6>\n' +
+            '                    </div>\n' +
+            '                    <div class="box-body">\n';
+
+        indicatorDescriptionContent += '<p>Trigger : ' + this.position.left + ' ' + this.position.comparator + ' ' + this.position.right + '</p>';
+
+        indicatorDescriptionContent += '<div class="options">';
+
+        indicatorDescriptionContent += '<p>' + this.options.price.name + ' : ' + Number(this.options.price.value).toLocaleString('en') + '</p>';
+
+        indicatorDescriptionContent +=
+            '                      </div>\n' +
+            '                    </div>\n' +
+            '                    <div class="box-footer">\n' +
+            '                      <span>이 지표의 가중치</span>\n' +
+            '                      <span class="badge badge-pill badge-info weight">' + this.weight + '</span>\n' +
+            '                    </div>\n' +
+            '                  </div>\n' +
+            '                </div>\n' +
+            '              </div>\n';
+
+        return indicatorDescriptionContent;
+    },
+
+    getSerialized : function() {
+        var obj = new Object();
+
+        obj['indicator'] = this.name.replace(/ /gi, "");
+
+        $.each(this.options, function(key, data) {
+            obj[key] = String(data.value);
+        });
+
+        obj['comparator'] = this.position.comparator;
+        obj['weight'] = this.weight;
+
+        return JSON.stringify(obj);
+    }
+};
+
 var ma_double = {
     name : 'MA Double',
     options : {
@@ -879,6 +1050,7 @@ var price_comparison = {
 */
 
 var indicators = {
+    'HighLow' : highlow,
     'MACD' : macd,
     'MADouble' : ma_double,
     'ParabolicSar' : parabolic_sar,

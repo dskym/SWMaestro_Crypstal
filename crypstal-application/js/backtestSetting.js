@@ -105,6 +105,8 @@ $(function () {
 
         var backtestUrl = baseUrl + '/v1/bots/' + botId + '/backtest?' + query;
 
+        console.log(backtestUrl);
+
         $.getJSON(backtestUrl, function() {
         }).done(function (backtestResponse) {
             //Convert Backtest UI

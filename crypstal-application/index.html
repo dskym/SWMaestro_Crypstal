@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../assets/vendor_components/bootstrap-daterangepicker/daterangepicker.css">
 
     <!--amcharts -->
-    <link href="https://www.amcharts.com/lib/3/plugins/export/export.css" rel="stylesheet" type="text/css" />
+    <link href="https://www.amcharts.com/lib/3/plugins/export/export.css" rel="stylesheet" type="text/css"/>
 
     <!--alerts CSS -->
     <link href="../assets/vendor_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
@@ -38,1051 +38,1110 @@
 </head>
 
 <body class="hold-transition">
-    <section class="wrapper">
-        <header class="main-header">
-            <!-- Header Navbar -->
-            <nav class="navbar navbar-static-top">
-                <!-- Logo -->
-                <div class="row">
-                    <div class="col-md-2 col-lg-2">
-                        <div class="logo pl-0">
-                            <a href="index.html" class="logo">
-                                <!-- mini logo for sidebar mini 50x50 pixels -->
-                                <b class="logo-mini">
-                                    <img src="../images/logo.png" alt="logo" />
-                                </b>
-                                <!-- logo for regular state and mobile devices -->
-                                <span class="logo-lg">
-                    <h2>Crypstal</h2>
-                  </span>
-                            </a>
-                        </div>
+<section class="wrapper">
+    <header class="main-header">
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top">
+            <!-- Logo -->
+            <div class="row">
+                <div class="col-md-2 col-lg-2">
+                    <div class="logo pl-0">
+                        <a href="index.html" class="logo">
+                            <!-- mini logo for sidebar mini 50x50 pixels -->
+                            <b class="logo-mini">
+                                <img src="../images/logo.png" alt="logo"/>
+                            </b>
+                            <!-- logo for regular state and mobile devices -->
+                            <span class="logo-lg">
+                            <h2>Crypstal</h2>
+                            </span>
+                        </a>
                     </div>
+                </div>
 
-                    <div class="col-md-8 col-lg-8"->
-                        <div class="webticker">
-                            <div id="webticker">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 col-lg-2">
-                        <div class="navbar-custom-menu">
-                            <ul class="nav navbar-nav">
-                                <!-- Notifications -->
-                                <li class="dropdown notifications-menu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="mdi mdi-bell"></i>
-                                    </a>
-                                    <ul class="dropdown-menu scale-up">
-                                        <li class="header">You have 7 notifications</li>
-                                        <li>
-                                            <!-- inner menu: contains the actual data -->
-                                            <ul class="menu inner-content-div">
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="fa fa-users text-aqua"></i> Curabitur id eros quis nunc suscipit blandit.
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="fa fa-warning text-yellow"></i> Duis malesuada justo eu sapien elementum, in semper diam posuere.
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="fa fa-users text-red"></i> Donec at nisi sit amet tortor commodo porttitor pretium a erat.
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="fa fa-shopping-cart text-green"></i> In gravida mauris et nisi
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="fa fa-user text-red"></i> Praesent eu lacus in libero dictum fermentum.
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="fa fa-user text-red"></i> Nunc fringilla lorem
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <i class="fa fa-user text-red"></i> Nullam euismod dolor ut quam interdum, at scelerisque ipsum imperdiet.
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="footer"><a href="#">View all</a></li>
-                                    </ul>
-                                </li>
-                                <!-- Helop -->
-                                <li class="dropdown tasks-menu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="mdi mdi-help"></i>
-                                    </a>
-                                    <ul class="dropdown-menu scale-up">
-                                        <li class="header">You have 6 tasks</li>
-                                        <li>
-                                            <!-- inner menu: contains the actual data -->
-                                            <ul class="menu inner-content-div">
-                                                <li><!-- Task item -->
-                                                    <a href="#">
-                                                        <h3>
-                                                            Lorem ipsum dolor sit amet
-                                                            <small class="pull-right">30%</small>
-                                                        </h3>
-                                                        <div class="progress xs">
-                                                            <div class="progress-bar progress-bar-aqua" style="width: 30%" role="progressbar"
-                                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                                <span class="sr-only">30% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <!-- end task item -->
-                                                <li><!-- Task item -->
-                                                    <a href="#">
-                                                        <h3>
-                                                            Vestibulum nec ligula
-                                                            <small class="pull-right">20%</small>
-                                                        </h3>
-                                                        <div class="progress xs">
-                                                            <div class="progress-bar progress-bar-danger" style="width: 20%" role="progressbar"
-                                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                                <span class="sr-only">20% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <!-- end task item -->
-                                                <li><!-- Task item -->
-                                                    <a href="#">
-                                                        <h3>
-                                                            Donec id leo ut ipsum
-                                                            <small class="pull-right">70%</small>
-                                                        </h3>
-                                                        <div class="progress xs">
-                                                            <div class="progress-bar progress-bar-light-blue" style="width: 70%" role="progressbar"
-                                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                                <span class="sr-only">70% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <!-- end task item -->
-                                                <li><!-- Task item -->
-                                                    <a href="#">
-                                                        <h3>
-                                                            Praesent vitae tellus
-                                                            <small class="pull-right">40%</small>
-                                                        </h3>
-                                                        <div class="progress xs">
-                                                            <div class="progress-bar progress-bar-yellow" style="width: 40%" role="progressbar"
-                                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                                <span class="sr-only">40% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <!-- end task item -->
-                                                <li><!-- Task item -->
-                                                    <a href="#">
-                                                        <h3>
-                                                            Nam varius sapien
-                                                            <small class="pull-right">80%</small>
-                                                        </h3>
-                                                        <div class="progress xs">
-                                                            <div class="progress-bar progress-bar-red" style="width: 80%" role="progressbar"
-                                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                                <span class="sr-only">80% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <!-- end task item -->
-                                                <li><!-- Task item -->
-                                                    <a href="#">
-                                                        <h3>
-                                                            Nunc fringilla
-                                                            <small class="pull-right">90%</small>
-                                                        </h3>
-                                                        <div class="progress xs">
-                                                            <div class="progress-bar progress-bar-primary" style="width: 90%" role="progressbar"
-                                                                 aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                                                <span class="sr-only">90% Complete</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <!-- end task item -->
-                                            </ul>
-                                        </li>
-                                        <li class="footer">
-                                            <a href="#">View all tasks</a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <!-- User Account -->
-                                <li class="dropdown user user-menu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <img src="../images/user-info.jpg" class="user-image rounded-circle" alt="User Image">
-                                    </a>
-                                    <ul class="dropdown-menu scale-up">
-                                        <!-- User image -->
-                                        <li class="user-header">
-                                            <img src="../images/user5-128x128.jpg" class="float-left rounded-circle" alt="User Image">
-
-                                            <p>
-                                                Romi Roy
-                                                <small class="mb-5">jb@gmail.com</small>
-                                                <a href="#" class="btn btn-danger btn-sm btn-rounded">View Profile</a>
-                                            </p>
-                                        </li>
-                                        <!-- Menu Body -->
-                                        <li class="user-body">
-                                            <div class="row no-gutters">
-                                                <div class="col-12 text-left">
-                                                    <a href="#"><i class="ion ion-person"></i> My Profile</a>
-                                                </div>
-                                                <div role="separator" class="divider col-12"></div>
-                                                <div class="col-12 text-left">
-                                                    <a href="#"><i class="ti-settings"></i> Account Setting</a>
-                                                </div>
-                                                <div role="separator" class="divider col-12"></div>
-                                                <div class="col-12 text-left">
-                                                    <a href="#"><i class="fa fa-power-off"></i> Logout</a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <button class="btn btn-social-icon btn-circle btn-google hide" data-toggle="modal" data-target="#login"><i class="fa fa-google-plus"></i></button>
-
-                            </ul>
+                <div class="col-md-8 col-lg-8" ->
+                    <div class="webticker">
+                        <div id="webticker">
                         </div>
                     </div>
                 </div>
-                <!-- /.row -->
-            </nav>
-        </header>
 
-        <!-- Content Wrapper. Contains page content -->
-        <section class="content-wrapper">
-            <!-- Main content -->
-            <section class="content">
-
-                <div class="row">
-                    <!-- bot-list -->
-                    <!-- col -->
-                    <div class="col-3">
-                        <div class="bot-list">
-                            <!-- Nav tabs -->
-                            <div class="vtabs customvtab">
-                                <ul class="nav nav-tabs tabs-vertical bot-tab" role="tablist">
+                <div class="col-md-2 col-lg-2">
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- Notifications -->
+                            <li class="dropdown notifications-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="mdi mdi-bell"></i>
+                                </a>
+                                <ul class="dropdown-menu scale-up">
+                                    <li class="header">You have 7 notifications</li>
+                                    <li>
+                                        <!-- inner menu: contains the actual data -->
+                                        <ul class="menu inner-content-div">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-users text-aqua"></i> Curabitur id eros quis nunc
+                                                    suscipit blandit.
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-warning text-yellow"></i> Duis malesuada justo eu
+                                                    sapien elementum, in semper diam posuere.
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-users text-red"></i> Donec at nisi sit amet tortor
+                                                    commodo porttitor pretium a erat.
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-shopping-cart text-green"></i> In gravida mauris et
+                                                    nisi
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-user text-red"></i> Praesent eu lacus in libero
+                                                    dictum fermentum.
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-user text-red"></i> Nunc fringilla lorem
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-user text-red"></i> Nullam euismod dolor ut quam
+                                                    interdum, at scelerisque ipsum imperdiet.
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="footer"><a href="#">View all</a></li>
                                 </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content bot-tab-content">
-                                </div>
+                            </li>
+                            <!-- Helop -->
+                            <li class="dropdown tasks-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="mdi mdi-help"></i>
+                                </a>
+                                <ul class="dropdown-menu scale-up">
+                                    <li class="header">You have 6 tasks</li>
+                                    <li>
+                                        <!-- inner menu: contains the actual data -->
+                                        <ul class="menu inner-content-div">
+                                            <li><!-- Task item -->
+                                                <a href="#">
+                                                    <h3>
+                                                        Lorem ipsum dolor sit amet
+                                                        <small class="pull-right">30%</small>
+                                                    </h3>
+                                                    <div class="progress xs">
+                                                        <div class="progress-bar progress-bar-aqua" style="width: 30%"
+                                                             role="progressbar"
+                                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                            <span class="sr-only">30% Complete</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <!-- end task item -->
+                                            <li><!-- Task item -->
+                                                <a href="#">
+                                                    <h3>
+                                                        Vestibulum nec ligula
+                                                        <small class="pull-right">20%</small>
+                                                    </h3>
+                                                    <div class="progress xs">
+                                                        <div class="progress-bar progress-bar-danger" style="width: 20%"
+                                                             role="progressbar"
+                                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                            <span class="sr-only">20% Complete</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <!-- end task item -->
+                                            <li><!-- Task item -->
+                                                <a href="#">
+                                                    <h3>
+                                                        Donec id leo ut ipsum
+                                                        <small class="pull-right">70%</small>
+                                                    </h3>
+                                                    <div class="progress xs">
+                                                        <div class="progress-bar progress-bar-light-blue"
+                                                             style="width: 70%" role="progressbar"
+                                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                            <span class="sr-only">70% Complete</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <!-- end task item -->
+                                            <li><!-- Task item -->
+                                                <a href="#">
+                                                    <h3>
+                                                        Praesent vitae tellus
+                                                        <small class="pull-right">40%</small>
+                                                    </h3>
+                                                    <div class="progress xs">
+                                                        <div class="progress-bar progress-bar-yellow" style="width: 40%"
+                                                             role="progressbar"
+                                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                            <span class="sr-only">40% Complete</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <!-- end task item -->
+                                            <li><!-- Task item -->
+                                                <a href="#">
+                                                    <h3>
+                                                        Nam varius sapien
+                                                        <small class="pull-right">80%</small>
+                                                    </h3>
+                                                    <div class="progress xs">
+                                                        <div class="progress-bar progress-bar-red" style="width: 80%"
+                                                             role="progressbar"
+                                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                            <span class="sr-only">80% Complete</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <!-- end task item -->
+                                            <li><!-- Task item -->
+                                                <a href="#">
+                                                    <h3>
+                                                        Nunc fringilla
+                                                        <small class="pull-right">90%</small>
+                                                    </h3>
+                                                    <div class="progress xs">
+                                                        <div class="progress-bar progress-bar-primary"
+                                                             style="width: 90%" role="progressbar"
+                                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                            <span class="sr-only">90% Complete</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <!-- end task item -->
+                                        </ul>
+                                    </li>
+                                    <li class="footer">
+                                        <a href="#">View all tasks</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- User Account -->
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="../images/user-info.jpg" class="user-image rounded-circle"
+                                         alt="User Image">
+                                </a>
+                                <ul class="dropdown-menu scale-up">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        <img src="../images/user5-128x128.jpg" class="float-left rounded-circle"
+                                             alt="User Image">
+
+                                        <p>
+                                            Romi Roy
+                                            <small class="mb-5">jb@gmail.com</small>
+                                            <a href="#" class="btn btn-danger btn-sm btn-rounded">View Profile</a>
+                                        </p>
+                                    </li>
+                                    <!-- Menu Body -->
+                                    <li class="user-body">
+                                        <div class="row no-gutters">
+                                            <div class="col-12 text-left">
+                                                <a href="#"><i class="ion ion-person"></i> My Profile</a>
+                                            </div>
+                                            <div role="separator" class="divider col-12"></div>
+                                            <div class="col-12 text-left">
+                                                <a href="#"><i class="ti-settings"></i> Account Setting</a>
+                                            </div>
+                                            <div role="separator" class="divider col-12"></div>
+                                            <div class="col-12 text-left">
+                                                <a href="#"><i class="fa fa-power-off"></i> Logout</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <button class="btn btn-social-icon btn-circle btn-google hide" data-toggle="modal"
+                                        data-target="#login"><i class="fa fa-google-plus"></i></button>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </nav>
+    </header>
+
+    <!-- Content Wrapper. Contains page content -->
+    <section class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+
+            <div class="row">
+                <!-- bot-list -->
+                <!-- col -->
+                <div class="col-3">
+                    <div class="bot-list">
+                        <!-- Nav tabs -->
+                        <div class="vtabs customvtab">
+                            <ul class="nav nav-tabs tabs-vertical bot-tab" role="tablist">
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content bot-tab-content">
                             </div>
                         </div>
-                        <!-- /.bot-list -->
                     </div>
-                    <!-- /.col -->
+                    <!-- /.bot-list -->
+                </div>
+                <!-- /.col -->
 
-                    <!-- bot-content -->
-                    <!-- col -->
-                    <div class="col-9">
-                        <div class="bot-content">
-                            <div class="box box-default mb-0">
-                                <div class="box-body p-5">
-                                    <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs content-tab" role="tablist">
-                                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#chart" role="tab"><img src="../images/chart.png" />Chart</a></li>
-                                        <li class="nav-item info hide"><a class="nav-link" data-toggle="tab" href="#info" role="tab"><img src="../images/information.png" />Info</a></li>
-                                        <li class="nav-item hide"><a class="nav-link" data-toggle="tab" href="#store" role="tab"><img src="../images/shop.png" />Store</a></li>
-                                    </ul>
-                                    <!-- Tab panes -->
-                                    <div class="tab-content tabcontent-border content-detail">
-                                        <div class="tab-pane active" id="chart" role="tabpanel">
-                                            <div class="coin-chart">
-                                                <div class="pad">
-                                                    <div class="box">
-                                                        <div class="box-body">
-                                                            <div class="chart">
-                                                                <div id="liveChart" style="height: 720px;"></div>
-                                                            </div>
+                <!-- bot-content -->
+                <!-- col -->
+                <div class="col-9">
+                    <div class="bot-content">
+                        <div class="box box-default mb-0">
+                            <div class="box-body p-5">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs content-tab" role="tablist">
+                                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#chart"
+                                                            role="tab"><img src="../images/chart.png"/>Chart</a></li>
+                                    <li class="nav-item info hide"><a class="nav-link" data-toggle="tab" href="#info"
+                                                                      role="tab"><img src="../images/information.png"/>Info</a>
+                                    </li>
+                                    <li class="nav-item hide"><a class="nav-link" data-toggle="tab" href="#store"
+                                                                 role="tab"><img src="../images/shop.png"/>Store</a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content tabcontent-border content-detail">
+                                    <div class="tab-pane active" id="chart" role="tabpanel">
+                                        <div class="coin-chart">
+                                            <div class="pad">
+                                                <div class="box">
+                                                    <div class="box-body">
+                                                        <div class="chart">
+                                                            <div id="liveChart" style="height: 720px;"></div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="info" role="tabpanel">
-                                            <div class="bot-info">
-                                                <div class="pad">
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-12">
-                                                            <div class="bot-result">
-                                                            </div>
+                                    </div>
+                                    <div class="tab-pane" id="info" role="tabpanel">
+                                        <div class="bot-info">
+                                            <div class="pad">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-12">
+                                                        <div class="bot-result">
                                                         </div>
+                                                    </div>
 
-                                                        <div class="col-lg-6 col-12">
-                                                            <div class="bot-history">
-                                                            </div>
+                                                    <div class="col-lg-6 col-12">
+                                                        <div class="bot-history">
                                                         </div>
+                                                    </div>
 
-                                                        <div class="col-lg-12 col-12">
-                                                            <div class="bot-chart hide">
-                                                                <div class="box">
-                                                                    <div class="box-header with-border">
-                                                                        <h6 class="box-title">Trade Chart</h6>
-                                                                    </div>
-                                                                    <div class="box-body">
-                                                                        <div class="chart">
-                                                                            <div id="tradeChart" style="height: 500px;"></div>
-                                                                        </div>
+                                                    <div class="col-lg-12 col-12">
+                                                        <div class="bot-chart hide">
+                                                            <div class="box">
+                                                                <div class="box-header with-border">
+                                                                    <h6 class="box-title">Trade Chart</h6>
+                                                                </div>
+                                                                <div class="box-body">
+                                                                    <div class="chart">
+                                                                        <div id="tradeChart"
+                                                                             style="height: 500px;"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="store" role="tabpanel">
-                                            <div class="bot-store">
-                                                <div class="pad">
-                                                    <!-- Box Deck -->
-                                                    <div class="col-12">
-                                                        <div class="box-deck">
-                                                            <div class="box">
-                                                                <div class="box-header with-border">
-                                                                    <h4 class="box-title">Bot Strategy 1</h4>
-                                                                    <p class="box-subtitle">Bot writer / Reader : 0</p>
-                                                                </div>
-                                                                <div class="box-body">
-                                                                    <p>2018-06-29 ~ 2018-07-29</p>
-                                                                    <h4>Box Body</h4>
-                                                                    <p>#BTC #Bithumb #15m</p>
-                                                                    <div>
-                                                                        <button class="btn btn-info">전략 보기</button>
-                                                                        <button class="btn btn-info">전략 구입</button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="box-footer">
-                                                                    <p>거래 횟수 : </p>
-                                                                    <p>슬리피지 비율 : </p>
-                                                                    <p>거래소 수수료 : </p>
-                                                                    <p>코인가격 변동률 : </p>
-                                                                    <p>승률 : </p>
-                                                                    <p>승/패 횟수 : </p>
-                                                                    <p>최대 이익 : </p>
-                                                                    <p>최대 손실 : </p>
-                                                                </div>
+                                    </div>
+                                    <div class="tab-pane" id="store" role="tabpanel">
+                                        <div class="bot-store">
+                                            <div class="pad">
+                                                <!-- Box Deck -->
+                                                <div class="col-12">
+                                                    <div class="box-deck">
+                                                        <div class="box">
+                                                            <div class="box-header with-border">
+                                                                <h4 class="box-title">Bot Strategy 1</h4>
+                                                                <p class="box-subtitle">Bot writer / Reader : 0</p>
                                                             </div>
-
-                                                            <div class="box">
-                                                                <div class="box-header with-border">
-                                                                    <h4 class="box-title">Bot Strategy 2</h4>
-                                                                </div>
-                                                                <div class="box-body">
-                                                                    <div class="media align-items-center p-0">
-                                                                        <div class="text-center">
-                                                                            <a href="#"><i class="cc BTC mr-5" title="BTC"></i></a>
-                                                                        </div>
-                                                                        <div>
-                                                                            <h3 class="no-margin text-bold">Bitcoin BTC</h3>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="flexbox align-items-center mt-5">
-                                                                        <div>
-                                                                            <p class="no-margin font-weight-600"><span class="text-yellow">0.00000434 </span>BTC<span class="text-info">$0.04</span></p>
-                                                                        </div>
-                                                                        <div class="text-right">
-                                                                            <p class="no-margin font-weight-600"><span class="text-success">+1.35%</span></p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="box-footer no-border">
+                                                            <div class="box-body">
+                                                                <p>2018-06-29 ~ 2018-07-29</p>
+                                                                <h4>Box Body</h4>
+                                                                <p>#BTC #Bithumb #15m</p>
+                                                                <div>
                                                                     <button class="btn btn-info">전략 보기</button>
                                                                     <button class="btn btn-info">전략 구입</button>
                                                                 </div>
                                                             </div>
+                                                            <div class="box-footer">
+                                                                <p>거래 횟수 : </p>
+                                                                <p>슬리피지 비율 : </p>
+                                                                <p>거래소 수수료 : </p>
+                                                                <p>코인가격 변동률 : </p>
+                                                                <p>승률 : </p>
+                                                                <p>승/패 횟수 : </p>
+                                                                <p>최대 이익 : </p>
+                                                                <p>최대 손실 : </p>
+                                                            </div>
+                                                        </div>
 
-                                                            <div class="box">
-                                                                <div class="blog-container">
-
-                                                                    <div class="blog-header">
-                                                                        <div class="blog-author--no-cover">
-                                                                            <h3>Bot Strategy 3</h3>
-                                                                        </div>
+                                                        <div class="box">
+                                                            <div class="box-header with-border">
+                                                                <h4 class="box-title">Bot Strategy 2</h4>
+                                                            </div>
+                                                            <div class="box-body">
+                                                                <div class="media align-items-center p-0">
+                                                                    <div class="text-center">
+                                                                        <a href="#"><i class="cc BTC mr-5"
+                                                                                       title="BTC"></i></a>
                                                                     </div>
-
-                                                                    <div class="blog-body">
-                                                                        <div class="blog-title">
-                                                                            <h4>2018-06-01 ~ 2018-08-01</h4>
-                                                                            <h4>수익률 +100%</h4>
-                                                                        </div>
-                                                                        <div class="blog-summary">
-                                                                            <p>Bot writer / Bot reader : 0</p>
-                                                                        </div>
-                                                                        <div class="blog-tags">
-                                                                            <ul>
-                                                                                <li>Bithumb</li>
-                                                                                <li>BTC</li>
-                                                                                <li>15m</li>
-                                                                            </ul>
-                                                                        </div>
+                                                                    <div>
+                                                                        <h3 class="no-margin text-bold">Bitcoin BTC</h3>
                                                                     </div>
+                                                                </div>
+                                                                <div class="flexbox align-items-center mt-5">
+                                                                    <div>
+                                                                        <p class="no-margin font-weight-600"><span
+                                                                                class="text-yellow">0.00000434 </span>BTC<span
+                                                                                class="text-info">$0.04</span></p>
+                                                                    </div>
+                                                                    <div class="text-right">
+                                                                        <p class="no-margin font-weight-600"><span
+                                                                                class="text-success">+1.35%</span></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="box-footer no-border">
+                                                                <button class="btn btn-info">전략 보기</button>
+                                                                <button class="btn btn-info">전략 구입</button>
+                                                            </div>
+                                                        </div>
 
-                                                                    <div class="blog-footer">
+                                                        <div class="box">
+                                                            <div class="blog-container">
+
+                                                                <div class="blog-header">
+                                                                    <div class="blog-author--no-cover">
+                                                                        <h3>Bot Strategy 3</h3>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="blog-body">
+                                                                    <div class="blog-title">
+                                                                        <h4>2018-06-01 ~ 2018-08-01</h4>
+                                                                        <h4>수익률 +100%</h4>
+                                                                    </div>
+                                                                    <div class="blog-summary">
+                                                                        <p>Bot writer / Bot reader : 0</p>
+                                                                    </div>
+                                                                    <div class="blog-tags">
                                                                         <ul>
-                                                                            <button class="btn btn-info">전략 보기</button>
-                                                                            <button class="btn btn-info">전략 구입</button>
+                                                                            <li>Bithumb</li>
+                                                                            <li>BTC</li>
+                                                                            <li>15m</li>
                                                                         </ul>
                                                                     </div>
+                                                                </div>
 
+                                                                <div class="blog-footer">
+                                                                    <ul>
+                                                                        <button class="btn btn-info">전략 보기</button>
+                                                                        <button class="btn btn-info">전략 구입</button>
+                                                                    </ul>
                                                                 </div>
-                                                            </div>
 
-                                                        </div>
-                                                        <!-- /.Box Deck -->
-
-                                                        <!-- Box Deck -->
-                                                        <div class="box-deck">
-                                                            <div class="box">
-                                                                <div class="box-header with-border">
-                                                                    <h4 class="box-title">Box Name 2</h4>
-                                                                </div>
-                                                                <div class="box-body">
-                                                                    <h4>Box Body</h4>
-                                                                </div>
-                                                                <div class="box-footer">
-                                                                    <button class="btn btn-info">Details</button>
-                                                                    <button class="btn btn-info">Buy</button>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="box">
-                                                                <div class="box-header with-border">
-                                                                    <h4 class="box-title">Box Name 1</h4>
-                                                                </div>
-                                                                <div class="box-body">
-                                                                    <h4>Box Body</h4>
-                                                                </div>
-                                                                <div class="box-footer">
-                                                                    <button class="btn btn-info">Details</button>
-                                                                    <button class="btn btn-info">Buy</button>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="box">
-                                                                <div class="box-header with-border">
-                                                                    <h4 class="box-title">Box Name 2</h4>
-                                                                </div>
-                                                                <div class="box-body">
-                                                                    <h4>Box Body</h4>
-                                                                </div>
-                                                                <div class="box-footer">
-                                                                    <button class="btn btn-info">Details</button>
-                                                                    <button class="btn btn-info">Buy</button>
-                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <!-- /.Box Deck -->
+
                                                     </div>
+                                                    <!-- /.Box Deck -->
+
+                                                    <!-- Box Deck -->
+                                                    <div class="box-deck">
+                                                        <div class="box">
+                                                            <div class="box-header with-border">
+                                                                <h4 class="box-title">Box Name 2</h4>
+                                                            </div>
+                                                            <div class="box-body">
+                                                                <h4>Box Body</h4>
+                                                            </div>
+                                                            <div class="box-footer">
+                                                                <button class="btn btn-info">Details</button>
+                                                                <button class="btn btn-info">Buy</button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="box">
+                                                            <div class="box-header with-border">
+                                                                <h4 class="box-title">Box Name 1</h4>
+                                                            </div>
+                                                            <div class="box-body">
+                                                                <h4>Box Body</h4>
+                                                            </div>
+                                                            <div class="box-footer">
+                                                                <button class="btn btn-info">Details</button>
+                                                                <button class="btn btn-info">Buy</button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="box">
+                                                            <div class="box-header with-border">
+                                                                <h4 class="box-title">Box Name 2</h4>
+                                                            </div>
+                                                            <div class="box-body">
+                                                                <h4>Box Body</h4>
+                                                            </div>
+                                                            <div class="box-footer">
+                                                                <button class="btn btn-info">Details</button>
+                                                                <button class="btn btn-info">Buy</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.Box Deck -->
                                                 </div>
                                             </div>
-                                            <!-- /.Bot store -->
                                         </div>
+                                        <!-- /.Bot store -->
                                     </div>
-                                    <!-- /.Tab panes -->
                                 </div>
-                                <!-- /.box-body -->
+                                <!-- /.Tab panes -->
                             </div>
-                            <!-- /.box -->
+                            <!-- /.box-body -->
                         </div>
-                        <!-- /.bot-content -->
+                        <!-- /.box -->
                     </div>
-                    <!-- /.col -->
+                    <!-- /.bot-content -->
                 </div>
-                <!-- /.row -->
-            </section>
-            <!-- /.content -->
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
         </section>
-        <!-- /.content-wrapper -->
+        <!-- /.content -->
     </section>
-    <!-- ./wrapper -->
+    <!-- /.content-wrapper -->
+</section>
+<!-- ./wrapper -->
 
-    <!-- login modal -->
-    <div id="modal-login" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="label-login">Login Form</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group row">
-                        <label class="col-12" for="login-username">Username</label>
-                        <div class="col-12">
-                            <input type="text" class="form-control" id="login-username" name="login-username" placeholder="Enter your username..">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-12" for="login-password">Password</label>
-                        <div class="col-12">
-                            <input type="password" class="form-control" id="login-password" name="login-password" placeholder="Enter your password..">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <label class="switch switch-border switch-info">
-                                <input type="checkbox">
-                                <span class="switch-indicator"></span>
-                                <span class="switch-description"></span>&nbsp; Remember Me?
-                            </label>
-                        </div>
+<!-- login modal -->
+<div id="modal-login" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label-login">Login Form</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-12" for="login-username">Username</label>
+                    <div class="col-12">
+                        <input type="text" class="form-control" id="login-username" name="login-username"
+                               placeholder="Enter your username..">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <div class="form-group row mb-0">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fa fa-arrow-right mr-5"></i> Log in
-                            </button>
+                <div class="form-group row">
+                    <label class="col-12" for="login-password">Password</label>
+                    <div class="col-12">
+                        <input type="password" class="form-control" id="login-password" name="login-password"
+                               placeholder="Enter your password..">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label class="switch switch-border switch-info">
+                            <input type="checkbox">
+                            <span class="switch-indicator"></span>
+                            <span class="switch-description"></span>&nbsp; Remember Me?
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group row mb-0">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-arrow-right mr-5"></i> Log in
+                        </button>
 
-                            <button class="btn btn-social-icon btn-circle btn-google" data-toggle="modal" data-target="#register"><i class="fa fa-google-plus"></i></button>
+                        <button class="btn btn-social-icon btn-circle btn-google" data-toggle="modal"
+                                data-target="#register"><i class="fa fa-google-plus"></i></button>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- register modal -->
+<div id="modal-register" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label-register">Register Form</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <h5>Enter Email Address <span class="text-danger">*</span></h5>
+                    <div class="controls">
+                        <input type="text" class="form-control" placeholder="Email Address"
+                               data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})"
+                               data-validation-regex-message="Enter Valid Email"></div>
+                </div>
+                <div class="form-group">
+                    <h5>Password Input Field <span class="text-danger">*</span></h5>
+                    <div class="controls">
+                        <input type="password" name="password" class="form-control" required
+                               data-validation-required-message="This field is required"></div>
+                </div>
+                <div class="form-group">
+                    <h5>Repeat Password Input Field <span class="text-danger">*</span></h5>
+                    <div class="controls">
+                        <input type="password" name="password2" data-validation-match-match="password"
+                               class="form-control" required></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group row mb-0">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-arrow-right mr-5"></i> Complete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- add bot modal -->
+<div id="modal-add-bot" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label-add-bot">봇 추가</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <p>봇 이름을 입력해주세요.</p>
+                    <div class="controls">
+                        <input type="text" name="bot-name" class="form-control" placeholder="ex) Crypstal"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group row mb-0">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                            취소하기
+                        </button>
+
+                        <button type="submit" class="btn btn-default">
+                            생성하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- asset modal -->
+<div id="modal-asset" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label-asset">투자 금액 변경</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <p>투자 금액을 입력해주세요.</p>
+                    <div class="controls">
+                        <input type="text" name="asset" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group row mb-0">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                            취소하기
+                        </button>
+
+                        <button type="submit" class="btn btn-default">
+                            변경하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- bot-step modal -->
+<div id="modal-bot-step" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label-bot-step">전략 설정</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs customtab" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#buy" role="tab">매수 전략</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sell" role="tab">매도 전략</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#description" role="tab">봇 설명</a>
+                    </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane pad active" id="buy" role="tabpanel">
+                        <div class="form-group">
+                            <label>매수전략 가중치</label>
+                            <input class="w-50 text-center" type="number" placeholder="1" id="buyStrategyThreshold">
+                        </div>
+
+                        <div class="strategy">
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane pad" id="sell" role="tabpanel">
+                        <div class="form-group">
+                            <label>매도전략 가중치</label>
+                            <input class="w-50 text-center" type="number" placeholder="1" id="sellStrategyThreshold">
+                        </div>
+
+                        <div class="strategy">
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane pad" id="description" role="tabpanel">
+                        <!-- textarea -->
+                        <div class="form-group">
+                            <label>전략 제목</label>
+                            <input type="text" class="form-control" name="strategy-description-title"
+                                   placeholder="최대 30자">
+                        </div>
+                        <div class="form-group">
+                            <label>전략 설명</label>
+                            <textarea class="form-control" rows="3" name="strategy-description-content"
+                                      placeholder="최대 100자"></textarea>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <!-- register modal -->
-    <div id="modal-register" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="label-register">Register Form</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <h5>Enter Email Address <span class="text-danger">*</span></h5>
-                        <div class="controls">
-                            <input type="text" class="form-control" placeholder="Email Address" data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})" data-validation-regex-message="Enter Valid Email"> </div>
-                    </div>
-                    <div class="form-group">
-                        <h5>Password Input Field <span class="text-danger">*</span></h5>
-                        <div class="controls">
-                            <input type="password" name="password" class="form-control" required data-validation-required-message="This field is required"> </div>
-                    </div>
-                    <div class="form-group">
-                        <h5>Repeat Password Input Field <span class="text-danger">*</span></h5>
-                        <div class="controls">
-                            <input type="password" name="password2" data-validation-match-match="password" class="form-control" required> </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group row mb-0">
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-danger">
-                                <i class="fa fa-arrow-right mr-5"></i> Complete
-                            </button>
-                        </div>
+            <div class="modal-footer">
+                <div class="form-group row mb-0">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                            취소
+                        </button>
+                        <button type="submit" class="btn btn-default">
+                            저장
+                        </button>
                     </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-    <!-- add bot modal -->
-    <div id="modal-add-bot" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="label-add-bot">봇 추가</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <p>봇 이름을 입력해주세요.</p>
-                        <div class="controls">
-                            <input type="text" name="bot-name" class="form-control" placeholder="ex) Crypstal"> </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group row mb-0">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
-                                취소하기
-                            </button>
-
-                            <button type="submit" class="btn btn-default">
-                                생성하기
-                            </button>
-                        </div>
-                    </div>
-                </div>
+<!-- order quantity modal -->
+<div id="modal-order-quantity" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label-order-quantity">주문 수량</h4>
             </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <!-- asset modal -->
-    <div id="modal-asset" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="label-asset">투자 금액 변경</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <p>투자 금액을 입력해주세요.</p>
-                        <div class="controls">
-                            <input type="text" name="asset" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group row mb-0">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
-                                취소하기
-                            </button>
-
-                            <button type="submit" class="btn btn-default">
-                                변경하기
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-
-    <!-- bot-step modal -->
-    <div id="modal-bot-step" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="label-bot-step">전략 설정</h4>
-                </div>
-                <div class="modal-body">
+            <div class="modal-body">
+                <div class="buy">
+                    <h4 class="text-green">매수</h4>
                     <ul class="nav nav-tabs customtab" role="tablist">
-                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#buy" role="tab">매수 전략</a></li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sell" role="tab">매도 전략</a></li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#description" role="tab">봇 설명</a></li>
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#buy-allin" role="tab">ALL-IN</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#buy-krw" role="tab">KRW</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#buy-coin" role="tab"><span
+                                class="order-quantity-coin">1</span></a></li>
                     </ul>
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane pad active" id="buy" role="tabpanel">
-                            <div class="form-group">
-                                <label>매수전략 가중치</label>
-                                <input class="w-50 text-center" type="number" placeholder="1" id="buyStrategyThreshold">
-                            </div>
-
-                            <div class="strategy">
-
+                        <div class="tab-pane active" id="buy-allin" role="tabpanel">거래시점의 잔고 100% 매수(all-in 매수)</div>
+                        <div class="tab-pane pad" id="buy-krw" role="tabpanel">
+                            <label>지정한 자산만큼 매수</label>
+                            <div class="form-element">
+                                <input class="form-control" type="text" name="buy-krw">
                             </div>
                         </div>
-
-                        <div class="tab-pane pad" id="sell" role="tabpanel">
-                            <div class="form-group">
-                                <label>매도전략 가중치</label>
-                                <input class="w-50 text-center" type="number" placeholder="1" id="sellStrategyThreshold">
-                            </div>
-
-                            <div class="strategy">
-
-                            </div>
-                        </div>
-
-                        <div class="tab-pane pad" id="description" role="tabpanel">
-                            <!-- textarea -->
-                            <div class="form-group">
-                                <label>전략 제목</label>
-                                <input type="text" class="form-control" name="strategy-description-title" placeholder="최대 30자">
-                            </div>
-                            <div class="form-group">
-                                <label>전략 설명</label>
-                                <textarea class="form-control" rows="3"  name="strategy-description-content" placeholder="최대 100자"></textarea>
+                        <div class="tab-pane pad" id="buy-coin" role="tabpanel">
+                            <label>지정한 코인 수량만큼 매수</label>
+                            <div class="form-element">
+                                <input class="form-control" type="text" name="buy-coin">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <div class="form-group row mb-0">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
-                                취소
-                            </button>
-                            <button type="submit" class="btn btn-default">
-                                저장
-                            </button>
+                <div class="sell">
+                    <h4 class="text-red">매도</h4>
+                    <ul class="nav nav-tabs customtab" role="tablist">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#sell-allin" role="tab">ALL-IN</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sell-krw" role="tab">KRW</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#sell-coin" role="tab"><span
+                                class="order-quantity-coin">1</span></a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="sell-allin" role="tabpanel">거래시점의 잔고 100% 매도(all-in 매도)</div>
+                        <div class="tab-pane pad" id="sell-krw" role="tabpanel">
+                            <label>지정한 자산만큼 매도</label>
+                            <div class="form-element">
+                                <input class="form-control" type="text" name="sell-krw">
+                            </div>
+                        </div>
+                        <div class="tab-pane pad" id="sell-coin" role="tabpanel">
+                            <label>지정한 코인 수량만큼 매도</label>
+                            <div class="form-element">
+                                <input class="form-control" type="text" name="sell-coin">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-footer">
+                <div class="form-group row mb-0">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                            취소하기
+                        </button>
+
+                        <button type="submit" class="btn btn-default">
+                            설정하기
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-    <!-- order quantity modal -->
-    <div id="modal-order-quantity" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="label-order-quantity">주문 수량</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="buy">
-                        <h4 class="text-green">매수</h4>
-                        <ul class="nav nav-tabs customtab" role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#buy-allin" role="tab">ALL-IN</a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#buy-krw" role="tab">KRW</a></li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#buy-coin" role="tab"><span class="order-quantity-coin">1</span></a> </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="buy-allin" role="tabpanel">거래시점의 잔고 100% 매수(all-in 매수)</div>
-                            <div class="tab-pane pad" id="buy-krw" role="tabpanel">
-                                <label>지정한 자산만큼 매수</label>
-                                <div class="form-element">
-                                    <input class="form-control" type="text" name="buy-krw">
-                                </div>
+<!-- safety modal -->
+<div id="modal-safety" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label-safety">Safety</h4>
+            </div>
+            <div class="modal-body">
+                <div id="safety">
+                    <span class="text-blue">* Trailing-Stop은 백테스트에 반영되지 않습니다.</span>
+                    <div class="profit-target">
+                        <div class="box">
+                            <div class="box-header">
+                                <input type="checkbox" id="checkbox-profit-target" class="filled-in" checked/>
+                                <label for="checkbox-profit-target">Profit-Target <span class="text-blue">(+<span
+                                        class="profit-target-value">2</span>%)</span></label>
+                                <ul class="box-controls pull-right">
+                                    <li><a class="box-btn-slide" href="#"></a></li>
+                                </ul>
+                                <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">+<span class="profit-target-value">1</span>% 이상</span>일
+                                    경우 매도</p>
                             </div>
-                            <div class="tab-pane pad" id="buy-coin" role="tabpanel">
-                                <label>지정한 코인 수량만큼 매수</label>
-                                <div class="form-element">
-                                    <input class="form-control" type="text" name="buy-coin">
-                                </div>
+                            <div class="box-body">
+                                <p>봇 시작 후 직전 매수 금액의 <input class="w-50 text-center" type="number"
+                                                           id="input-profit-target" placeholder="10"> %</p>
+                                <p>이상 일 경우 매도 (Profit-Target)</p>
                             </div>
                         </div>
                     </div>
-                    <div class="sell">
-                        <h4 class="text-red">매도</h4>
-                        <ul class="nav nav-tabs customtab" role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#sell-allin" role="tab">ALL-IN</a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sell-krw" role="tab">KRW</a></li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sell-coin" role="tab"><span class="order-quantity-coin">1</span></a> </li>
-                        </ul>
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="sell-allin" role="tabpanel">거래시점의 잔고 100% 매도(all-in 매도)</div>
-                            <div class="tab-pane pad" id="sell-krw" role="tabpanel">
-                                <label>지정한 자산만큼 매도</label>
-                                <div class="form-element">
-                                    <input class="form-control" type="text" name="sell-krw">
-                                </div>
+
+                    <div class="stop-loss">
+                        <div class="box">
+                            <div class="box-header">
+                                <input type="checkbox" id="checkbox-stop-loss" class="filled-in" checked/>
+                                <label for="checkbox-stop-loss">Stop-Loss <span class="text-blue">(-<span
+                                        class="stop-loss-value"></span>%)</span></label>
+                                <ul class="box-controls pull-right">
+                                    <li><a class="box-btn-slide" href="#"></a></li>
+                                </ul>
+                                <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">-<span
+                                        class="stop-loss-value"></span>% 이하</span>일 경우 매도</p>
                             </div>
-                            <div class="tab-pane pad" id="sell-coin" role="tabpanel">
-                                <label>지정한 코인 수량만큼 매도</label>
-                                <div class="form-element">
-                                    <input class="form-control" type="text" name="sell-coin">
-                                </div>
+                            <div class="box-body">
+                                <p>봇 시작 후 직전 매수 금액의 <input class="w-50 text-center" type="number" id="input-stop-loss"
+                                                           placeholder="5"> %</p>
+                                <p>이상 일 경우 매도 (Stop-Loss)</p>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group row mb-0">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
-                                취소하기
-                            </button>
 
-                            <button type="submit" class="btn btn-default">
-                                설정하기
-                            </button>
+                    <div class="trailing-stop">
+                        <div class="box">
+                            <div class="box-header">
+                                <input type="checkbox" id="checkbox-trailing-stop" class="filled-in" checked/>
+                                <label for="checkbox-trailing-stop">Trailing-Stop <span class="text-blue">(+<span
+                                        class="trailing-stop-high-value"></span>% / -<span
+                                        class="trailing-stop-low-value"></span>%)</span></label>
+                                <ul class="box-controls pull-right">
+                                    <li><a class="box-btn-slide" href="#"></a></li>
+                                </ul>
+                                <p>봇 시작 후 직전 매수 금액의 <span class="text-blue"><span
+                                        class="trailing-stop-high-value"></span>%</span>돌파 후</p>
+                                <p>최고가 대비 <span class="text-blue"><span class="trailing-stop-low-value"></span>%</span>
+                                    하락 시 매도</p>
+                            </div>
+                            <div class="box-body">
+                                <p>봇 시작 후 직전 매수 금액의 <input class="w-50 text-center" type="number"
+                                                           id="input-trailing-stop-high" placeholder="5"> % 이상</p>
+                                <p>돌파 후 최고가 대비 <input class="w-50 text-center" type="number"
+                                                      id="input-trailing-stop-low" placeholder="2"> % 하락 시 매도</p>
+                                <p>(Trailing-Stop)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="position-change">
+                        <div class="box">
+                            <div class="box-header">
+                                <input type="checkbox" id="checkbox-position-change" class="filled-in" checked/>
+                                <label for="checkbox-position-change">Safety 발동 후 강제 포지션 변경</label>
+                                <ul class="box-controls pull-right">
+                                    <li><a class="box-btn-slide" href="#"></a></li>
+                                </ul>
+                            </div>
+                            <div class="box-body">
+                                <p>Safety로 매도될 경우, 즉시 매도 포지션 진입.</p>
+                                <p>(미선택시 매도전략 충족 시점에 매도 포지션 진입. 매도전략 충족 시점에는 거래 없이 단순 포지션 변경만 일어남.)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sell-exit">
+                        <div class="box">
+                            <div class="box-header">
+                                <input type="checkbox" id="checkbox-sell-exit" class="filled-in" checked/>
+                                <label for="checkbox-sell-exit">봇 종료 : <span
+                                        class="text-blue">매도 조건 충족 시 거래 후 봇 종료</span></label>
+                                <ul class="box-controls pull-right">
+                                    <li><a class="box-btn-slide" href="#"></a></li>
+                                </ul>
+                            </div>
+                            <div class="box-body">
+                                <p>* 이 옵션을 선택하면, 매도가 발생한 후 봇이 종료됩니다.</p>
+                                <p>(미선택시 다음 매수 조건을 모니터링 합니다.)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="safety-exit">
+                        <div class="box">
+                            <div class="box-header">
+                                <input type="checkbox" id="checkbox-safety-exit" class="filled-in" checked/>
+                                <label for="checkbox-safety-exit">봇 종료 : <span class="text-blue">Safety 발동 후 봇 종료</span></label>
+                                <ul class="box-controls pull-right">
+                                    <li><a class="box-btn-slide" href="#"></a></li>
+                                </ul>
+                            </div>
+                            <div class="box-body">
+                                <p>* 이 옵션을 선택하면 Safety로 인한 매도 발생 후, 봇이 종료됩니다.</p>
+                                <p>(미선택시 다음 매수 조건을 모니터링 합니다.)</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
+            <div class="modal-footer">
+                <div class="form-group row mb-0">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                            취소하기
+                        </button>
 
-    <!-- safety modal -->
-    <div id="modal-safety" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="label-safety">Safety</h4>
-                </div>
-                <div class="modal-body">
-                    <div id="safety">
-                        <span class="text-blue">* Trailing-Stop은 백테스트에 반영되지 않습니다.</span>
-                        <div class="profit-target">
-                            <div class="box">
-                                <div class="box-header">
-                                    <input type="checkbox" id="checkbox-profit-target" class="filled-in" checked />
-                                    <label for="checkbox-profit-target">Profit-Target <span class="text-blue">(+<span class="profit-target-value">2</span>%)</span></label>
-                                    <ul class="box-controls pull-right">
-                                        <li><a class="box-btn-slide"  href="#"></a></li>
-                                    </ul>
-                                    <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">+<span class="profit-target-value">1</span>% 이상</span>일 경우 매도</p>
-                                </div>
-                                <div class="box-body">
-                                    <p>봇 시작 후 직전 매수 금액의 <input class="w-50 text-center" type="number" id="input-profit-target" placeholder="10"> %</p>
-                                    <p>이상 일 경우 매도 (Profit-Target)</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="stop-loss">
-                            <div class="box">
-                                <div class="box-header">
-                                    <input type="checkbox" id="checkbox-stop-loss" class="filled-in" checked />
-                                    <label for="checkbox-stop-loss">Stop-Loss <span class="text-blue">(-<span class="stop-loss-value"></span>%)</span></label>
-                                    <ul class="box-controls pull-right">
-                                        <li><a class="box-btn-slide"  href="#"></a></li>
-                                    </ul>
-                                    <p>봇 시작 후 직전 매수 금액의 <span class="text-blue">-<span class="stop-loss-value"></span>% 이하</span>일 경우 매도</p>
-                                </div>
-                                <div class="box-body">
-                                    <p>봇 시작 후 직전 매수 금액의 <input class="w-50 text-center" type="number" id="input-stop-loss" placeholder="5"> %</p>
-                                    <p>이상 일 경우 매도 (Stop-Loss)</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="trailing-stop">
-                            <div class="box">
-                                <div class="box-header">
-                                    <input type="checkbox" id="checkbox-trailing-stop" class="filled-in" checked />
-                                    <label for="checkbox-trailing-stop">Trailing-Stop <span class="text-blue">(+<span class="trailing-stop-high-value"></span>% / -<span class="trailing-stop-low-value"></span>%)</span></label>
-                                    <ul class="box-controls pull-right">
-                                        <li><a class="box-btn-slide"  href="#"></a></li>
-                                    </ul>
-                                    <p>봇 시작 후 직전 매수 금액의 <span class="text-blue"><span class="trailing-stop-high-value"></span>%</span>돌파 후</p>
-                                    <p>최고가 대비 <span class="text-blue"><span class="trailing-stop-low-value"></span>%</span> 하락 시 매도</p>
-                                </div>
-                                <div class="box-body">
-                                    <p>봇 시작 후 직전 매수 금액의 <input class="w-50 text-center" type="number" id="input-trailing-stop-high" placeholder="5"> % 이상</p>
-                                    <p>돌파 후 최고가 대비 <input class="w-50 text-center" type="number" id="input-trailing-stop-low" placeholder="2"> % 하락 시 매도</p>
-                                    <p>(Trailing-Stop)</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="position-change">
-                            <div class="box">
-                                <div class="box-header">
-                                    <input type="checkbox" id="checkbox-position-change" class="filled-in" checked />
-                                    <label for="checkbox-position-change">Safety 발동 후 강제 포지션 변경</label>
-                                    <ul class="box-controls pull-right">
-                                        <li><a class="box-btn-slide"  href="#"></a></li>
-                                    </ul>
-                                </div>
-                                <div class="box-body">
-                                    <p>Safety로 매도될 경우, 즉시 매도 포지션 진입.</p>
-                                    <p>(미선택시 매도전략 충족 시점에 매도 포지션 진입. 매도전략 충족 시점에는 거래 없이 단순 포지션 변경만 일어남.)</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="sell-exit">
-                            <div class="box">
-                                <div class="box-header">
-                                    <input type="checkbox" id="checkbox-sell-exit" class="filled-in" checked />
-                                    <label for="checkbox-sell-exit">봇 종료 : <span class="text-blue">매도 조건 충족 시 거래 후 봇 종료</span></label>
-                                    <ul class="box-controls pull-right">
-                                        <li><a class="box-btn-slide"  href="#"></a></li>
-                                    </ul>
-                                </div>
-                                <div class="box-body">
-                                    <p>* 이 옵션을 선택하면, 매도가 발생한 후 봇이 종료됩니다.</p>
-                                    <p>(미선택시 다음 매수 조건을 모니터링 합니다.)</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="safety-exit">
-                            <div class="box">
-                                <div class="box-header">
-                                    <input type="checkbox" id="checkbox-safety-exit" class="filled-in" checked />
-                                    <label for="checkbox-safety-exit">봇 종료 : <span class="text-blue">Safety 발동 후 봇 종료</span></label>
-                                    <ul class="box-controls pull-right">
-                                        <li><a class="box-btn-slide"  href="#"></a></li>
-                                    </ul>
-                                </div>
-                                <div class="box-body">
-                                    <p>* 이 옵션을 선택하면 Safety로 인한 매도 발생 후, 봇이 종료됩니다.</p>
-                                    <p>(미선택시 다음 매수 조건을 모니터링 합니다.)</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="form-group row mb-0">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
-                                취소하기
-                            </button>
-
-                            <button type="submit" class="btn btn-default">
-                                설정하기
-                            </button>
-                        </div>
+                        <button type="submit" class="btn btn-default">
+                            설정하기
+                        </button>
                     </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-    <!-- backtest setting modal -->
-    <div id="modal-backtest-setting" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="label-backtest-setting">백테스팅</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="backtest-date">
-                        <!-- Date range -->
-                        <div class="form-group">
-                            <label>시작 날짜 - 종료 날짜</label>
+<!-- backtest setting modal -->
+<div id="modal-backtest-setting" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label-backtest-setting">백테스팅</h4>
+            </div>
+            <div class="modal-body">
+                <div class="backtest-date">
+                    <!-- Date range -->
+                    <div class="form-group">
+                        <label>시작 날짜 - 종료 날짜</label>
 
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" id="backtest-date">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
                             </div>
-                            <!-- /.input group -->
+                            <input type="text" class="form-control pull-right" id="backtest-date">
                         </div>
-                        <!-- /.form group -->
+                        <!-- /.input group -->
                     </div>
-                    <div class="backtest-amount">
-                        <label>테스트 금액 (KRW)</label>
-                        <div class="form-element">
-                            <input class="form-control" type="text" name="backtest-amount" placeholder="1000000">
-                        </div>
-                    </div>
-                    <div class="backtest-fee">
-                        <label>거래소 수수료(%)</label>
-                        <div class="form-element">
-                            <input class="form-control" type="text" name="backtest-fee" placeholder="0.1">
-                        </div>
-                    </div>
-                    <div class="backtest-slippage">
-                        <label>슬리피지 비율(%)</label>
-                        <div class="form-element">
-                            <input class="form-control" type="text" name="backtest-slippage" placeholder="0.4">
-                        </div>
+                    <!-- /.form group -->
+                </div>
+                <div class="backtest-amount">
+                    <label>테스트 금액 (KRW)</label>
+                    <div class="form-element">
+                        <input class="form-control" type="text" name="backtest-amount" placeholder="1000000">
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <div class="form-group row mb-0">
-                        <div class="col-12">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
-                                취소하기
-                            </button>
-
-                            <button type="submit" class="btn btn-default">
-                                결과보기
-                            </button>
-                        </div>
+                <div class="backtest-fee">
+                    <label>거래소 수수료(%)</label>
+                    <div class="form-element">
+                        <input class="form-control" type="text" name="backtest-fee" placeholder="0.1">
+                    </div>
+                </div>
+                <div class="backtest-slippage">
+                    <label>슬리피지 비율(%)</label>
+                    <div class="form-element">
+                        <input class="form-control" type="text" name="backtest-slippage" placeholder="0.4">
                     </div>
                 </div>
             </div>
-            <!-- /.modal-content -->
+            <div class="modal-footer">
+                <div class="form-group row mb-0">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                            취소하기
+                        </button>
+
+                        <button type="submit" class="btn btn-default">
+                            결과보기
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.modal-dialog -->
+        <!-- /.modal-content -->
     </div>
-    <!-- /.modal -->
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-    <!-- jQuery 3 -->
-    <script src="../assets/vendor_components/jquery/dist/jquery.js"></script>
+<!-- jQuery 3 -->
+<script src="../assets/vendor_components/jquery/dist/jquery.js"></script>
 
-    <!-- popper -->
-    <script src="../assets/vendor_components/popper/dist/popper.min.js"></script>
+<!-- popper -->
+<script src="../assets/vendor_components/popper/dist/popper.min.js"></script>
 
-    <!-- Bootstrap 4.0-->
-    <script src="../assets/vendor_components/bootstrap/dist/js/bootstrap.js"></script>
+<!-- Bootstrap 4.0-->
+<script src="../assets/vendor_components/bootstrap/dist/js/bootstrap.js"></script>
 
-    <!-- Slimscroll -->
-    <script src="../assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+<!-- Slimscroll -->
+<script src="../assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"></script>
 
-    <!-- iCheck 1.0.1 -->
-    <script src="../assets/vendor_plugins/iCheck/icheck.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="../assets/vendor_plugins/iCheck/icheck.min.js"></script>
 
-    <!-- FastClick -->
-    <script src="../assets/vendor_components/fastclick/lib/fastclick.js"></script>
+<!-- FastClick -->
+<script src="../assets/vendor_components/fastclick/lib/fastclick.js"></script>
 
-    <!-- date-range-picker -->
-    <script src="../assets/vendor_components/moment/min/moment.min.js"></script>
-    <script src="../assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- date-range-picker -->
+<script src="../assets/vendor_components/moment/min/moment.min.js"></script>
+<script src="../assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 
-    <!-- Sweet-Alert  -->
-    <script src="../assets/vendor_components/sweetalert/sweetalert.min.js"></script>
-    <script src="../assets/vendor_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+<!-- Sweet-Alert  -->
+<script src="../assets/vendor_components/sweetalert/sweetalert.min.js"></script>
+<script src="../assets/vendor_components/sweetalert/jquery.sweet-alert.custom.js"></script>
 
-    <!--amcharts charts -->
-    <script src="http://www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>
-    <script src="http://www.amcharts.com/lib/3/gauge.js" type="text/javascript"></script>
-    <script src="http://www.amcharts.com/lib/3/serial.js" type="text/javascript"></script>
-    <script src="http://www.amcharts.com/lib/3/amstock.js" type="text/javascript"></script>
-    <script src="http://www.amcharts.com/lib/3/plugins/animate/animate.min.js" type="text/javascript"></script>
-    <script src="http://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js" type="text/javascript"></script>
-    <script src="http://www.amcharts.com/lib/3/themes/patterns.js" type="text/javascript"></script>
-    <script src="http://www.amcharts.com/lib/3/themes/light.js" type="text/javascript"></script>
+<!--amcharts charts -->
+<script src="http://www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/gauge.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/serial.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/amstock.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/plugins/animate/animate.min.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/themes/patterns.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/themes/light.js" type="text/javascript"></script>
 
-    <!-- webticker -->
-    <script src="../assets/vendor_components/Web-Ticker-master/jquery.webticker.min.js"></script>
-
-
-
-    <script src="js/testobject.js"></script>
-    <script src="js/indicators.js"></script>
+<!-- webticker -->
+<script src="../assets/vendor_components/Web-Ticker-master/jquery.webticker.min.js"></script>
 
 
-    <!-- Crypto_Admin App -->
-    <!-- 스크롤 때문에 -->
-    <script src="js/template.js"></script>
+<script src="js/testobject.js"></script>
+<script src="js/indicators.js"></script>
 
-    <script src="js/global.js"></script>
 
-    <script src="js/webTicker.js"></script>
-    <script src="js/liveChart.js"></script>
-    <script src="js/botList.js"></script>
-    <script src="js/botContent.js"></script>
-    <script src="js/assetSetting.js"></script>
-    <script src="js/strategySetting.js"></script>
-    <script src="js/orderQuantitySetting.js"></script>
-    <script src="js/safetySetting.js"></script>
-    <script src="js/backtestSetting.js"></script>
+<!-- Crypto_Admin App -->
+<!-- 스크롤 때문에 -->
+<script src="js/template.js"></script>
 
-    <script src="js/tradeInfo.js"></script>
+<script src="js/global.js"></script>
 
-    </body>
+<script src="js/webTicker.js"></script>
+<script src="js/liveChart.js"></script>
+<script src="js/botList.js"></script>
+<script src="js/botContent.js"></script>
+<script src="js/assetSetting.js"></script>
+<script src="js/strategySetting.js"></script>
+<script src="js/orderQuantitySetting.js"></script>
+<script src="js/safetySetting.js"></script>
+<script src="js/backtestSetting.js"></script>
+
+<script src="js/tradeInfo.js"></script>
+
+</body>
 </html>

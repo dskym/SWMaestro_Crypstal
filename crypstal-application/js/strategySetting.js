@@ -295,7 +295,8 @@ $(function () {
             '            <div class="indicator-selector">\n' +
             '              <div class="form-group">\n' +
             '                <select class="form-control">\n' +
-            '                  <option value="" disabled selected>지표를 선택해주세요.</option>\n' +
+            '                  <option value="" disabled selected>투자 전략을 선택해주세요.</option>\n' +
+            '                  <option value="High Low">High Low</option>\n' +
             '                  <option value="MACD">MACD</option>\n' +
             '                  <option value="MA Double">MA Double</option>\n' +
             '                  <option value="Bollinger Bands">Bollinger Bands</option>\n' +

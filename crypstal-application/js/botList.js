@@ -184,7 +184,86 @@ $(function () {
         content +=
             '              <div class="bot">\n' +
             '                <h4 class="text-bold text-center">' + bot['name'] + '</h4>\n' +
-            '                  <div class="box hide">\n' +
+            '                  <div class="box">\n' +
+            '                    <div class="box-header with-border">\n' +
+            '                      <h6 class="box-title">투자 금액</h6>\n' +
+            '                    </div>\n' +
+            '\n' +
+            '                    <div class="box-body">\n' +
+            '                      <div class="asset">\n' +
+            '                        <label class="mb-0">' + Number(bot['asset']).toLocaleString('en') + ' KRW</label>\n' +
+            '                      </div>\n' +
+            '                    </div>\n' +
+            '                  </div>\n' +
+            '\n' +
+            '                  <div class="box">\n' +
+            '                    <div class="box-header with-border">\n' +
+            '                      <h6 class="box-title">봇의 전략</h6>\n' +
+            '                      <ul class="box-controls pull-right">\n' +
+            '                        <li><a class="box-btn-slide"  href="#"></a></li>\n' +
+            '                      </ul>\n' +
+            '                    </div>\n' +
+            '\n' +
+            '                    <div class="box-body">\n' +
+            '                      <div class="form-group">\n' +
+            '                        <label>거래소</label>\n' +
+            '                        <select id="bot-exchange" class="form-control exchange bot-data">\n' +
+            '                          <option value="Bithumb">Bithumb</option>\n' +
+            '                          <option value="Upbit">Upbit</option>\n' +
+            '                          <option value="Coinone">Coinone</option>\n' +
+            '                        </select>\n' +
+            '                      </div>\n' +
+            '\n' +
+            '                      <div class="form-group">\n' +
+            '                        <label>코인</label>\n' +
+            '                        <select id="bot-coin" class="form-control coin bot-data">\n' +
+            '                          <option value="BTC">BTC</option>\n' +
+            '                          <option value="ETH">ETH</option>\n' +
+            '                          <option value="XRP">XRP</option>\n' +
+            '                        </select>\n' +
+            '                      </div>\n' +
+            '\n' +
+            '                      <div class="form-group">\n' +
+            '                        <label>주기</label>\n' +
+            '                        <select id="bot-period" class="form-control period bot-data">\n' +
+            '                          <option value="5m">5m</option>\n' +
+            '                          <option value="15m">15m</option>\n' +
+            '                          <option value="30m">30m</option>\n' +
+            '                          <option value="1h">1h</option>\n' +
+            '                          <option value="2h">2h</option>\n' +
+            '                        </select>\n' +
+            '                      </div>\n' +
+            '\n' +
+            '                      <div class="b-1 h-30px"></div>\n' +
+            '\n' +
+            '                      <div class="strategy-setting">\n' +
+            '                        <h4 style="margin: 0.5rem 0rem">전략 제목 : <span class="strategy-description-title">제목 없음</span></h4>\n' +
+            '                        <p style="margin-bottom: 0px">전략 설명 : <span class="strategy-description-content">설명 없음</span></p>\n' +
+            '                      </div>\n' +
+            '                    </div>\n' +
+            '                  </div>\n' +
+            '\n' +
+            '                  <div>\n' +
+            '                    <input type="checkbox" id="bot-alarm" class="filled-in bot-alarm bot-data"/>\n' +
+            '                    <label for="bot-alarm">챗봇 알림 받기</label>\n' +
+            '                  </div>\n' +
+            '                  <div>\n' +
+            '                    <input type="checkbox" id="auto-trade" class="filled-in auto-trade bot-data"/>\n' +
+            '                    <label for="auto-trade">자동 거래</label>\n' +
+            '                  </div>\n' +
+            '                  <div class="box-save">\n' +
+            '                    <button class="btn btn-info save-bot-setting">현재 봇 설정 저장</button>\n' +
+            '                  </div>\n' +
+            '                  <div class="box-submit">\n' +
+            '                    <button class="btn btn-info backtest">백테스팅</button>\n' +
+            '                    <button class="btn btn-info bot-start">봇 시작</button>\n' +
+            '                  </div>\n' +
+            '                </div>\n';
+        /*
+        content +=
+            '              <div class="bot">\n' +
+            '                <h4 class="text-bold text-center">' + bot['name'] + '</h4>\n' +
+            '                  <div class="box">\n' +
             '                    <div class="box-header with-border">\n' +
             '                      <h6 class="box-title">투자 금액</h6>\n' +
             '                    </div>\n' +
@@ -283,6 +362,7 @@ $(function () {
             '                    <button class="btn btn-info bot-start">봇 시작</button>\n' +
             '                  </div>\n' +
             '                </div>\n';
+        */
 
         return content;
     }
