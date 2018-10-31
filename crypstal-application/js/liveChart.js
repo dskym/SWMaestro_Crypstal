@@ -1,7 +1,7 @@
 $(function () {
     "use strict";
 
-    //Live Chart Setting
+    // Live Chart Setting.
     var liveChart = AmCharts.makeChart("liveChart", {
         type: "stock",
         theme: "light",
@@ -12,7 +12,13 @@ $(function () {
 
         dataSetSelector: {
             position: 'bottom',
-            selectText: 'Period '
+            selectText: 'Period ',
+            listeners: [
+                {
+                    'event': 'dataSetSelected',
+                    'method': changeInterval
+                }
+            ],
         },
 
         categoryAxesSettings: {
@@ -83,20 +89,9 @@ $(function () {
         panelsSettings: {
             "usePrefixes": false
         },
-
-        listeners: [
-            {
-                'event' : 'rendered',
-                'method' : function(event) {
-                    var chart = event.chart;
-
-                    chart.dataSetSelector.addListener("dataSetSelected", setStockData);
-                }
-            }
-        ]
     });
 
-    /*
+    // DataSet Period Object
     var dataSetPeriod = {
         '10s': {
             dataSetIndex: 0,
@@ -147,36 +142,8 @@ $(function () {
             interval: 86400
         },
     };
-    */
 
-    var dataSetPeriod = ['1m', '3m'];
-
-    $.each(dataSetPeriod, function(index) {
-        liveChart.dataSets.push({
-            showInCompare: false,
-            title: dataSetPeriod[index],
-            fieldMappings: [{
-                fromField: "open",
-                toField: "open"
-            }, {
-                fromField: "close",
-                toField: "close"
-            }, {
-                fromField: "high",
-                toField: "high"
-            }, {
-                fromField: "low",
-                toField: "low"
-            }, {
-                fromField: "volume",
-                toField: "volume"
-            }],
-            dataProvider: [],
-            categoryField: "time"
-        });
-    });
-
-    /*
+    // Add DataSet Array in Chart Object.
     $.each(dataSetPeriod, function(key, value) {
         liveChart.dataSets.push({
             showInCompare: false,
@@ -201,33 +168,21 @@ $(function () {
             categoryField: "time"
         });
     });
-    */
 
-    function setStockData(event) {
+    // Change Live Chart depending on interval.
+    function changeInterval(event) {
+        console.log('change');
+
         var period = event.dataSet.title;
 
-        /*
         var data;
 
         $.each(dataSetPeriod, function(key, value) {
             if(period === key)
                 data = value;
         });
-        */
 
-        var num = 0;
-        var index = -1;
-
-        if(period === '1m') {
-            num = 1;
-            index = 0;
-        }
-        else if(period === '3m') {
-            num = 3;
-            index = 1;
-        }
-
-        var stockDataUrl = 'https://api.upbit.com/v1/candles/minutes/' + num + '?market=KRW-BTC&count=200';
+        var stockDataUrl = 'https://api.upbit.com/v1/candles/minutes/3?market=KRW-BTC&count=200';
 
         //var stockDataUrl = chartUrl;
 
@@ -247,31 +202,31 @@ $(function () {
                 });
             });
 
-            event.chart.dataSets[index].dataProvider = stockData;
+            event.chart.dataSets[data.dataSetIndex].dataProvider = stockData;
             event.chart.validateData();
         });
 
-        clearInterval(live);
-        var live = setInterval(function() { timer(event.chart, index); }, num * 1000);
+        clearInterval(liveInterval);
+        var liveInterval = setInterval(function() { updateData(event.chart, data.dataSetIndex); }, data.interval * 1000);
     }
 
-
-    // init data load
-    var stockDataUrl = 'https://api.upbit.com/v1/candles/minutes/1?market=KRW-BTC&count=200';
+    // Load initial data.
+    //var stockDataUrl = 'https://api.upbit.com/v1/candles/minutes/1?market=KRW-BTC&count=200';
+    var stockDataUrl = 'http://crypstal.ap-northeast-2.elasticbeanstalk.com/v1/chart/candles/seconds/10?symbol=bithumbBTC&count=200';
 
     $.getJSON(stockDataUrl, function () {
         console.log('Success Load Stock Data');
-    }).done(function (tempData) {
+    }).done(function (data) {
         var stockData = [];
 
-        $.each(tempData, function(index) {
+        $.each(data['candles'], function(index) {
             stockData.unshift({
-                'time': tempData[index]['candle_date_time_kst'],
-                'open': tempData[index]['opening_price'],
-                'close': tempData[index]['trade_price'],
-                'high': tempData[index]['high_price'],
-                'low': tempData[index]['low_price'],
-                'volume': tempData[index]['candle_acc_trade_volume']
+                'time': data['candles'][index]['time'],
+                'open': data['candles'][index]['open'],
+                'close': data['candles'][index]['close'],
+                'high': data['candles'][index]['high'],
+                'low': data['candles'][index]['low'],
+                'volume': data['candles'][index]['volume']
             });
         });
 
@@ -279,24 +234,21 @@ $(function () {
         liveChart.validateData();
     });
 
-    // get new data and validate
-    var timer = function(chart, index) {
+    // Get new data and update chart periodically.
+    var updateData = function(chart, index) {
         //get data
-        var newData = {
-            'time': moment(),
-            'open': Math.round(Math.random() * 10000) + 7240000,
-            'close': Math.round(Math.random() * 10000) + 7240000,
-            'high': Math.round(Math.random() * 10000) + 7240000,
-            'low': Math.round(Math.random() * 10000) + 7240000,
-            'volume': Math.round(Math.random() * 10)
-        };
+        var updateDataUrl = 'http://crypstal.ap-northeast-2.elasticbeanstalk.com/v1/chart/candles/seconds/10?symbol=bithumbBTC&count=1';
 
-        //add data
-        chart.dataSets[index].dataProvider.push(newData);
-        chart.validateData();
+        $.getJSON(updateDataUrl, function () {
+            console.log('Success Load New Stock Data');
+        }).done(function (data) {
+            var newData = data['candles'][0];
+
+            //add data
+            chart.dataSets[index].dataProvider.push(newData);
+            chart.validateData();
+        });
     };
 
-    console.log(liveChart);
-
-    var live = setInterval(function() { timer(liveChart, 0); }, 1000);
+    var liveInterval = setInterval(function() { updateData(liveChart, 0); }, 10 * 1000);
 });

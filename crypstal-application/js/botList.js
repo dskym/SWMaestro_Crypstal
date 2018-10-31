@@ -186,7 +186,7 @@ $(function () {
             '                <h4 class="text-bold text-center">' + bot['name'] + '</h4>\n' +
             '                  <div class="box">\n' +
             '                    <div class="box-header with-border">\n' +
-            '                      <h6 class="box-title">투자 금액</h6>\n' +
+            '                      <h6 class="box-title">봇 운용 금액</h6>\n' +
             '                    </div>\n' +
             '\n' +
             '                    <div class="box-body">\n' +
@@ -198,7 +198,7 @@ $(function () {
             '\n' +
             '                  <div class="box">\n' +
             '                    <div class="box-header with-border">\n' +
-            '                      <h6 class="box-title">봇의 전략</h6>\n' +
+            '                      <h6 class="box-title">봇 설정</h6>\n' +
             '                      <ul class="box-controls pull-right">\n' +
             '                        <li><a class="box-btn-slide"  href="#"></a></li>\n' +
             '                      </ul>\n' +
@@ -233,9 +233,18 @@ $(function () {
             '                          <option value="2h">2h</option>\n' +
             '                        </select>\n' +
             '                      </div>\n' +
+            '                    </div>\n' +
+            '                  </div>\n' +
             '\n' +
-            '                      <div class="b-1 h-30px"></div>\n' +
+            '                  <div class="box">\n' +
+            '                    <div class="box-header with-border">\n' +
+            '                      <h6 class="box-title">전략 설정</h6>\n' +
+            '                      <ul class="box-controls pull-right">\n' +
+            '                        <li><a class="box-btn-slide"  href="#"></a></li>\n' +
+            '                      </ul>\n' +
+            '                    </div>\n' +
             '\n' +
+            '                    <div class="box-body">\n' +
             '                      <div class="strategy-setting">\n' +
             '                        <h4 style="margin: 0.5rem 0rem">전략 제목 : <span class="strategy-description-title">제목 없음</span></h4>\n' +
             '                        <p style="margin-bottom: 0px">전략 설명 : <span class="strategy-description-content">설명 없음</span></p>\n' +

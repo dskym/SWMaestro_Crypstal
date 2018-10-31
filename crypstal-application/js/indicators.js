@@ -578,7 +578,6 @@ var macd = {
     }
 }
 
-
 var parabolic_sar = {
     name : 'Parabolic Sar',
     options : {
