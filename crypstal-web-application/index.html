@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" href="../images/logo.png">
+
+    <title>Crypstal</title>
+
+    <!-- Bootstrap 4.0-->
+    <link rel="stylesheet" href="../assets/vendor_components/bootstrap/dist/css/bootstrap.css">
+
+    <!-- Bootstrap-extend -->
+    <link rel="stylesheet" href="css/bootstrap-extend.css">
+
+    <!-- Bootstrap 4.0-->
+    <link rel="stylesheet" href="../assets/vendor_components/bootstrap-switch/switch.css">
+
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="../assets/vendor_components/bootstrap-daterangepicker/daterangepicker.css">
+
+    <!--alerts CSS -->
+    <link href="../assets/vendor_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+
+    <!-- theme style -->
+    <link rel="stylesheet" href="css/master_style.css">
+
+    <!-- Crypto_Admin skins -->
+    <link rel="stylesheet" href="css/skins/_all-skins.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="hold-transition">
+<section class="wrapper">
+    <header class="main-header">
+        <nav class="navbar navbar-static-top">
+            <div class="row">
+                <div class="col-md-1 col-lg-1">
+                </div>
+                <div class="col-md-2 col-lg-2">
+                    <div id="logo"></div>
+                </div>
+
+                <div class="col-md-8 col-lg-8" ->
+                    <div class="webticker">
+                        <div id="webticker">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-1 col-lg-1">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section class="content-wrapper">
+        <div class="content">
+        </div>
+    </section>
+    <!-- /.content-wrapper -->
+</section>
+<!-- ./wrapper -->
+
+<!-- bot-setting modal -->
+<div id="modal-bot-setting" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label-bot-step">봇</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs customtab" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#bot-setting" role="tab">봇 설정</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#strategy-setting" role="tab">전략 설정</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane pad active" id="bot-setting" role="tabpanel">
+                        <div class="form-group">
+                            <label>봇 이름</label>
+                            <input class="form-control" type="text" placeholder="이름을 입력해주세요." />
+                        </div>
+                        <div class="form-group">
+                            <label>투자 금액</label>
+                            <input class="form-control" type="text" placeholder="투자 금액을 입력해주세요"/>
+                        </div>
+                        <div class="form-group">
+                            <label>거래소</label>
+                            <select id="bot-exchange" class="form-control exchange">
+                                <option value="Bithumb">Bithumb</option>
+                                <option value="Upbit">Upbit</option>
+                                <option value="Coinone">Coinone</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>코인</label>
+                            <select id="bot-coin" class="form-control coin">
+                                <option value="BTC">BTC</option>
+                                <option value="ETH">ETH</option>
+                                <option value="XRP">XRP</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>주기</label>
+                            <select id="bot-period" class="form-control period">
+                                <option value="10s">10초</option>
+                                <option value="15m">15m</option>
+                                <option value="30m">30m</option>
+                                <option value="1h">1h</option>
+                                <option value="2h">2h</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane pad" id="strategy-setting" role="tabpanel">
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option value="" disabled selected>투자 전략을 선택해주세요.</option>
+                                <option value="HighLowStrategy">High Low Strategy</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group row mb-0">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                            취소
+                        </button>
+                        <button type="submit" class="btn btn-default">
+                            완료
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- backtest setting modal -->
+<div id="modal-backtest-setting" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label-backtest-setting">백테스팅</h4>
+            </div>
+            <div class="modal-body">
+                <div class="backtest-date">
+                    <!-- Date range -->
+                    <div class="form-group">
+                        <label>시작 날짜 - 종료 날짜</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" id="backtest-date">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <!-- /.form group -->
+                </div>
+                <div class="backtest-amount">
+                    <label>테스트 금액 (KRW)</label>
+                    <div class="form-element">
+                        <input class="form-control" type="text" name="backtest-amount" placeholder="1000000">
+                    </div>
+                </div>
+                <div class="backtest-fee">
+                    <label>거래소 수수료(%)</label>
+                    <div class="form-element">
+                        <input class="form-control" type="text" name="backtest-fee" placeholder="0.1">
+                    </div>
+                </div>
+                <div class="backtest-slippage">
+                    <label>슬리피지 비율(%)</label>
+                    <div class="form-element">
+                        <input class="form-control" type="text" name="backtest-slippage" placeholder="0.4">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group row mb-0">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+                            취소하기
+                        </button>
+
+                        <button type="submit" class="btn btn-default">
+                            결과보기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- jQuery 3 -->
+<script src="../assets/vendor_components/jquery/dist/jquery.js"></script>
+
+<!-- popper -->
+<script src="../assets/vendor_components/popper/dist/popper.min.js"></script>
+
+<!-- Bootstrap 4.0-->
+<script src="../assets/vendor_components/bootstrap/dist/js/bootstrap.js"></script>
+
+<!-- Slimscroll -->
+<script src="../assets/vendor_components/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+<!-- iCheck 1.0.1 -->
+<script src="../assets/vendor_plugins/iCheck/icheck.min.js"></script>
+
+<!-- FastClick -->
+<script src="../assets/vendor_components/fastclick/lib/fastclick.js"></script>
+
+<!-- date-range-picker -->
+<script src="../assets/vendor_components/moment/min/moment.min.js"></script>
+<script src="../assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<!-- Sweet-Alert  -->
+<script src="../assets/vendor_components/sweetalert/sweetalert.min.js"></script>
+<script src="../assets/vendor_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+
+<!--amcharts charts -->
+<script src="http://www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/gauge.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/serial.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/amstock.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/plugins/animate/animate.min.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/themes/patterns.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/themes/light.js" type="text/javascript"></script>
+
+<!-- webticker -->
+<script src="../assets/vendor_components/Web-Ticker-master/jquery.webticker.min.js"></script>
+
+
+<!-- Crypto_Admin App -->
+<!-- 스크롤 때문에 -->
+<script src="js/template.js"></script>
+
+<script src="Components/LogoComponent/Logo.js"></script>
+<script src="Components/WebtickerComponent/Webticker.js"></script>
+<script src="Components/BotComponent/Bot.js"></script>
+<script src="Components/BacktestSettingComponent/BacktestSetting.js"></script>
+<script src="Components/BotResultComponent/BotResult.js"></script>
+<script src="Components/BotStrategyComponent/BotStrategy.js"></script>
+<script src="Components/BotSettingComponent/BotSetting.js"></script>
+
+
+<script src="js/global.js"></script>
+<script src="js/testobject.js"></script>
+
+</body>
+</html>
