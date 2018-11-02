@@ -101,11 +101,11 @@ $(function () {
         var $botTab = $botList.find('ul.bot-tab');
         var $botActiveTab = $botTab.find('.active').closest('li');
 
-        var botId = $botActiveTab.data('botId');
+        //var botId = $botActiveTab.data('botId');
 
         var query = $.param(backtestSettingInfo);
 
-        var backtestUrl = baseUrl + '/v1/bots/' + botId + '/backtest?' + query;
+        var backtestUrl = baseUrl + '/v1/bots/1/backtest?' + query;
 
         console.log(backtestUrl);
 
@@ -125,7 +125,7 @@ $(function () {
             $botContentDetail.find('#info').addClass('active').addClass('show');
 
             //send event.
-            $('div.bot-info').trigger('backtest', backtestResponse);
+            $('div.content').trigger('backtest', backtestResponse);
 
             $('#modal-backtest-setting').modal('hide');
         });

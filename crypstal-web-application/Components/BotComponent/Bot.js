@@ -1,6 +1,10 @@
 $(function () {
     "use strict";
 
+    $(document).on('click', 'a.box-btn-close', function (event) {
+        event.stopPropagation();
+    });
+
     $(document).on('click', 'div.bot-list-component .bot-setting', function () {
         $('#modal-bot-setting').modal();
     });

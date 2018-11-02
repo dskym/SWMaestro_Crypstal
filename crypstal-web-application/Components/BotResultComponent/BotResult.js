@@ -8,6 +8,11 @@ $(function () {
         drawBotReportComponent();
     });
 
+    $('div.content').on('backtest', function (data) {
+        //redraw
+        drawBotReportComponent(data);
+    });
+
     function makeBotVerticalListComponent() {
         let content = `
             <div class="box">
@@ -23,14 +28,14 @@ $(function () {
         return content;
     }
 
-    function makeBotProfitComponent() {
+    function makeBotProfitComponent(profitRate) {
         let content = `
             <div class="box">
                 <div class="box-header without-border">
                     <h6 class="box-title">Bot Profit</h6>
                 </div>
                 <div class="box-body">
-                    <h1 class="box-title">+15%</h1>
+                    <h1 class="box-title">${profitRate}%</h1>
                 </div>
             </div>
         `;
@@ -38,14 +43,14 @@ $(function () {
         return content;
     }
 
-    function makeBotStatusComponent() {
+    function makeBotStatusComponent(position) {
         let content = `
             <div class="box">
                 <div class="box-header without-border">
                     <h6 class="box-title">Trade Status</h6>
                 </div>
                 <div class="box-body">
-                    <h1 class="box-title">Hold</h1>
+                    <h1 class="box-title">${position}</h1>
                 </div>
             </div>
         `;
@@ -398,9 +403,9 @@ $(function () {
             console.log('Success Load Backtest Chart Data');
         }).done(function (tempData) {
             let botVerticalListComponent = makeBotVerticalListComponent();
-            let tradeBotProfitRateComponent = makeBotProfitComponent();
+            let tradeBotProfitRateComponent = makeBotProfitComponent(15);
             let tradeHistoryComponent = makeTradeHistoryComponent(tempData['history']);
-            let tradeBotStatusComponent = makeBotStatusComponent();
+            let tradeBotStatusComponent = makeBotStatusComponent('Hold');
             let currentAssetComponent = makeAssetComponent();
             let tradeChartComponent = makeTradeChartComponent();
 
