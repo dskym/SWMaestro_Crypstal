@@ -44,6 +44,7 @@
             <div class="row">
                 <div class="col-md-1 col-lg-1">
                 </div>
+
                 <div class="col-md-2 col-lg-2">
                     <div id="logo"></div>
                 </div>
@@ -78,7 +79,7 @@
                 <h4 class="modal-title" id="label-bot-step">봇</h4>
             </div>
             <div class="modal-body">
-                <ul class="nav nav-tabs customtab" role="tablist">
+                <ul class="nav nav-tabs customtab" id="bot-setting-tab" role="tablist">
                     <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#bot-setting" role="tab">봇 설정</a></li>
                     <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#strategy-setting" role="tab">전략 설정</a></li>
                 </ul>
@@ -87,15 +88,16 @@
                     <div class="tab-pane pad active" id="bot-setting" role="tabpanel">
                         <div class="form-group">
                             <label>봇 이름</label>
-                            <input class="form-control" type="text" placeholder="이름을 입력해주세요." />
+                            <input class="form-control" type="text" id="bot-name" placeholder="이름을 입력해주세요." />
                         </div>
                         <div class="form-group">
                             <label>투자 금액</label>
-                            <input class="form-control" type="text" placeholder="투자 금액을 입력해주세요"/>
+                            <input class="form-control" type="text" id="bot-asset" placeholder="투자 금액을 입력해주세요"/>
                         </div>
                         <div class="form-group">
                             <label>거래소</label>
                             <select id="bot-exchange" class="form-control exchange">
+                                <option value="" disabled selected>거래소를 선택해주세요.</option>
                                 <option value="Bithumb">Bithumb</option>
                                 <option value="Upbit">Upbit</option>
                                 <option value="Coinone">Coinone</option>
@@ -104,19 +106,28 @@
                         <div class="form-group">
                             <label>코인</label>
                             <select id="bot-coin" class="form-control coin">
+                                <option value="" disabled selected>코인을 선택해주세요.</option>
                                 <option value="BTC">BTC</option>
                                 <option value="ETH">ETH</option>
                                 <option value="XRP">XRP</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>주기</label>
+                            <label>거래 주기</label>
                             <select id="bot-period" class="form-control period">
+                                <option value="" disabled selected>거래 주기을 선택해주세요.</option>
                                 <option value="10s">10초</option>
-                                <option value="15m">15m</option>
-                                <option value="30m">30m</option>
-                                <option value="1h">1h</option>
-                                <option value="2h">2h</option>
+                                <option value="30s">30초</option>
+                                <option value="1m">1분</option>
+                                <option value="3m">3분</option>
+                                <option value="5m">5분</option>
+                                <option value="10m">10분</option>
+                                <option value="15m">15분</option>
+                                <option value="30m">30분</option>
+                                <option value="1h">1시간</option>
+                                <option value="2h">2시간</option>
+                                <option value="4h">4시간</option>
+                                <option value="1d">1일</option>
                             </select>
                         </div>
                     </div>
@@ -124,7 +135,7 @@
                     <div class="tab-pane pad" id="strategy-setting" role="tabpanel">
                         <div class="strategy-selector">
                             <div class="form-group">
-                                <select class="form-control">
+                                <select id="bot-strategy" class="form-control">
                                     <option value="" disabled selected>투자 전략을 선택해주세요.</option>
                                     <option value="HighLowStrategy">High Low Strategy</option>
                                     <option value="ReinforceLearningStrategy">Reinforce Learning Strategy</option>
@@ -244,8 +255,7 @@
 <script src="../assets/vendor_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
 <!-- Sweet-Alert  -->
-<script src="../assets/vendor_components/sweetalert/sweetalert.min.js"></script>
-<script src="../assets/vendor_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!--amcharts charts -->
 <script src="http://www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>

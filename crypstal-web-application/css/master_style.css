@@ -223,10 +223,6 @@ img {
     margin-top: 0.5rem;
 }
 
-.content .box {
-    height: 100%;
-}
-
 a {
     color: #455a64;
 }
@@ -15822,5 +15818,9 @@ input[type=number]::-webkit-outer-spin-button {
 .trade .tradeChart {
     flex: 3;
 
+    margin: 1rem;
+}
+
+.bot-setting {
     margin: 1rem;
 }

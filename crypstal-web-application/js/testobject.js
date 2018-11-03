@@ -1,7 +1,8 @@
 var botListData = [
     {
         id: 1,
-        name: 'Test1',
+        name: 'Test 1',
+        asset: 1000000,
         exchange: 'Bithumb',
         coin: 'BTC',
         period: '10s',
@@ -11,62 +12,68 @@ var botListData = [
     },
     {
         id: 2,
-        name: 'Test2',
-        exchange: 'Bithumb',
-        coin: 'BTC',
-        period: '10s',
+        name: 'Test 2',
+        asset: 1000000,
+        exchange: 'Upbit',
+        coin: 'ETH',
+        period: '30s',
         strategy: {},
-        chatBotAlarm: false,
-        autoTrade: true
+        chatBotAlarm: true,
+        autoTrade: false
     },
     {
         id: 3,
-        name: 'Test3',
-        exchange: 'Bithumb',
-        coin: 'BTC',
-        period: '10s',
+        name: 'Test 3',
+        asset: 1000000,
+        exchange: 'Coinone',
+        coin: 'XRP',
+        period: '1m',
         strategy: {},
         chatBotAlarm: false,
         autoTrade: true
     },
     {
         id: 4,
-        name: 'Test4',
+        name: 'Test 4',
+        asset: 1000000,
         exchange: 'Bithumb',
         coin: 'BTC',
-        period: '10s',
+        period: '3m',
         strategy: {},
         chatBotAlarm: false,
-        autoTrade: true
+        autoTrade: false
     },
     {
         id: 5,
-        name: 'Test5',
+        name: 'Test 5',
+        asset: 1000000,
         exchange: 'Bithumb',
-        coin: 'BTC',
-        period: '10s',
+        coin: 'ETH',
+        period: '5m',
         strategy: {},
         chatBotAlarm: false,
-        autoTrade: true
+        autoTrade: false
     },
     {
         id: 6,
-        name: 'Test6',
+        name: 'Test 6',
+        asset: 1000000,
         exchange: 'Bithumb',
-        coin: 'BTC',
-        period: '10s',
+        coin: 'ETH',
+        period: '10m',
         strategy: {},
-        chatBotAlarm: false,
+        chatBotAlarm: true,
         autoTrade: true
     },
     {
         id: 7,
-        name: 'Test7',
+        name: 'Test 7',
+        asset: 1000000,
         exchange: 'Bithumb',
-        coin: 'BTC',
-        period: '10s',
+        coin: 'XRP',
+        period: '30m',
         strategy: {},
-        chatBotAlarm: false,
-        autoTrade: true
+        chatBotAlarm: true,
+        autoTrade: false
     }
 ];
