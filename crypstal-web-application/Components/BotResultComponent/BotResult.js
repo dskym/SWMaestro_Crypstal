@@ -229,6 +229,10 @@ $(function () {
             panelsSettings: {
                 "usePrefixes": false
             },
+
+            chartScrollbarSettings: {
+                enabled: false
+            }
         });
 
         // DataSet Period Object
@@ -389,6 +393,8 @@ $(function () {
                 chart.validateData();
             });
         };
+
+        console.log(liveChart);
 
         let liveInterval = setInterval(function() { updateData(liveChart, 0); }, 10 * 1000);
     }
