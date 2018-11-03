@@ -34,13 +34,18 @@ $(function () {
         event.stopPropagation();
 
         //다시 한 번 물어보고 변경
-
         const $botUI = $(this).closest('.bot-setting');
-        let botData = $botUI.data('botData');
 
-        botData = {...botData, chatBotAlarm: !botData.chatBotAlarm};
+        let oldBotData = $botUI.data('botData');
+        let newBotData = {...oldBotData, chatBotAlarm: !oldBotData.chatBotAlarm};
 
-        $botUI.data('botData', botData);
+        $.each(botListData, function(index, botData) {
+            if(oldBotData === botData) {
+                botListData[index] = newBotData;
+            }
+        });
+
+        $botUI.data('botData', newBotData);
     });
 
     $(document).on('click', 'button.bot-trade', function (event) {
@@ -49,16 +54,25 @@ $(function () {
         //다시 한 번 물어보고 변경
 
         const $botUI = $(this).closest('.bot-setting');
-        let botData = $botUI.data('botData');
 
-        botData = {...botData, autoTrade: !botData.autoTrade};
+        let oldBotData = $botUI.data('botData');
+        let newBotData = {...oldBotData, autoTrade: !oldBotData.autoTrade};
 
-        $botUI.data('botData', botData);
+        $.each(botListData, function(index, botData) {
+            if(oldBotData === botData) {
+                botListData[index] = newBotData;
+            }
+        });
+
+        $botUI.data('botData', newBotData);
     });
 
     $(document).on('click', 'div.bot-list-component .bot-setting', function () {
+        const $botSettingModal = $('#modal-bot-setting');
+
         const botData = $(this).data('botData');
 
+        //기존 봇 수정
         if(botData !== undefined) {
             if(botData.autoTrade === true) {
                 swal("봇 설정 불가", "자동 거래를 종료해주세요.", "error", {
@@ -95,14 +109,78 @@ $(function () {
                     $(this).prop('selected', true);
                 }
             });
+
+            $botSettingModal.data('mode', 'update');
+            $botSettingModal.data('bot', botData);
+        //봇 추가
+        } else {
+            $botSettingModal.data('mode', 'add');
         }
 
         $('#modal-bot-setting').modal('show');
     });
 
-    $('#modal-bot-setting button[type="submit"]').click(function () {
+    $('#modal-bot-setting button[type="submit"]').click(function (event) {
+        let newBotData = {};
+
+        const $botSettingModal = $('#modal-bot-setting');
+        const $botName = $botSettingModal.find('#bot-name');
+        const $botAsset = $botSettingModal.find('#bot-asset');
+        const $botExchange = $botSettingModal.find('#bot-exchange');
+        const $botCoin = $botSettingModal.find('#bot-coin');
+        const $botPeriod = $botSettingModal.find('#bot-period');
+
+        newBotData.id = 1000;
+        newBotData.name = $botName.val();
+        newBotData.asset = Number($botAsset.val());
+        newBotData.exchange = $botExchange.val();
+        newBotData.coin = $botCoin.val();
+        newBotData.period = $botPeriod.val();
+        newBotData.strategy = {};
+        newBotData.autoTrade = false;
+        newBotData.chatBotAlarm = false;
+
+        if(newBotData.name === '') {
+            swal('이름을 입력해주세요.');
+            return false;
+        }
+
+        if(newBotData.asset === 0) {
+            swal('투자 금액을 입력해주세요.');
+            return false;
+        }
+
+        if(newBotData.exchange === null) {
+            swal('거래소를 입력해주세요.');
+            return false;
+        }
+
+        if(newBotData.coin === null) {
+            swal('코인을 입력해주세요.');
+            return false;
+        }
+
+        if(newBotData.period === null) {
+            swal('거래 주기를 입력해주세요.');
+            return false;
+        }
+
         //서버에 전송하고 결과 받아서 화면 전체 재 랜더링.
-        
+        if($botSettingModal.data('mode') === 'add') {
+            botListData.push(newBotData);
+        } else if($botSettingModal.data('mode') === 'update') {
+            const oldBotData = $botSettingModal.data('bot');
+
+            $.each(botListData, function(index, botData) {
+                if(oldBotData === botData) {
+                    botListData[index] = newBotData;
+                }
+            });
+        } else {
+            console.log('Mode Error.');
+        }
+
+        $('#modal-bot-setting').modal('hide');
 
         reRedering();
     });
