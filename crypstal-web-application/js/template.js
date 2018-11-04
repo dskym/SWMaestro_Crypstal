@@ -924,7 +924,6 @@ if (typeof jQuery === 'undefined') {
     })
 
     // Slim scrolling
-
     $('.inner-content-div').slimScroll({
         height: 'auto'
     });

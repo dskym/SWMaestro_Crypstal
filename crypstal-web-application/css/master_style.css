@@ -15761,66 +15761,148 @@ input[type=number]::-webkit-outer-spin-button {
     display: flex;
     flex-direction: row;
 
-    margin: 1rem;
+    margin-top: 1rem;
 
     background-color: #ffffff;
 }
 
-.trade .botVerticalList {
-    flex: 1
+.tradeResult {
+    display: flex;
+    flex-direction: row;
+
+    background-color: #ffffff;
+
+    margin-left: 1rem;
 }
 
-.trade .tradeInformation {
+.tradeResult .tradeInformation {
     flex: 2;
 
     display: flex;
     flex-direction: column;
 }
 
-.trade .tradeResult {
+.tradeResult .tradeDetail {
     flex: 1;
 
     display: flex;
     flex-direction: row;
 }
 
-.trade .tradeLeftResult {
+.tradeResult .tradeLeftResult {
     flex: 1;
 
     display: flex;
     flex-direction: column;
+
 }
 
-.trade .profitRate {
+.tradeResult .profitRate {
     flex: 1;
 
-    margin: 1rem;
+    margin: 0rem 1rem 0rem 0rem;
 }
 
-.trade .botStatus {
+.tradeResult .botStatus {
     flex: 1;
 
-    margin: 1rem;
+    margin: 0rem 1rem 0rem 0rem;
 }
 
-.trade .currentAsset {
+.tradeResult .currentAsset {
     flex: 1;
 
-    margin: 1rem;
+    margin: 0rem 1rem 0rem 0rem;
 }
 
-.trade .tradeHistory {
-    flex: 2;
+.tradeResult .tradeHistory {
+    flex: 1;
 
-    margin: 1rem;
+    margin: 0rem 1rem 0rem 0rem;
 }
 
-.trade .tradeChart {
+.tradeResult .tradeHistory table {
+    margin-bottom: 0rem;
+}
+
+.tradeResult .tradeHistory th {
+    padding: 1rem;
+    color: black;
+    font-weight: bold;
+}
+
+.tradeResult .tradeHistory tr {
+    text-align: center;
+}
+
+.tradeResult .tradeHistory td {
+    text-align: center;
+    padding: 1rem;
+    color: black;
+}
+
+.tradeResult .tradeChart {
     flex: 3;
 
-    margin: 1rem;
+    margin: 0rem 1rem 0rem 0rem;
 }
 
 .bot-setting {
     margin: 1rem;
+}
+
+/* bot-list*/
+.trade {
+    width: 100%;
+}
+
+.trade .vtabs {
+    display: table;
+    width: 100%;
+}
+
+.trade .vtabs .tabs-vertical {
+    border-bottom: 0px;
+    border-right: 1px solid rgba(120, 130, 140, 0.13);
+    display: table-cell;
+}
+
+.trade .vtabs .tabs-vertical li {
+    margin-left: 0.5rem;
+}
+.trade .vtabs .tabs-vertical li .nav-link{
+    width: 10rem;
+    height: 5rem;
+    text-align: center;
+    color: #000000;
+    border: 0px;
+    border-radius: 0.5rem 0 0 0.5rem !important;
+}
+
+.trade .vtabs .tabs-vertical li .nav-link.active,
+.trade .vtabs .tabs-vertical li .nav-link:hover,
+.trade .vtabs .tabs-vertical li .nav-link.active:focus {
+    width: 11rem;
+    height: 5rem;
+    text-align: center;
+    border: 0px;
+    color: #000000;
+    border-right: 2px solid #0000ff;
+    margin-right: -1px;
+}
+
+.badge {
+    margin-left: 2rem;
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border-radius: 100%;
+}
+
+.start {
+    background-color: #00ff00;
+}
+
+.stop {
+    background-color: #ff0000;
 }

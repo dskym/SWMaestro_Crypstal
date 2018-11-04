@@ -1,11 +1,50 @@
 $(function () {
     "use strict";
 
+    // Slim scrolling
+    $('.inner-content-div').slimScroll({
+        height: 'auto'
+    });
+
     $(document).on('click', 'div.bot-list-component .report', function (event) {
         event.stopPropagation();
 
+        const $botUI = $(this).closest('.bot-setting');
+        let botData = $botUI.data('botData');
+
+        if(botData.autoTrade === false) {
+            swal("실패", "자동 거래를 시작해주세요.", "error", {
+                buttons: false,
+            });
+
+            return false;
+        }
+
         //redraw
-        drawBotReportComponent();
+        drawBotReportComponent(botData);
+    });
+
+    $(document).on('click', 'a.nav-link', function (event) {
+        event.stopPropagation();
+
+        console.log(event);
+        console.log($(this));
+
+        /*
+        const $botUI = $(this).closest('.bot-setting');
+        let botData = $botUI.data('botData');
+
+        if(botData.autoTrade === false) {
+            swal("실패", "자동 거래를 시작해주세요.", "error", {
+                buttons: false,
+            });
+
+            return false;
+        }
+
+        //redraw
+        drawBotReportComponent(botData);
+        */
     });
 
     $('div.content').on('backtest', function (data) {
@@ -14,28 +53,45 @@ $(function () {
     });
 
     function makeBotVerticalListComponent() {
+        console.log(botListData);
+
+        let listContent = '';
+
+        $.each(botListData, function (index, botData) {
+            listContent += `
+			    <li class="nav-item">
+			        <a class="nav-link ${index === 0 ? 'active' : ''}" data-toggle="tab" href="#" role="tab" aria-expanded="false">
+                        <span style="font-size: 1.5rem">${botData.name}</span>
+						<span class="badge ${botData.autoTrade === true ? 'start' : 'stop'}"></span>
+                    </a>
+                </li>
+            `;
+        });
+
         let content = `
-            <div class="box">
-                <div class="box-header without-border">
-                    <h6 class="box-title">Bot Vertical List</h6>
-                </div>
-                <div class="box-body">
-                    <h6 class="box-title">BotVerticalList</h6>
-                </div>
-            </div>
+            <ul class="nav nav-tabs tabs-vertical" role="tablist">
+                ${listContent}
+            </ul>
         `;
 
         return content;
     }
 
     function makeBotProfitComponent(profitRate) {
+        let profitRateElement;
+
+        if(profitRate > 0) {
+            profitRateElement = `<h1 class="text-green margin-top-0">+${profitRate}%</h1>`;
+        } else if(profitRate < 0) {
+            profitRateElement = `<h1 class="text-red margin-top-0">-${profitRate}%</h1>`;
+        } else {
+            profitRateElement = `<h1 class="margin-top-0">${profitRate}%</h1>`;
+        }
+
         let content = `
             <div class="box">
-                <div class="box-header without-border">
-                    <h6 class="box-title">Bot Profit</h6>
-                </div>
-                <div class="box-body">
-                    <h1 class="box-title">${profitRate}%</h1>
+                <div class="box-body text-center">
+                    ${profitRateElement}
                 </div>
             </div>
         `;
@@ -46,11 +102,8 @@ $(function () {
     function makeBotStatusComponent(position) {
         let content = `
             <div class="box">
-                <div class="box-header without-border">
-                    <h6 class="box-title">Trade Status</h6>
-                </div>
-                <div class="box-body">
-                    <h1 class="box-title">${position}</h1>
+                <div class="box-body text-center">
+                    <h1 class="margin-top-0">${position}</h1>
                 </div>
             </div>
         `;
@@ -61,11 +114,8 @@ $(function () {
     function makeAssetComponent() {
         let content = `
              <div class="box">
-                <div class="box-header without-border">
-                    <h6 class="box-title">Current Asset</h6>
-                </div>
-                <div class="box-body">
-                    <h6 class="box-title">Asset List</h6>
+                <div class="box-body text-center">
+                    <h1 class="margin-top-0">Asset List</h1>
                 </div>
             </div>
        `;
@@ -76,23 +126,21 @@ $(function () {
     function makeTradeHistoryComponent(tradeHistory) {
         let content = `
             <div class="box">
-                <div class="box-header without-border">
-                    <h6 class="box-title">Trade History</h6>
-                </div>
-                <div class="box-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <tr>
-                                <th>거래시간</th>
-                                <th>매수/매도</th>
-                                <th>가격</th>
-                                <th>수량</th>
-                                <th>평가금액</th>
-                            </tr>
-            ${
+                <div class="box-content inner-content-div">
+                    <div class="box-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>거래시간</th>
+                                    <th>매수/매도</th>
+                                    <th>가격</th>
+                                    <th>수량</th>
+                                    <th>평가금액</th>
+                                </tr>
+                ${
             (tradeHistory => {
                 let result = '';
-                
+
                 $.each(tradeHistory, function (index, historyElement) {
                     $.each(historyElement, function (key, value) {
                         let positionElement;
@@ -101,23 +149,24 @@ $(function () {
                             positionElement = `<td><span class="label label-success">${key}</span></td>`;
                         else if (key === 'SELL')
                             positionElement = `<td><span class="label label-danger">${key}</span></td>`;
-                        
+
                         result += `
-                            <tr>
-                                <td><a href="javascript:void(0)"><span class="text-black">${value['time']}</span></a></td>
-                                ${positionElement}
-                                <td>${addComma(value['price'])}</td>
-                                <td>${addComma(value['amount'])}</td>
-                                <td>${addComma(Number(value['asset']).toFixed())}</td>
-                            </tr>
-                                `;
+                                <tr>
+                                    <td>${value['time']}</td>
+                                    ${positionElement}
+                                    <td>${addComma(value['price'])}원</td>
+                                    <td>${addComma(value['amount'])}</td>
+                                    <td>${addComma(Number(value['asset']).toFixed())}원</td>
+                                </tr>
+                                    `;
                     });
                 });
-                
+
                 return result;
             })(tradeHistory)
             }
-                        </table>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,6 +181,46 @@ $(function () {
                 <div class="box-body">
                     <div class="chart">
                         <div id="liveChart" style="height: 720px;"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        return content;
+    }
+
+    function makeTradeResultComponent(tempData) {
+        let tradeBotProfitRateComponent = makeBotProfitComponent(15);
+        let tradeHistoryComponent = makeTradeHistoryComponent(tempData['history']);
+        let tradeBotStatusComponent = makeBotStatusComponent('Hold');
+        let currentAssetComponent = makeAssetComponent();
+        let tradeChartComponent = makeTradeChartComponent();
+
+        let content = `
+            <div class="tab-pane active" id="bot" role="tabpanel" aria-expanded="true">
+                <div class="pad p-0">
+                    <div class="tradeResult">
+                        <div class="tradeInformation">
+                            <div class="tradeDetail">
+                                <div class="tradeLeftResult">
+                                    <div class="profitRate">
+                                        ${tradeBotProfitRateComponent}
+                                    </div>
+                                    <div class="botStatus">
+                                        ${tradeBotStatusComponent}
+                                    </div>
+                                </div>
+                                <div class="currentAsset">
+                                    ${currentAssetComponent}
+                                </div>
+                            </div>
+                            <div class="tradeHistory">
+                                ${tradeHistoryComponent}
+                            </div>
+                        </div>
+                        <div class="tradeChart">
+                            ${tradeChartComponent}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -292,7 +381,7 @@ $(function () {
         };
 
         // Add DataSet Array in Chart Object.
-        $.each(dataSetPeriod, function(key, value) {
+        $.each(dataSetPeriod, function (key, value) {
             liveChart.dataSets.push({
                 showInCompare: false,
                 title: key,
@@ -325,8 +414,8 @@ $(function () {
 
             var data;
 
-            $.each(dataSetPeriod, function(key, value) {
-                if(period === key)
+            $.each(dataSetPeriod, function (key, value) {
+                if (period === key)
                     data = value;
             });
 
@@ -339,7 +428,7 @@ $(function () {
             }).done(function (tempData) {
                 var stockData = [];
 
-                $.each(tempData, function(index) {
+                $.each(tempData, function (index) {
                     stockData.unshift({
                         'time': tempData[index]['candle_date_time_kst'],
                         'open': tempData[index]['opening_price'],
@@ -355,7 +444,9 @@ $(function () {
             });
 
             clearInterval(liveInterval);
-            var liveInterval = setInterval(function() { updateData(event.chart, data.dataSetIndex); }, data.interval * 1000);
+            var liveInterval = setInterval(function () {
+                updateData(event.chart, data.dataSetIndex);
+            }, data.interval * 1000);
         }
 
         // Load initial data.
@@ -367,7 +458,7 @@ $(function () {
         }).done(function (data) {
             var stockData = [];
 
-            $.each(data['candles'], function(index) {
+            $.each(data['candles'], function (index) {
                 stockData.unshift({
                     'time': data['candles'][index]['time'],
                     'open': data['candles'][index]['open'],
@@ -383,7 +474,7 @@ $(function () {
         });
 
         // Get new data and update chart periodically.
-        let updateData = function(chart, index) {
+        let updateData = function (chart, index) {
             //get data
             var updateDataUrl = 'http://crypstal.ap-northeast-2.elasticbeanstalk.com/v1/chart/candles/seconds/10?symbol=bithumbBTC&count=1';
 
@@ -400,7 +491,9 @@ $(function () {
 
         console.log(liveChart);
 
-        let liveInterval = setInterval(function() { updateData(liveChart, 0); }, 10 * 1000);
+        let liveInterval = setInterval(function () {
+            updateData(liveChart, 0);
+        }, 10 * 1000);
     }
 
     function drawBotReportComponent() {
@@ -413,39 +506,17 @@ $(function () {
             console.log('Success Load Backtest Chart Data');
         }).done(function (tempData) {
             let botVerticalListComponent = makeBotVerticalListComponent();
-            let tradeBotProfitRateComponent = makeBotProfitComponent(15);
-            let tradeHistoryComponent = makeTradeHistoryComponent(tempData['history']);
-            let tradeBotStatusComponent = makeBotStatusComponent('Hold');
-            let currentAssetComponent = makeAssetComponent();
-            let tradeChartComponent = makeTradeChartComponent();
+            let tradeResultComponent = makeTradeResultComponent(tempData);
 
             console.log(tempData['result']);
 
             let tradeComponent = `
                 <div class="trade">
-                    <div class="botVerticalList">
+                    <div class="vtabs customvtab">
                         ${botVerticalListComponent}
-                    </div>
-                    <div class="tradeInformation">
-                        <div class="tradeResult">
-                            <div class="tradeLeftResult">
-                                <div class="profitRate">
-                                    ${tradeBotProfitRateComponent}
-                                </div>
-                                <div class="botStatus">
-                                    ${tradeBotStatusComponent}
-                                </div>
-                            </div>
-                            <div class="currentAsset">
-                                ${currentAssetComponent}
-                            </div>
+                        <div class="tab-content">
+                            ${tradeResultComponent}
                         </div>
-                        <div class="tradeHistory">
-                            ${tradeHistoryComponent}
-                        </div>
-                    </div>
-                    <div class="tradeChart">
-                        ${tradeChartComponent}
                     </div>
                 </div>
             `;
