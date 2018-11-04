@@ -26,12 +26,50 @@ $(function () {
             //Date picker
             $('#startDate').datepicker({
                 dateFormat: 'yy-mm-dd',
-                autoclose: true
+                changeMonth: true,
+                changeYear: true,
+                showMonthAfterYear: true ,
+                minDate: '-2y',
+            }).on('changeDate', function() {
+                const date = moment($(this).val()).format('YYYY-MM-DD');
+
+                $(this).val(date);
+            }).on('show', function(event) {
+                const date = moment($(this).val()).format('YYYY-MM-DD');
+
+                $(this).val(date);
+
+                event.stopPropagation();
+            }).on('hide', function(event) {
+                const date = moment($(this).val()).format('YYYY-MM-DD');
+
+                $(this).val(date);
+
+                event.stopPropagation();
             });
 
             $('#endDate').datepicker({
                 dateFormat: 'yy-mm-dd',
-                autoclose: true
+                changeMonth: true,
+                changeYear: true,
+                showMonthAfterYear: true ,
+                minDate: '-2y',
+            }).on('changeDate', function() {
+                const date = moment($(this).val()).format('YYYY-MM-DD');
+
+                $(this).val(date);
+            }).on('show', function(event) {
+                const date = moment($(this).val()).format('YYYY-MM-DD');
+
+                $(this).val(date);
+
+                event.stopPropagation();
+            }).on('hide', function(event) {
+                const date = moment($(this).val()).format('YYYY-MM-DD');
+
+                $(this).val(date);
+
+                event.stopPropagation();
             });
         }
     });
@@ -55,8 +93,8 @@ $(function () {
         const $startDate = $('#startDate');
         const $endDate = $('#endDate');
 
-        $startDate.datepicker('setDate', startDate);
-        $endDate.datepicker('setDate', endDate);
+        $startDate.datepicker('setDate', new Date(startDate));
+        $endDate.datepicker('setDate', new Date(endDate));
 
         $startDate.val(startDate);
         $endDate.val(endDate);

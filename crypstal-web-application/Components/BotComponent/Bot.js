@@ -14,17 +14,30 @@ $(function () {
                 case 'cancel':
                     break;
                 case 'ok':
-                    //삭제 요청
-
-                    //성공 시
                     const removeData = $(this).parents('.box').data('botData');
-                    botListData = botListData.filter(botData => botData !== removeData);
 
-                    //재랜더링
-                    reRedering();
+                    if(removeData.autoTrade === false) {
+                        //삭제 요청
+                        console.log('Request Delete.');
 
-                    //실패 시
-                    //실패 응답
+                        //성공 시
+                        botListData = botListData.filter(botData => botData !== removeData);
+
+                        console.log(removeData);
+                        console.log(botListData);
+
+                        //재랜더링
+                        reRedering();
+
+                        //실패 시
+                        //실패 응답
+                    } else {
+                        //삭제 실패
+                        swal('자동 거래를 종료해주세요.', {
+                            buttons: false
+                        });
+                    }
+
                     break;
             }
         });
@@ -130,7 +143,7 @@ $(function () {
         const $botCoin = $botSettingModal.find('#bot-coin');
         const $botPeriod = $botSettingModal.find('#bot-period');
 
-        newBotData.id = 1000;
+        newBotData.id = Math.floor(Math.random() * 100 + 10);
         newBotData.name = $botName.val();
         newBotData.asset = Number($botAsset.val());
         newBotData.exchange = $botExchange.val();
@@ -165,10 +178,12 @@ $(function () {
             return false;
         }
 
+        const mode = $botSettingModal.data('mode');
+
         //서버에 전송하고 결과 받아서 화면 전체 재 랜더링.
-        if($botSettingModal.data('mode') === 'add') {
+        if(mode === 'add') {
             botListData.push(newBotData);
-        } else if($botSettingModal.data('mode') === 'update') {
+        } else if(mode === 'update') {
             const oldBotData = $botSettingModal.data('bot');
 
             $.each(botListData, function(index, botData) {
@@ -180,12 +195,23 @@ $(function () {
             console.log('Mode Error.');
         }
 
+        console.log(botListData);
+
         $('#modal-bot-setting').modal('hide');
 
         reRedering();
     });
 
-    $('#modal-bot-setting').on('show.bs.modal', function() {
+    $('#modal-bot-setting').on('show.bs.modal', function(event) {
+        /*
+        //datepicker 킬 때 막기
+        if(event.target.nodeName === 'INPUT') {
+            console.log(event);
+
+            return false;
+        }
+        */
+
         //tab position reset.
         const $botSettingModal = $('#modal-bot-setting');
         const $botSettingTab = $botSettingModal.find('#bot-setting-tab');
@@ -198,7 +224,18 @@ $(function () {
         $botSettingTabContent.children().eq(1).removeClass('active');
     });
 
-    $('#modal-bot-setting').on('hide.bs.modal', function() {
+    $('#modal-bot-setting').on('hide.bs.modal', function(event) {
+        /*
+        console.log(event);
+
+        //datepicker 끌 때 막기
+        if(event.target.nodeName === 'INPUT') {
+            console.log(event);
+
+            return false;
+        }
+        */
+
         //입력된 값 초기화.
         const $botSettingModal = $('#modal-bot-setting');
         const $botName = $botSettingModal.find('#bot-name');

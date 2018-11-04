@@ -162,9 +162,9 @@ $(function () {
             },
 
             categoryAxesSettings: {
-                minPeriod: "5mm",
+                minPeriod: "10ss",
                 equalSpacing: true,
-                groupToPeriods: ['5mm', '15mm', '30mm', '1hh', '2hh']
+                groupToPeriods: ['10ss']
             },
 
             mouseWheelZoomEnabled: true,
@@ -178,7 +178,7 @@ $(function () {
 
                 categoryAxis: {
                     parseDates: true,
-                    minPeriod: "mm"
+                    minPeriod: "10ss"
                 },
 
                 stockGraphs: [{
@@ -203,7 +203,11 @@ $(function () {
                     markerType: "none",
                     markerSize: 0,
                     labelText: "",
-                }
+                },
+
+                chartCursor: {
+                    selectWithoutZooming: true,
+                },
             }, {
                 title: "Volume",
                 percentHeight: 20,
@@ -223,11 +227,11 @@ $(function () {
                     markerType: "none",
                     markerSize: 0,
                     labelText: "",
-                }
+                },
             }],
 
             panelsSettings: {
-                "usePrefixes": false
+                usePrefixes: false
             },
 
             chartScrollbarSettings: {
