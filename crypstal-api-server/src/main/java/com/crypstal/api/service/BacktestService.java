@@ -21,7 +21,7 @@ import com.crypstal.api.backtest.BudgetaryTrade;
 import com.crypstal.api.backtest.BudgetaryTradingRecord;
 import com.crypstal.api.backtest.TradingResult;
 import com.crypstal.api.model.BaseStrategyTradingBot;
-import com.crypstal.api.model.Bot;
+import com.crypstal.tradingbot.TradingBot;
 
 @Service
 public class BacktestService {

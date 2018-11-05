@@ -1,23 +1,19 @@
 package com.crypstal.api.service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.ta4j.core.Order.OrderType;
-import org.ta4j.core.Rule;
 import org.ta4j.core.TimeSeries;
 
 import com.crypstal.api.dao.TradingBotConfigurationDao;
 import com.crypstal.api.exchange.AbstractExchangeService;
 import com.crypstal.api.exchange.ExchangeServiceFactoryBean;
 import com.crypstal.api.model.BaseStrategyTradingBot;
-import com.crypstal.api.model.Bot;
 import com.crypstal.api.model.TradingBotConfiguration;
-import com.crypstal.api.strategy.Strategy;
 import com.crypstal.api.strategy.WeightedRule;
+import com.crypstal.tradingbot.TradingBot;
 
 @Service
 public class BotService {
@@ -55,12 +51,12 @@ public class BotService {
 		return tradingBotConfDao.selectListByUser();
 	}
 	
-	public void store(Bot bot) {
+	public void store(TradingBot bot) {
 		//botDao.insert(bot);
 	}
 	
-	public Bot createByDefault(String botName) {
-		return new Bot(botName);
+	public TradingBot createByDefault(String botName) {
+		return new TradingBot(botName);
 	}
 }
 

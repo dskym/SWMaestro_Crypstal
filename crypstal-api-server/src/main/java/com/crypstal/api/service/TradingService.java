@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.crypstal.api.model.BaseStrategyTradingBot;
-import com.crypstal.api.model.Bot;
+import com.crypstal.tradingbot.TradingBot;
 
 @Service
 public class TradingService {

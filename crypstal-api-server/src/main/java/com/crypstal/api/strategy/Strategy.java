@@ -29,4 +29,8 @@ public class Strategy {
 		
 		return false;
 	}
+	
+	public boolean isSatisfied() {
+		return false;
+	}
 }

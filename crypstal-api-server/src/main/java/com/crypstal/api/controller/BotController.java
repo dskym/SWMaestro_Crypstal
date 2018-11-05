@@ -1,19 +1,16 @@
 package com.crypstal.api.controller;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,17 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.ta4j.core.Trade;
 import org.ta4j.core.TradingRecord;
 
 import com.crypstal.api.backtest.BudgetaryTradingRecord;
 import com.crypstal.api.backtest.TradingResult;
 import com.crypstal.api.model.BaseStrategyTradingBot;
-import com.crypstal.api.model.Bot;
 import com.crypstal.api.model.TradingBotConfiguration;
 import com.crypstal.api.service.BacktestService;
 import com.crypstal.api.service.BotService;
 import com.crypstal.api.service.TradingService;
+import com.crypstal.tradingbot.TradingBot;
 
 @Controller
 @RequestMapping(path="/v1/bots", produces = "application/json; charset=utf-8")
@@ -50,7 +46,7 @@ public class BotController extends AbstractController {
 	
 	@GetMapping
 	@ResponseBody
-	public ResponseEntity<String> listBots() throws Exception {
+	public ResponseEntity<String> list() throws Exception {
 		List<TradingBotConfiguration> userBotList = botService.getByUser();
 		System.out.println(userBotList);
 		return new ResponseEntity<String>(getGson().toJson(userBotList), HttpStatus.OK);
@@ -59,7 +55,7 @@ public class BotController extends AbstractController {
 	@PostMapping()
 	@ResponseBody
 	public ResponseEntity<String> create(@RequestBody String botName) throws Exception {
-		Bot bot = botService.createByDefault(botName);
+		TradingBot bot = botService.createByDefault(botName);
 		botService.store(bot);
 		
 		return new ResponseEntity<String>(getGson().toJson(bot), HttpStatus.OK);
@@ -89,6 +85,13 @@ public class BotController extends AbstractController {
 	@PutMapping("/{botId}/shutdown")
 	@ResponseBody
 	public ResponseEntity<String> shutdown(@PathVariable int botId) throws Exception {
+		return new ResponseEntity<String>(getGson().toJson(null), HttpStatus.OK);
+	}
+	
+	@GetMapping("/{botId}/status")
+	@ResponseBody
+	public ResponseEntity<String> status(@PathVariable int botId) throws Exception {
+		tradingService.register(botId);
 		return new ResponseEntity<String>(getGson().toJson(null), HttpStatus.OK);
 	}
 	

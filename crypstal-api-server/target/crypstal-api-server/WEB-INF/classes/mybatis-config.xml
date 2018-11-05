@@ -7,6 +7,7 @@
 <configuration>
 	<typeAliases>
 		<package name="com.crypstal.api.model"/>
+		<package name="com.crypstal.ta4j"/>
 	</typeAliases>
 
 	<typeHandlers>

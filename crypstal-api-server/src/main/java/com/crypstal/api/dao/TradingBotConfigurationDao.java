@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.crypstal.api.model.Bot;
 import com.crypstal.api.model.TradingBotConfiguration;
+import com.crypstal.tradingbot.TradingBot;
 
 @Repository
 public class TradingBotConfigurationDao {

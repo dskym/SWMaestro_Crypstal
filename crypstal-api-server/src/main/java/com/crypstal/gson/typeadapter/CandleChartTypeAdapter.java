@@ -15,7 +15,6 @@ public class CandleChartTypeAdapter extends TypeAdapter<CandleChart> {
 
 	@Override
 	public void write(JsonWriter out, CandleChart candleChart) throws IOException {
-		
 		out.beginObject();
 		out.name("from").value(candleChart.getFrom().format(DateTimeFormatter.ISO_DATE_TIME));
 		out.name("to").value(candleChart.getTo().format(DateTimeFormatter.ISO_DATE_TIME));
@@ -35,6 +34,7 @@ public class CandleChartTypeAdapter extends TypeAdapter<CandleChart> {
 			out.endObject();
 		}
 	    out.endArray();
+	    out.endObject();
 	}
 
 	@Override

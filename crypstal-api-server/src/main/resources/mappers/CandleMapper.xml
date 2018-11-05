@@ -7,30 +7,63 @@
 	
 	<resultMap id="candle" type="org.ta4j.core.BaseBar">
 		<constructor>
-   			<arg column="candle_date_time_kst" javaType="java.time.ZonedDateTime"/>
-   			<arg column="opening_price" javaType="_double"/>
-   			<arg column="high_price" javaType="_double"/>
-   			<arg column="low_price" javaType="_double"/>
-   			<arg column="trade_price" javaType="_double" />
-   			<arg column="candle_acc_trade_volume" javaType="_double"/>
+   			<arg column="end_time" javaType="java.time.ZonedDateTime"/>
+   			<arg column="open_price" javaType="_double"/>
+   			<arg column="max_price" javaType="_double"/>
+   			<arg column="min_price" javaType="_double" />
+   			<arg column="close_price" javaType="_double"/>
+   			<arg column="volume" javaType="_double"/>
 		</constructor>
 	</resultMap>
  
-	<select id="selectListFromUpbitBtc5minCandle"  resultMap="candle">
-		SELECT candle_date_time_kst, opening_price, high_price, low_price, trade_price, candle_acc_trade_volume
-		FROM upbit_btc_5min_candle
+	<select id="selectListBithumbBTC10SEC"  resultMap="candle">
+		SELECT end_time, open_price, close_price, max_price, min_price, volume FROM bithumbbtc_10sec
 		<choose>
-			<when test="from != null">
-			WHERE candle_date_time_kst BETWEEN #{from} AND #{to}
+			<when test="from != null and to != null">
+			WHERE end_time BETWEEN #{from} AND #{to}
 			</when>
-			<otherwise>
-			WHERE candle_date_time_kst <![CDATA[<]]> #{to}
-			</otherwise>
+			<when test="from == null and to != null">
+			WHERE end_time <![CDATA[<]]> #{to}
+			</when>
 		</choose>
-		ORDER BY candle_date_time_kst DESC
+		ORDER BY end_time DESC
 		<if test="from == null">
 			LIMIT 0, #{count}
 		</if>
 	</select>
+	
+	<select id="selectLatestBithumbBTC10SEC" resultMap="candle">
+		SELECT end_time, open_price, close_price, max_price, min_price, volume FROM bithumbbtc_10sec
+		ORDER BY end_time DESC 
+		LIMIT 0, #{count}    
+	</select>
+	
+	<insert id="insertOrUpdateBithumbBTC10SEC" parameterType="MutableBaseBar">
+		INSERT INTO bithumbbtc_10sec (end_time, open_price, close_price, max_price, min_price, volume) 
+		VALUES (#{endTime}, #{openPrice}, #{closePrice}, #{maxPrice}, #{minPrice}, #{volume})
+		ON DUPLICATE KEY UPDATE 
+			close_price=#{closePrice}, max_price=#{maxPrice}, min_price=#{minPrice}, volume=#{volume}
+	</insert>
+	
+	<insert id="insertOrUpdateBithumbBTC30SEC" parameterType="MutableBaseBar">
+		INSERT INTO bithumbbtc_30sec (end_time, open_price, close_price, max_price, min_price, volume) 
+		VALUES (#{endTime}, #{openPrice}, #{closePrice}, #{maxPrice}, #{minPrice}, #{volume})
+		ON DUPLICATE KEY UPDATE 
+			close_price=#{closePrice}, max_price=#{maxPrice}, min_price=#{minPrice}, volume=#{volume}
+	</insert>
+	
+	<insert id="insertOrUpdateBithumbBTC1MIN" parameterType="MutableBaseBar">
+		INSERT INTO bithumbbtc_1min (end_time, open_price, close_price, max_price, min_price, volume) 
+		VALUES (#{endTime}, #{openPrice}, #{closePrice}, #{maxPrice}, #{minPrice}, #{volume})
+		ON DUPLICATE KEY UPDATE 
+			close_price=#{closePrice}, max_price=#{maxPrice}, min_price=#{minPrice}, volume=#{volume}
+	</insert>
+	
+	<insert id="insertOrUpdateBithumbBTC3MIN" parameterType="MutableBaseBar">
+		INSERT INTO bithumbbtc_3min (end_time, open_price, close_price, max_price, min_price, volume) 
+		VALUES (#{endTime}, #{openPrice}, #{closePrice}, #{maxPrice}, #{minPrice}, #{volume})
+		ON DUPLICATE KEY UPDATE 
+			close_price=#{closePrice}, max_price=#{maxPrice}, min_price=#{minPrice}, volume=#{volume}
+	</insert>
 	
 </mapper>

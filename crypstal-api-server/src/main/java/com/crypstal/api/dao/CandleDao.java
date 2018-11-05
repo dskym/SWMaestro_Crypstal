@@ -8,23 +8,37 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.ta4j.core.Bar;
 
+import com.crypstal.ta4j.MutableBaseBar;
+
 @Repository
 public class CandleDao extends AbstractDao<Bar> {
 	
-	public static Logger logger = Logger.getLogger(CandleDao.class);
+	//public static Logger logger = Logger.getLogger(CandleDao.class);
 	
 	public List<Bar> selectList(Map<String, Object> params) {
 		int unit = (int)params.get("unit");
-		String exchange = (String)params.get("exchange");
-		String crypto = ((String)params.get("market")).split("-")[1];
 
-		String stmtId = new StringBuilder("selectListFrom")
-				.append(WordUtils.capitalize(exchange))
-				.append(WordUtils.capitalize(crypto))
-				.append(unit)
-				.append("minCandle")
-				.toString();
-		
-		return getSqlSession().selectList(getMappedStatement(stmtId), params);
+		return getSqlSession().selectList(getMappedStatement("selectListBithumbBTC10SEC"), params);
+	}
+	
+	public List<Bar> selectLatestBithumbBTC10SEC(int count) {
+		System.out.println("count: " + count);
+		return getSqlSession().selectList(getMappedStatement("selectLatestBithumbBTC10SEC"), count);
+	}
+	
+	public void insertOrUpdateBithumbBTC10SEC(MutableBaseBar bar) {
+		getSqlSession().insert(getMappedStatement("insertOrUpdateBithumbBTC10SEC"), bar);
+	}
+	
+	public void insertOrUpdateBithumbBTC30SEC(MutableBaseBar bar) {
+		getSqlSession().insert(getMappedStatement("insertOrUpdateBithumbBTC30SEC"), bar);
+	}
+	
+	public void insertOrUpdateBithumbBTC1MIN(MutableBaseBar bar) {
+		getSqlSession().insert(getMappedStatement("insertOrUpdateBithumbBTC1MIN"), bar);
+	}
+	
+	public void insertOrUpdateBithumbBTC3MIN(MutableBaseBar bar) {
+		getSqlSession().insert(getMappedStatement("insertOrUpdateBithumbBTC3MIN"), bar);
 	}
 }

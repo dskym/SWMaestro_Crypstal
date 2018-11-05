@@ -3,8 +3,11 @@ package com.crypstal.api.dao;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import lombok.Data;
 
@@ -12,6 +15,7 @@ import lombok.Data;
 public abstract class AbstractDao<T> {
 	
 	@Autowired
+	@Resource(name="financialDataSqlSession")
 	protected SqlSession sqlSession;
 	
 	private String mapperPrefix = "com.crypstal.api.";

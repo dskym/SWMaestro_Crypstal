@@ -10,6 +10,9 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 		
 		<context:component-scan base-package="com.crypstal.api" />
+		<context:component-scan base-package="com.crypstal.data" />
+		<context:component-scan base-package="com.crypstal.data.crawler" />
+		
 		<context:property-placeholder location="classpath:/properties/db.properties"/>
 		
 		<task:annotation-driven executor="executor" scheduler="scheduler"/>
@@ -33,29 +36,44 @@
 		<!-- <mvc:resources location="/static/css/**" mapping="/css/**"/> -->
 		<!--  <mvc:resources location="/image/**" mapping="/image/**"/>
 		<mvc:resources location="/js/**" mapping="/js/**"/> -->
-
+		
 		<bean id="viewResolver"
 			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 			<property name="prefix" value="/WEB-INF/view/" />
 			<property name="suffix" value=".jsp" />
 		</bean>
-		<!-- DataSource -->
-	
-		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<!-- Financial Data Source -->
+		<bean id="financialDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 			<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-			<property name="url" value="${db.jdbcUrl}"/>
-			<property name="username" value="${db.user}"/>
-			<property name="password" value="${db.password}"/>
+			<property name="url" value="${financialDB.jdbcUrl}"/>
+			<property name="username" value="${financialDB.user}"/>
+			<property name="password" value="${financialDB.password}"/>
 		</bean>
 		
-		<!-- SqlSessionFactoryBean -->
-		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
-			<property name="dataSource" ref="dataSource"/>
+		<bean id="financialDataSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+			<property name="dataSource" ref="financialDataSource"/>
 			<property name="configLocation" value="classpath:mybatis-config.xml" />
 		</bean>
 		
-		<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		  	<constructor-arg ref="sqlSessionFactory" />
+		<bean id="financialDataSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		  	<constructor-arg ref="financialDataSqlSessionFactory" />
 		</bean>
 		
+		<!-- Bot Data Source -->
+		<bean id="botDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+			<property name="url" value="${botDB.jdbcUrl}"/>
+			<property name="username" value="${botDB.user}"/>
+			<property name="password" value="${botDB.password}"/>
+		</bean>
+		
+		<bean id="botDataSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+			<property name="dataSource" ref="botDataSource"/>
+			<property name="configLocation" value="classpath:mybatis-config.xml" />
+		</bean>
+		
+		<bean id="botDataSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		  	<constructor-arg ref="botDataSqlSessionFactory" />
+		</bean>
 </beans>
