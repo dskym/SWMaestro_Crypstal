@@ -250,29 +250,6 @@ $(function () {
         });
 
         console.log(stockChart);
-        /*
-        let stockDataUrl = 'http://crypstal.ap-northeast-2.elasticbeanstalk.com/v1/chart/candles/seconds/10?symbol=bithumbBTC&count=200';
-
-        $.getJSON(stockDataUrl, function () {
-            console.log('Success Load Stock Data');
-        }).done(function (data) {
-            var stockData = [];
-
-            $.each(data['candles'], function (index) {
-                stockData.unshift({
-                    'time': data['candles'][index]['time'],
-                    'open': data['candles'][index]['open'],
-                    'close': data['candles'][index]['close'],
-                    'high': data['candles'][index]['high'],
-                    'low': data['candles'][index]['low'],
-                    'volume': data['candles'][index]['volume']
-                });
-            });
-
-            stockChart.dataSets[0].dataProvider = stockData;
-            stockChart.validateData();
-        });
-        */
     }
 
     function makeReinforceLearningStrategyComponent() {

@@ -24,43 +24,25 @@ $(function () {
         drawBotReportComponent(botData);
     });
 
-    $(document).on('click', 'a.nav-link', function (event) {
-        event.stopPropagation();
-
-        console.log(event);
-        console.log($(this));
-
-        /*
-        const $botUI = $(this).closest('.bot-setting');
-        let botData = $botUI.data('botData');
-
-        if(botData.autoTrade === false) {
-            swal("실패", "자동 거래를 시작해주세요.", "error", {
-                buttons: false,
-            });
-
-            return false;
-        }
-
+    $('div.content').on('backtest', function (botData) {
         //redraw
         drawBotReportComponent(botData);
-        */
     });
 
-    $('div.content').on('backtest', function (data) {
-        //redraw
-        drawBotReportComponent(data);
-    });
+    function makeBotVerticalListComponent(selctedBotData) {
+        let botIndex;
 
-    function makeBotVerticalListComponent() {
-        console.log(botListData);
+        $.each(botListData, function(index, botData) {
+            if(selctedBotData === botData)
+                botIndex = index;
+        });
 
         let listContent = '';
 
         $.each(botListData, function (index, botData) {
             listContent += `
 			    <li class="nav-item">
-			        <a class="nav-link ${index === 0 ? 'active' : ''}" data-toggle="tab" href="#" role="tab" aria-expanded="false">
+			        <a class="nav-link ${index === botIndex ? 'active' : ''}" data-toggle="tab" href="#" role="tab" aria-expanded="false">
                         <span style="font-size: 1.5rem">${botData.name}</span>
 						<span class="badge ${botData.autoTrade === true ? 'start' : 'stop'}"></span>
                     </a>
@@ -100,6 +82,14 @@ $(function () {
     }
 
     function makeBotStatusComponent(position) {
+        let botStatusElement;
+
+        if(botStatusElement === 'hold') {
+
+        } else if(botStatusElement === 'hold') {
+
+        }
+
         let content = `
             <div class="box">
                 <div class="box-body text-center">
@@ -142,7 +132,23 @@ $(function () {
                 let result = '';
 
                 $.each(tradeHistory, function (index, historyElement) {
-                    $.each(historyElement, function (key, value) {
+                        let positionElement;
+
+                        if (historyElement.position === 'BUY')
+                            positionElement = `<td><span class="label label-success">${historyElement.position}</span></td>`;
+                        else if (historyElement.position === 'SELL')
+                            positionElement = `<td><span class="label label-danger">${historyElement.position}</span></td>`;
+
+                        result += `
+                                <tr>
+                                    <td>${historyElement['time']}</td>
+                                    ${positionElement}
+                                    <td>${addComma(historyElement['price'])}원</td>
+                                    <td>${addComma(historyElement['amount'])}</td>
+                                    <td>${addComma(Number(historyElement['asset']).toFixed())}원</td>
+                                </tr>
+                                    `;
+                        /*
                         let positionElement;
 
                         if (key === 'BUY')
@@ -159,7 +165,7 @@ $(function () {
                                     <td>${addComma(Number(value['asset']).toFixed())}원</td>
                                 </tr>
                                     `;
-                    });
+                        */
                 });
 
                 return result;
@@ -190,10 +196,10 @@ $(function () {
     }
 
     function makeTradeResultComponent(tempData) {
-        let tradeBotProfitRateComponent = makeBotProfitComponent(15);
+        let tradeBotProfitRateComponent = makeBotProfitComponent(tempData.result.profit * 100);
         let tradeHistoryComponent = makeTradeHistoryComponent(tempData['history']);
-        let tradeBotStatusComponent = makeBotStatusComponent('Hold');
-        let currentAssetComponent = makeAssetComponent();
+        let tradeBotStatusComponent = makeBotStatusComponent(tempData.result.hold);
+        let currentAssetComponent = makeAssetComponent(tempData.result.currentAsset);
         let tradeChartComponent = makeTradeChartComponent();
 
         let content = `
@@ -496,10 +502,11 @@ $(function () {
         }, 10 * 1000);
     }
 
-    function drawBotReportComponent() {
+    function drawBotReportComponent(botData) {
         let $content = $('div.content');
         $content.empty();
 
+        /*
         const tempUrl = 'http://crypstal.ap-northeast-2.elasticbeanstalk.com/v1/bots/1/backtest?from=2018-10-01&to=2018-11-01&asset=1000000&fee=0.001&slippage=0.004';
 
         $.getJSON(tempUrl, function () {
@@ -525,6 +532,26 @@ $(function () {
 
             setTradeChartComponent();
         });
+        */
+
+
+        let botVerticalListComponent = makeBotVerticalListComponent(botData);
+        let tradeResultComponent = makeTradeResultComponent(tradeResultData);
+
+        let tradeComponent = `
+                <div class="trade">
+                    <div class="vtabs customvtab">
+                        ${botVerticalListComponent}
+                        <div class="tab-content">
+                            ${tradeResultComponent}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+        $content.append(tradeComponent);
+
+        setTradeChartComponent();
     }
 
     function addComma(value) {

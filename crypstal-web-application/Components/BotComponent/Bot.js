@@ -65,7 +65,6 @@ $(function () {
         event.stopPropagation();
 
         //다시 한 번 물어보고 변경
-
         const $botUI = $(this).closest('.bot-setting');
 
         let oldBotData = $botUI.data('botData');
@@ -369,6 +368,30 @@ $(function () {
         });
     }
 
+    function loadBotData() {
+        //Load Bot Data.
+
+
+        /*
+        let strategy = new Object();
+
+        //Load Buy and Sell Rules.
+        //Case 'Buy And Sell Rule'.
+        const buyRuleUrl = ruleUrl + '/bdp-1';
+        const sellRuleUrl = ruleUrl + '/bdp-2';
+
+        $.getJSON(buyRuleUrl, function(data) {
+            strategy.lowPrice = data['price'];
+        });
+
+        $.getJSON(sellRuleUrl, function(data) {
+            strategy.highPrice = data['price'];
+        });
+        */
+
+        //Combine and Return.
+    }
+
     function drawBotListComponent() {
         let component = makeBotListComponent();
 
@@ -383,6 +406,32 @@ $(function () {
         $content.empty();
 
         drawBotListComponent();
+    }
+
+    /*
+    function setBotSchedule() {
+        $.each(botListData, function(index, botData) {
+            if(botData.autoTrade === true) {
+                //주기적으로 서버에 현재 코인 상태 요청해서 화면 업데이트
+                setInterval(, botIntervalTable[botData.period] * 1000);
+            }
+        });
+    }
+    */
+
+    const botIntervalTable = {
+        '10s': 10,
+        '30s': 30,
+        '1m': 60,
+        '3m': 180,
+        '5m': 300,
+        '10m': 600,
+        '15m': 900,
+        '30m': 1800,
+        '1h': 3600,
+        '2h': 7200,
+        '4h': 14400,
+        '1d': 86400
     }
 
     drawBotListComponent();
