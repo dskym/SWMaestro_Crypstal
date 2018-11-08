@@ -77,6 +77,62 @@ $(function () {
         });
 
         $botUI.data('botData', newBotData);
+
+        if(newBotData.autoTrade === true) {
+            //trade request
+
+            if(newBotData.strategy.name === 'ReinforceLearningStrategy') {
+                let trainSocket = new WebSocket("ws://127.0.0.1:8000/training");
+
+                trainSocket.onopen = function(event) {
+                    trainSocket.send(JSON.stringify(newBotData.strategy));
+                };
+
+                trainSocket.onmessage = function(event) {
+                    console.log(event.data);
+
+                    //End Learn
+                    console.log('End Training.');
+
+                    trainSocket.close();
+                };
+
+                /*
+                const tradeUrl = aiTradeUrl + '/Training?startDate=' + newBotData.strategy.startDate + '&endDate=' + newBotData.strategy.endDate + '&coin=' + newBotData.strategy.coin;
+
+                $.getJSON(tradeUrl, function (data) {
+                    console.log(data);
+                });
+                */
+
+
+
+                let runSocket = new WebSocket("ws://127.0.0.1:8000/running");
+
+                runSocket.onopen = function(event) {
+                    runSocket.send(JSON.stringify({'filename':'1234','coin':'1234','asset':'1234'}));
+                };
+
+                runSocket.onmessage = function(event) {
+                    console.log(event.data);
+
+                    console.log('End Running.');
+
+                    //End Run
+                    runSocket.close();
+                };
+
+                /*
+                const runUrl = aiTradeUrl + '/Running?filename=1234&coin=1234&asset=1234';
+
+                $.getJSON(runUrl, function (data) {
+                    console.log(data);
+                });
+                */
+            }
+        } else {
+            //trade stop request
+        }
     });
 
     $(document).on('click', 'div.bot-list-component .bot-setting', function () {
@@ -122,6 +178,19 @@ $(function () {
                 }
             });
 
+
+            const $botStrategy = $botSettingModal.find('#bot-strategy');
+
+            $.each($botStrategy.children(), function() {
+                if ($(this).val() === botData.strategy.name) {
+                    $(this).prop('selected', true);
+
+                    $('div.strategy-selector').trigger( "change" );
+
+                    setStrategyComponent(botData.strategy);
+                }
+            });
+
             $botSettingModal.data('mode', 'update');
             $botSettingModal.data('bot', botData);
         //봇 추가
@@ -148,9 +217,7 @@ $(function () {
         newBotData.exchange = $botExchange.val();
         newBotData.coin = $botCoin.val();
         newBotData.period = $botPeriod.val();
-        newBotData.strategy = {};
-        newBotData.autoTrade = false;
-        newBotData.chatBotAlarm = false;
+        newBotData.strategy = getStrategy();
 
         if(newBotData.name === '') {
             swal('이름을 입력해주세요.');
@@ -181,12 +248,18 @@ $(function () {
 
         //서버에 전송하고 결과 받아서 화면 전체 재 랜더링.
         if(mode === 'add') {
+            newBotData.autoTrade = false;
+            newBotData.chatBotAlarm = false;
+
             botListData.push(newBotData);
         } else if(mode === 'update') {
             const oldBotData = $botSettingModal.data('bot');
 
             $.each(botListData, function(index, botData) {
                 if(oldBotData === botData) {
+                    newBotData.autoTrade = botListData[index].autoTrade;
+                    newBotData.chatBotAlarm = botListData[index].chatBotAlarm;
+
                     botListData[index] = newBotData;
                 }
             });
@@ -196,21 +269,12 @@ $(function () {
 
         console.log(botListData);
 
-        $('#modal-bot-setting').modal('hide');
+        $botSettingModal.modal('hide');
 
         reRedering();
     });
 
     $('#modal-bot-setting').on('show.bs.modal', function(event) {
-        /*
-        //datepicker 킬 때 막기
-        if(event.target.nodeName === 'INPUT') {
-            console.log(event);
-
-            return false;
-        }
-        */
-
         //tab position reset.
         const $botSettingModal = $('#modal-bot-setting');
         const $botSettingTab = $botSettingModal.find('#bot-setting-tab');
@@ -224,17 +288,6 @@ $(function () {
     });
 
     $('#modal-bot-setting').on('hide.bs.modal', function(event) {
-        /*
-        console.log(event);
-
-        //datepicker 끌 때 막기
-        if(event.target.nodeName === 'INPUT') {
-            console.log(event);
-
-            return false;
-        }
-        */
-
         //입력된 값 초기화.
         const $botSettingModal = $('#modal-bot-setting');
         const $botName = $botSettingModal.find('#bot-name');
@@ -408,6 +461,30 @@ $(function () {
         drawBotListComponent();
     }
 
+    function getStrategy() {
+        const $botStrategy = $('#bot-strategy');
+        const strategyName = $botStrategy.val();
+        let strategyObject = {};
+
+        switch(strategyName) {
+            case 'HighLowStrategy':
+                strategyObject.name = strategyName;
+                strategyObject.highPrice = $('#highPrice').val();
+                strategyObject.lowPrice = $('#lowPrice').val();
+                break;
+            case 'ReinforceLearningStrategy':
+                strategyObject.name = strategyName;
+                strategyObject.startDate = $('#startDate').val();
+                strategyObject.endDate = $('#endDate').val();
+                strategyObject.learnCoin = $('#learnCoin').val();
+                break;
+            default :
+                break;
+        }
+
+        return strategyObject;
+    }
+
     /*
     function setBotSchedule() {
         $.each(botListData, function(index, botData) {
@@ -418,6 +495,33 @@ $(function () {
         });
     }
     */
+
+    function setStrategyComponent(strategy) {
+        switch(strategy.name) {
+            case 'HighLowStrategy':
+                $('#lowPrice').val(strategy.lowPrice);
+                $('#highPrice').val(strategy.highPrice);
+                break;
+            case 'ReinforceLearningStrategy':
+                const startDate = moment(strategy.startDate).format('YYYY-MM-DD');
+                const endDate = moment(strategy.endDate).format('YYYY-MM-DD');
+
+                $('#startDate').datepicker('setDate', startDate);
+                $('#endDate').datepicker('setDate', endDate);
+
+                $('#startDate').val(startDate);
+                $('#endDate').val(endDate);
+
+                $.each($('#learnCoin').children(), function() {
+                    if ($(this).val() === strategy.coin) {
+                        $(this).prop('selected', true);
+                    }
+                });
+                break;
+            default :
+                break;
+        }
+    }
 
     const botIntervalTable = {
         '10s': 10,
@@ -432,7 +536,7 @@ $(function () {
         '2h': 7200,
         '4h': 14400,
         '1d': 86400
-    }
+    };
 
     drawBotListComponent();
 });

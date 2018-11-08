@@ -46,7 +46,7 @@ $(function () {
                 $(this).val(date);
 
                 event.stopPropagation();
-            });
+            })
 
             $('#endDate').datepicker({
                 dateFormat: 'yy-mm-dd',
@@ -71,6 +71,15 @@ $(function () {
 
                 event.stopPropagation();
             });
+
+            const startDate = moment(new Date()).subtract('months', 1).format('YYYY-MM-DD');
+            const endDate = moment(new Date()).format('YYYY-MM-DD');
+
+            $('#startDate').datepicker('setDate', startDate);
+            $('#endDate').datepicker('setDate', endDate);
+
+            $('#startDate').val(startDate);
+            $('#endDate').val(endDate);
         }
     });
 
@@ -78,11 +87,11 @@ $(function () {
         let content = `
             <div class="form-group">
                 <label>구입 금액</label>
-                <input class="form-control" type="text" placeholder="구입 금액을 입력해주세요." />
+                <input class="form-control" type="text" placeholder="구입 금액을 입력해주세요." id="lowPrice" />
             </div>
             <div class="form-group">
                 <label>판매 금액</label>
-                <input class="form-control" type="text" placeholder="판매 금액을 입력해주세요"/>
+                <input class="form-control" type="text" placeholder="판매 금액을 입력해주세요" id="highPrice" />
             </div>
         `;
 
@@ -278,6 +287,17 @@ $(function () {
                     </div>
                     <input type="text" class="form-control pull-right" id="endDate" placeholder="2018-11-01">
                 </div>
+            </div>
+            
+            <div class="form-group">
+                <label>학습 코인</label>
+
+                <select id="learnCoin" class="form-control">
+                    <option value="" disabled selected>코인을 선택해주세요.</option>
+                    <option value="BTC">BTC</option>
+                    <option value="ETH">ETH</option>
+                    <option value="XRP">XRP</option>
+                </select>
             </div>
         `;
 

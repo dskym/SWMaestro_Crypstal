@@ -1,6 +1,11 @@
 $(function () {
     "use strict";
 
+    $(window).on('popstate', function(event) {
+        console.log(history);
+        console.log(event.originalEvent);
+    });
+
     // Slim scrolling
     $('.inner-content-div').slimScroll({
         height: 'auto'
@@ -21,7 +26,13 @@ $(function () {
         }
 
         //redraw
-        drawBotReportComponent(botData);
+        const resultUrl = aiTradeUrl + '/TradeHistory';
+        $.getJSON(resultUrl, function(tradeHistory) {
+            history.pushState({data: botData}, '', './TradeHistory');
+            console.log(history);
+
+            drawBotReportComponent(botData, tradeHistory);
+        });
     });
 
     $('div.content').on('backtest', function (botData) {
@@ -195,11 +206,11 @@ $(function () {
         return content;
     }
 
-    function makeTradeResultComponent(tempData) {
-        let tradeBotProfitRateComponent = makeBotProfitComponent(tempData.result.profit * 100);
-        let tradeHistoryComponent = makeTradeHistoryComponent(tempData['history']);
-        let tradeBotStatusComponent = makeBotStatusComponent(tempData.result.hold);
-        let currentAssetComponent = makeAssetComponent(tempData.result.currentAsset);
+    function makeTradeResultComponent(tradeResult, tradeHistory) {
+        let tradeBotProfitRateComponent = makeBotProfitComponent(tradeResult.result.profit * 100);
+        let tradeHistoryComponent = makeTradeHistoryComponent(tradeHistory);
+        let tradeBotStatusComponent = makeBotStatusComponent(tradeResult.result.hold);
+        let currentAssetComponent = makeAssetComponent(tradeResult.result.currentAsset);
         let tradeChartComponent = makeTradeChartComponent();
 
         let content = `
@@ -502,7 +513,7 @@ $(function () {
         }, 10 * 1000);
     }
 
-    function drawBotReportComponent(botData) {
+    function drawBotReportComponent(botData, tradeHistory) {
         let $content = $('div.content');
         $content.empty();
 
@@ -536,7 +547,7 @@ $(function () {
 
 
         let botVerticalListComponent = makeBotVerticalListComponent(botData);
-        let tradeResultComponent = makeTradeResultComponent(tradeResultData);
+        let tradeResultComponent = makeTradeResultComponent(tradeResultData, tradeHistory);
 
         let tradeComponent = `
                 <div class="trade">

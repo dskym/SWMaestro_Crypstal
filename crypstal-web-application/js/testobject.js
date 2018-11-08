@@ -7,9 +7,9 @@ var botListData = [
         coin: 'BTC',
         period: '10s',
         strategy: {
-            'name': 'HighLowStrategy',
-            'highPrice' : 1000,
-            'lowPrice' : 1000,
+            name: 'HighLowStrategy',
+            highPrice : 2000,
+            lowPrice : 1000,
         },
         chatBotAlarm: false,
         autoTrade: true
@@ -21,7 +21,12 @@ var botListData = [
         exchange: 'Upbit',
         coin: 'ETH',
         period: '30s',
-        strategy: {},
+        strategy: {
+            'name': 'ReinforceLearningStrategy',
+            startDate : '2018-01-01',
+            endDate : '2018-06-01',
+            coin: 'ETH',
+        },
         chatBotAlarm: true,
         autoTrade: false
     },
@@ -32,7 +37,11 @@ var botListData = [
         exchange: 'Coinone',
         coin: 'XRP',
         period: '1m',
-        strategy: {},
+        strategy: {
+            name: 'HighLowStrategy',
+            highPrice : 5000,
+            lowPrice : 3000,
+        },
         chatBotAlarm: false,
         autoTrade: true
     },
@@ -43,7 +52,11 @@ var botListData = [
         exchange: 'Bithumb',
         coin: 'BTC',
         period: '3m',
-        strategy: {},
+        strategy: {
+            name: 'HighLowStrategy',
+            highPrice : 2000,
+            lowPrice : 1000,
+        },
         chatBotAlarm: false,
         autoTrade: false
     },
@@ -54,7 +67,12 @@ var botListData = [
         exchange: 'Bithumb',
         coin: 'ETH',
         period: '5m',
-        strategy: {},
+        strategy: {
+            'name': 'ReinforceLearningStrategy',
+            startDate : '2018-06-01',
+            endDate : '2018-07-01',
+            coin: 'BTC',
+        },
         chatBotAlarm: false,
         autoTrade: false
     },
@@ -65,7 +83,11 @@ var botListData = [
         exchange: 'Bithumb',
         coin: 'ETH',
         period: '10m',
-        strategy: {},
+        strategy: {
+            name: 'HighLowStrategy',
+            highPrice : 10000,
+            lowPrice : 5000,
+        },
         chatBotAlarm: true,
         autoTrade: true
     },
@@ -76,7 +98,12 @@ var botListData = [
         exchange: 'Bithumb',
         coin: 'XRP',
         period: '30m',
-        strategy: {},
+        strategy: {
+            name: 'ReinforceLearningStrategy',
+            startDate : '2018-03-01',
+            endDate : '2018-07-01',
+            coin: 'BTC',
+        },
         chatBotAlarm: true,
         autoTrade: false
     }
@@ -84,8 +111,8 @@ var botListData = [
 
 var tradeResultData = {
     result: {
-        from: "2018-11-01T11:11:10",
-        to: "2018-11-01T11:11:10",
+        from: "2018-11-01 11:11:10",
+        to: "2018-11-01 11:16:10",
         initialAsset: "1,000,000.0",
         currentAsset: "1,100,000.0",
         profit: 0.15,
@@ -93,42 +120,42 @@ var tradeResultData = {
     },
     history: [
         {
-            time: "2018-11-01T11:11:10",
+            time: "2018-11-01 11:11:10",
             position: "BUY",
             price: 1000000.0,
             amount: 1000.0,
             asset: 1000000.0
         },
         {
-            time: "2018-11-01T11:12:10",
+            time: "2018-11-01 11:12:10",
             position: "SELL",
             price: 1100000.0,
             amount: 1000.0,
             asset: 1100000.0
         },
         {
-            time: "2018-11-01T11:13:10",
+            time: "2018-11-01 11:13:10",
             position: "BUY",
             price: 1050000.0,
             amount: 1200.0,
             asset: 1050000.0
         },
         {
-            time: "2018-11-01T11:14:10",
+            time: "2018-11-01 11:14:10",
             position: "SELL",
             price: 1200000.0,
             amount: 1200.0,
             asset: 1200000.0
         },
         {
-            time: "2018-11-01T11:15:10",
+            time: "2018-11-01 11:15:10",
             position: "BUY",
             price: 1100000.0,
             amount: 1400.0,
             asset: 1100000.0
         },
         {
-            time: "2018-11-01T11:16:10",
+            time: "2018-11-01 11:16:10",
             position: "SELL",
             price: 1400000.0,
             amount: 1400.0,
