@@ -20,6 +20,27 @@ $(function () {
                         //삭제 요청
                         console.log('Request Delete.');
 
+                        const botDeleteUrl = serverUrl + '/bot/' + removeData.id;
+
+                        $.ajax({
+                            url: botDeleteUrl,
+                            type: 'DELETE',
+                            success: function(result) {
+                                //성공 시
+                                console.log('Delete Success');
+
+                                //재랜더링
+                                reRendering();
+                            },
+                            error: function(result) {
+                                //실패 시
+                                //실패 응답
+                                console.log('Delete Error.');
+                                console.log(result);
+                            }
+                        });
+
+                        /*
                         //성공 시
                         botListData = botListData.filter(botData => botData !== removeData);
 
@@ -27,10 +48,11 @@ $(function () {
                         console.log(botListData);
 
                         //재랜더링
-                        reRedering();
+                        reRendering();
 
                         //실패 시
                         //실패 응답
+                         */
                     } else {
                         //삭제 실패
                         swal('자동 거래를 종료해주세요.', {
@@ -52,13 +74,41 @@ $(function () {
         let oldBotData = $botUI.data('botData');
         let newBotData = {...oldBotData, chatBotAlarm: !oldBotData.chatBotAlarm};
 
+        //업데이트 요청
+        console.log('Request Update.');
+
+        const botUpdateUrl = serverUrl + '/bot/' + newBotData.id;
+
+        console.log(newBotData);
+
+        $.ajax({
+            url: botUpdateUrl,
+            type: 'PUT',
+            data: JSON.stringify(newBotData),
+            contentType: 'application/json',
+            success: function(result) {
+                //성공 시
+                console.log('Update Success');
+
+                $botUI.data('botData', result);
+            },
+            error: function(result) {
+                //실패 시
+                //실패 응답
+                console.log('Update Error.');
+                console.log(result);
+            }
+        });
+
+        /*
         $.each(botListData, function(index, botData) {
             if(oldBotData === botData) {
                 botListData[index] = newBotData;
             }
         });
 
-        $botUI.data('botData', newBotData);
+        $botUI.data('botData', result);
+        */
     });
 
     $(document).on('click', 'button.bot-trade', function (event) {
@@ -70,6 +120,33 @@ $(function () {
         let oldBotData = $botUI.data('botData');
         let newBotData = {...oldBotData, autoTrade: !oldBotData.autoTrade};
 
+        //업데이트 요청
+        console.log('Request Update.');
+
+        const botUpdateUrl = serverUrl + '/bot/' + newBotData.id;
+
+        console.log(newBotData);
+
+        $.ajax({
+            url: botUpdateUrl,
+            type: 'PUT',
+            data: JSON.stringify(newBotData),
+            contentType: 'application/json',
+            success: function(result) {
+                //성공 시
+                console.log('Update Success');
+
+                $botUI.data('botData', result);
+            },
+            error: function(result) {
+                //실패 시
+                //실패 응답
+                console.log('Update Error.');
+                console.log(result);
+            }
+        });
+
+        /*
         $.each(botListData, function(index, botData) {
             if(oldBotData === botData) {
                 botListData[index] = newBotData;
@@ -77,11 +154,15 @@ $(function () {
         });
 
         $botUI.data('botData', newBotData);
+        */
+
 
         if(newBotData.autoTrade === true) {
             //trade request
 
             if(newBotData.strategy.name === 'ReinforceLearningStrategy') {
+                $botUI.LoadingOverlay('show');
+
                 let trainSocket = new WebSocket("ws://127.0.0.1:8000/training");
 
                 trainSocket.onopen = function(event) {
@@ -90,6 +171,8 @@ $(function () {
 
                 trainSocket.onmessage = function(event) {
                     console.log(event.data);
+
+                    $botUI.LoadingOverlay('hide');
 
                     //End Learn
                     console.log('End Training.');
@@ -211,7 +294,6 @@ $(function () {
         const $botCoin = $botSettingModal.find('#bot-coin');
         const $botPeriod = $botSettingModal.find('#bot-period');
 
-        newBotData.id = Math.floor(Math.random() * 100 + 10);
         newBotData.name = $botName.val();
         newBotData.asset = Number($botAsset.val());
         newBotData.exchange = $botExchange.val();
@@ -251,10 +333,75 @@ $(function () {
             newBotData.autoTrade = false;
             newBotData.chatBotAlarm = false;
 
+            console.log(newBotData);
+
+            const botAddUrl = serverUrl + '/bot';
+
+            $.ajax({
+                url: botAddUrl,
+                type: 'POST',
+                data: JSON.stringify(newBotData),
+                contentType: 'application/json',
+                success: function(result) {
+                    //성공 시
+                    console.log('Add Success');
+
+                    $botSettingModal.modal('hide');
+
+                    reRendering();
+                },
+                error: function(result) {
+                    //실패 시
+                    //실패 응답
+                    console.log('Add Error.');
+                    console.log(result);
+                }
+            });
+
+            /*
             botListData.push(newBotData);
+            */
         } else if(mode === 'update') {
             const oldBotData = $botSettingModal.data('bot');
 
+            //업데이트 요청
+            console.log('Request Update.');
+
+            const botUpdateUrl = serverUrl + '/bot/' + oldBotData.id;
+
+            console.log({
+                id: oldBotData.id,
+                autoTrade: oldBotData.autoTrade,
+                chatBotAlarm: oldBotData.chatBotAlarm,
+                ...newBotData
+            });
+
+            $.ajax({
+                url: botUpdateUrl,
+                type: 'PUT',
+                data: JSON.stringify({
+                    autoTrade: oldBotData.autoTrade,
+                    chatBotAlarm: oldBotData.chatBotAlarm,
+                    ...newBotData
+                }),
+                contentType: 'application/json',
+                success: function(result) {
+                    //성공 시
+                    console.log('Update Success');
+
+                    $botSettingModal.modal('hide');
+
+                    reRendering();
+                },
+                error: function(result) {
+                    //실패 시
+                    //실패 응답
+                    console.log('Update Error.');
+                    console.log(result);
+                }
+            });
+
+            /*
             $.each(botListData, function(index, botData) {
                 if(oldBotData === botData) {
                     newBotData.autoTrade = botListData[index].autoTrade;
@@ -263,15 +410,12 @@ $(function () {
                     botListData[index] = newBotData;
                 }
             });
+            */
         } else {
             console.log('Mode Error.');
         }
 
-        console.log(botListData);
-
-        $botSettingModal.modal('hide');
-
-        reRedering();
+        //console.log(botListData);
     });
 
     $('#modal-bot-setting').on('show.bs.modal', function(event) {
@@ -381,7 +525,7 @@ $(function () {
         return content;
     }
 
-    function makeBotListComponent() {
+    function makeBotListComponent(botListData) {
         let botsComponent = '<div class="row">';
 
         $.each(botListData, function(index, botData) {
@@ -415,7 +559,7 @@ $(function () {
         return content;
     }
 
-    function bindBotData() {
+    function bindBotData(botListData) {
         $.each(botListData, function(index, botData) {
             $('#bot-' + botData.id).data('botData', botData);
         });
@@ -423,7 +567,12 @@ $(function () {
 
     function loadBotData() {
         //Load Bot Data.
+        const loadBotUrl = serverUrl + '/bot';
 
+        $.getJSON(loadBotUrl, function(result) {
+            console.log(result);
+            drawBotListComponent(result);
+        });
 
         /*
         let strategy = new Object();
@@ -445,20 +594,29 @@ $(function () {
         //Combine and Return.
     }
 
-    function drawBotListComponent() {
-        let component = makeBotListComponent();
+    function drawBotListComponent(botListData) {
+        let component = makeBotListComponent(botListData);
 
         let $content = $('div.content');
         $content.append(component);
 
-        bindBotData();
+        bindBotData(botListData);
     }
 
-    function reRedering() {
+    function reRendering() {
         const $content = $('div.content');
-        $content.empty();
 
-        drawBotListComponent();
+        //Load Bot Data.
+        const loadBotUrl = serverUrl + '/bot';
+
+        $.getJSON(loadBotUrl, function(result) {
+            console.log(result);
+
+            $content.empty();
+            drawBotListComponent(result);
+        });
+
+        //drawBotListComponent(botListData);
     }
 
     function getStrategy() {
@@ -469,13 +627,13 @@ $(function () {
         switch(strategyName) {
             case 'HighLowStrategy':
                 strategyObject.name = strategyName;
-                strategyObject.highPrice = $('#highPrice').val();
-                strategyObject.lowPrice = $('#lowPrice').val();
+                strategyObject.HighPrice = $('#highPrice').val();
+                strategyObject.LowPrice = $('#lowPrice').val();
                 break;
             case 'ReinforceLearningStrategy':
                 strategyObject.name = strategyName;
-                strategyObject.startDate = $('#startDate').val();
-                strategyObject.endDate = $('#endDate').val();
+                strategyObject.startDate = moment($('#startDate').val()).format('YYYY-MM-DD HH:mm:ss');
+                strategyObject.endDate = moment($('#endDate').val()).format('YYYY-MM-DD HH:mm:ss');
                 strategyObject.learnCoin = $('#learnCoin').val();
                 break;
             default :
@@ -499,12 +657,12 @@ $(function () {
     function setStrategyComponent(strategy) {
         switch(strategy.name) {
             case 'HighLowStrategy':
-                $('#lowPrice').val(strategy.lowPrice);
-                $('#highPrice').val(strategy.highPrice);
+                $('#lowPrice').val(strategy.LowPrice);
+                $('#highPrice').val(strategy.HighPrice);
                 break;
             case 'ReinforceLearningStrategy':
-                const startDate = moment(strategy.startDate).format('YYYY-MM-DD');
-                const endDate = moment(strategy.endDate).format('YYYY-MM-DD');
+                const startDate = moment(strategy.fromDate).format('YYYY-MM-DD');
+                const endDate = moment(strategy.toDate).format('YYYY-MM-DD');
 
                 $('#startDate').datepicker('setDate', startDate);
                 $('#endDate').datepicker('setDate', endDate);
@@ -538,5 +696,6 @@ $(function () {
         '1d': 86400
     };
 
-    drawBotListComponent();
+    reRendering();
+    //drawBotListComponent();
 });

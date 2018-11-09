@@ -19,13 +19,13 @@ var botListData = [
         name: 'Test 2',
         asset: 1000000,
         exchange: 'Upbit',
-        coin: 'ETH',
+        coin: 'BTC',
         period: '30s',
         strategy: {
             'name': 'ReinforceLearningStrategy',
             startDate : '2018-01-01',
             endDate : '2018-06-01',
-            coin: 'ETH',
+            coin: 'BTC',
         },
         chatBotAlarm: true,
         autoTrade: false
