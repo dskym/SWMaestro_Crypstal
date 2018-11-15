@@ -1,0 +1,12 @@
+Learning Rate: 0.09, Discount Factor: 0, Trading Unit: [0.001, 0.01], Delayed Reward threshold: 0.3, Training period: [from=2018-01-01 ~ 2018-06-01]
+[Epoch 01/10]	Epsilon:0.5000	#Expl.:0/0	#Buy:0	#Sell:0	#Hold:0	#Coins:0	PV:₩1,000,000	#Accuracy:  0.000000
+[Epoch 02/10]	Epsilon:0.4444	#Expl.:0/0	#Buy:0	#Sell:0	#Hold:0	#Coins:0	PV:₩1,000,000	#Accuracy:  0.000000
+[Epoch 03/10]	Epsilon:0.3889	#Expl.:0/0	#Buy:0	#Sell:0	#Hold:0	#Coins:0	PV:₩1,000,000	#Accuracy:  0.000000
+[Epoch 04/10]	Epsilon:0.3333	#Expl.:0/0	#Buy:0	#Sell:0	#Hold:0	#Coins:0	PV:₩1,000,000	#Accuracy:  0.000000
+[Epoch 05/10]	Epsilon:0.2778	#Expl.:0/0	#Buy:0	#Sell:0	#Hold:0	#Coins:0	PV:₩1,000,000	#Accuracy:  0.000000
+[Epoch 06/10]	Epsilon:0.2222	#Expl.:0/0	#Buy:0	#Sell:0	#Hold:0	#Coins:0	PV:₩1,000,000	#Accuracy:  0.000000
+[Epoch 07/10]	Epsilon:0.1667	#Expl.:0/0	#Buy:0	#Sell:0	#Hold:0	#Coins:0	PV:₩1,000,000	#Accuracy:  0.000000
+[Epoch 08/10]	Epsilon:0.1111	#Expl.:0/0	#Buy:0	#Sell:0	#Hold:0	#Coins:0	PV:₩1,000,000	#Accuracy:  0.000000
+[Epoch 09/10]	Epsilon:0.0556	#Expl.:0/0	#Buy:0	#Sell:0	#Hold:0	#Coins:0	PV:₩1,000,000	#Accuracy:  0.000000
+[Epoch 10/10]	Epsilon:0.0000	#Expl.:0/0	#Buy:0	#Sell:0	#Hold:0	#Coins:0	PV:₩1,000,000	#Accuracy:  0.000000
+Max PV: ₩1,000,000, 	 # Win: 0

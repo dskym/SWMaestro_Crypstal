@@ -1,0 +1,12 @@
+Learning Rate: 0.09, Discount Factor: 0, Trading Unit: [0.001, 0.01], Delayed Reward threshold: 0.3, Training period: [2018-10-01 ~ 2018-10-02]
+[Epoch 01/10]	Epsilon:0.5000	#Expl.:699/1440	#Buy:679	#Sell:655	#Hold:106	#Coins:0	PV:₩1,000,942	#Accuracy: 12.166667
+[Epoch 02/10]	Epsilon:0.4444	#Expl.:658/1440	#Buy:745	#Sell:688	#Hold:7	#Coins:0	PV:₩997,630	#Accuracy: 12.433333
+[Epoch 03/10]	Epsilon:0.3889	#Expl.:552/1440	#Buy:726	#Sell:672	#Hold:42	#Coins:0	PV:₩999,319	#Accuracy: 11.350000
+[Epoch 04/10]	Epsilon:0.3333	#Expl.:463/1440	#Buy:745	#Sell:673	#Hold:22	#Coins:0	PV:₩993,381	#Accuracy: 11.533333
+[Epoch 05/10]	Epsilon:0.2778	#Expl.:384/1440	#Buy:744	#Sell:639	#Hold:57	#Coins:0	PV:₩996,375	#Accuracy: 11.316667
+[Epoch 06/10]	Epsilon:0.2222	#Expl.:313/1440	#Buy:726	#Sell:660	#Hold:54	#Coins:0	PV:₩997,495	#Accuracy: 12.316667
+[Epoch 07/10]	Epsilon:0.1667	#Expl.:234/1440	#Buy:682	#Sell:580	#Hold:178	#Coins:0	PV:₩993,977	#Accuracy: 11.333333
+[Epoch 08/10]	Epsilon:0.1111	#Expl.:151/1440	#Buy:753	#Sell:618	#Hold:69	#Coins:0	PV:₩995,774	#Accuracy: 11.400000
+[Epoch 09/10]	Epsilon:0.0556	#Expl.:84/1440	#Buy:723	#Sell:589	#Hold:128	#Coins:0	PV:₩994,883	#Accuracy: 11.233333
+[Epoch 10/10]	Epsilon:0.0000	#Expl.:0/1440	#Buy:744	#Sell:613	#Hold:83	#Coins:0	PV:₩997,989	#Accuracy: 10.983333
+Max PV: ₩1,000,942, 	 # Win: 1

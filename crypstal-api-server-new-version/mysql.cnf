@@ -1,0 +1,5 @@
+database = 'crypstal'
+host = '35.201.207.75'
+user = 'root'
+password = 'crypstal-pw'
+port = '3306'
