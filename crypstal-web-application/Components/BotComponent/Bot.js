@@ -158,12 +158,13 @@ $(function () {
 
 
         if(newBotData.autoTrade === true) {
-            //trade request
+            let trainSocket = new WebSocket(webSocketServerUrl + "/bot/" + newBotData.id + "/trade");
 
+            table[newBotData.id] = trainSocket;
+
+            //trade request
             if(newBotData.strategy.name === 'ReinforceLearningStrategy') {
                 $botUI.LoadingOverlay('show');
-
-                let trainSocket = new WebSocket("ws://127.0.0.1:8000/training");
 
                 trainSocket.onopen = function(event) {
                     trainSocket.send(JSON.stringify(newBotData.strategy));
@@ -177,6 +178,7 @@ $(function () {
                     //End Learn
                     console.log('End Training.');
 
+
                     trainSocket.close();
                 };
 
@@ -189,8 +191,8 @@ $(function () {
                 */
 
 
-
-                let runSocket = new WebSocket("ws://127.0.0.1:8000/running");
+                /*
+                let runSocket = new WebSocket(webSocketServerUrl + "/running");
 
                 runSocket.onopen = function(event) {
                     runSocket.send(JSON.stringify({'filename':'1234','coin':'1234','asset':'1234'}));
@@ -204,6 +206,7 @@ $(function () {
                     //End Run
                     runSocket.close();
                 };
+                */
 
                 /*
                 const runUrl = aiTradeUrl + '/Running?filename=1234&coin=1234&asset=1234';
@@ -212,9 +215,32 @@ $(function () {
                     console.log(data);
                 });
                 */
+            } else if(newBotData.strategy.name === 'HighLowStrategy') {
+                trainSocket.onopen = function(event) {
+                    trainSocket.send(JSON.stringify(newBotData.strategy));
+                };
+
+                trainSocket.onmessage = function(event) {
+                    console.log(newBotData);
+
+                    trainSocket.close();
+                };
             }
         } else {
             //trade stop request
+            if (newBotData.strategy.name === 'ReinforceLearningStrategy') {
+                const trainSocket = table[newBotData.id];
+
+                delete table[newBotData.id];
+
+                trainSocket.close();
+            } else if(newBotData.strategy.name === 'HighLowStrategy') {
+                const trainSocket = table[newBotData.id];
+
+                delete table[newBotData.id];
+
+                trainSocket.close();
+            }
         }
     });
 
@@ -337,6 +363,8 @@ $(function () {
 
             const botAddUrl = serverUrl + '/bot';
 
+            $botSettingModal.modal('hide');
+
             $.ajax({
                 url: botAddUrl,
                 type: 'POST',
@@ -345,8 +373,6 @@ $(function () {
                 success: function(result) {
                     //성공 시
                     console.log('Add Success');
-
-                    $botSettingModal.modal('hide');
 
                     reRendering();
                 },
@@ -376,6 +402,8 @@ $(function () {
                 ...newBotData
             });
 
+            $botSettingModal.modal('hide');
+
             $.ajax({
                 url: botUpdateUrl,
                 type: 'PUT',
@@ -388,8 +416,6 @@ $(function () {
                 success: function(result) {
                     //성공 시
                     console.log('Update Success');
-
-                    $botSettingModal.modal('hide');
 
                     reRendering();
                 },
@@ -484,7 +510,7 @@ $(function () {
     
                         <div class="blog-body">
                             <div class="blog-title text-center">
-                                <h4>수익률 +100%</h4>
+                                <h4>수익률 +0%</h4>
                             </div>
                             
                             <div class="blog-summary text-center">
@@ -632,9 +658,9 @@ $(function () {
                 break;
             case 'ReinforceLearningStrategy':
                 strategyObject.name = strategyName;
-                strategyObject.startDate = moment($('#startDate').val()).format('YYYY-MM-DD HH:mm:ss');
-                strategyObject.endDate = moment($('#endDate').val()).format('YYYY-MM-DD HH:mm:ss');
-                strategyObject.learnCoin = $('#learnCoin').val();
+                strategyObject.fromDate = moment($('#startDate').val()).format('YYYY-MM-DD HH:mm:ss');
+                strategyObject.toDate = moment($('#endDate').val()).format('YYYY-MM-DD HH:mm:ss');
+                strategyObject.coin = $('#learnCoin').val();
                 break;
             default :
                 break;

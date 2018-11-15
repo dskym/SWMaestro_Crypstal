@@ -1,7 +1,7 @@
 $(function () {
     "use strict";
 
-    $(window).on('popstate', function(event) {
+    $(window).on('popstate', function (event) {
         console.log(history);
         console.log(event.originalEvent);
     });
@@ -17,7 +17,9 @@ $(function () {
         const $botUI = $(this).closest('.bot-setting');
         let botData = $botUI.data('botData');
 
-        if(botData.autoTrade === false) {
+        const currentIndex = $('.bot-setting').index($botUI);
+
+        if (botData.autoTrade === false) {
             swal("실패", "자동 거래를 시작해주세요.", "error", {
                 buttons: false,
             });
@@ -26,27 +28,26 @@ $(function () {
         }
 
         //redraw
-        const resultUrl = aiTradeUrl + '/TradeHistory';
-        $.getJSON(resultUrl, function(tradeHistory) {
-            history.pushState({data: botData}, '', './TradeHistory');
-            console.log(history);
+        const resultUrl = serverUrl + '/bot/' + botData.id + '/trade';
 
-            drawBotReportComponent(botData, tradeHistory);
+        console.log(resultUrl);
+
+        $.getJSON(resultUrl, function(tradeHistory) {
+            //history.pushState({data: botData}, '', './TradeHistory');
+            //console.log(history);
+
+            drawBotReportComponent(currentIndex, tradeHistory);
         });
+        //drawBotReportComponent(currentIndex, tradeResultData['history']);
     });
 
     $('div.content').on('backtest', function (botData) {
         //redraw
-        drawBotReportComponent(botData);
+        //drawBotReportComponent(botData);
     });
 
-    function makeBotVerticalListComponent(selctedBotData) {
-        let botIndex;
-
-        $.each(botListData, function(index, botData) {
-            if(selctedBotData === botData)
-                botIndex = index;
-        });
+    function makeBotVerticalListComponent(selectedIndex, botListData) {
+        let botIndex = selectedIndex;
 
         let listContent = '';
 
@@ -73,17 +74,17 @@ $(function () {
     function makeBotProfitComponent(profitRate) {
         let profitRateElement;
 
-        if(profitRate > 0) {
-            profitRateElement = `<h1 class="text-green margin-top-0">+${profitRate}%</h1>`;
-        } else if(profitRate < 0) {
-            profitRateElement = `<h1 class="text-red margin-top-0">-${profitRate}%</h1>`;
+        if (profitRate > 0) {
+            profitRateElement = `<span class="font-size-30">수익률 : <span class="text-green margin-top-0">+${profitRate}%</span></span>`;
+        } else if (profitRate < 0) {
+            profitRateElement = `<span class="font-size-30">수익률 : <span class="text-red margin-top-0">-${profitRate}%</span></span>`;
         } else {
-            profitRateElement = `<h1 class="margin-top-0">${profitRate}%</h1>`;
+            profitRateElement = `<span class="font-size-30">수익률 : <span class="margin-top-0">${profitRate}%</span></span>`;
         }
 
         let content = `
             <div class="box">
-                <div class="box-body text-center">
+                <div class="box-body text-center text-black">
                     ${profitRateElement}
                 </div>
             </div>
@@ -95,16 +96,16 @@ $(function () {
     function makeBotStatusComponent(position) {
         let botStatusElement;
 
-        if(botStatusElement === 'hold') {
+        if (botStatusElement === 'hold') {
 
-        } else if(botStatusElement === 'hold') {
+        } else if (botStatusElement === 'coin') {
 
         }
 
         let content = `
             <div class="box">
                 <div class="box-body text-center">
-                    <h1 class="margin-top-0">${position}</h1>
+                    <span class="text-black font-size-30">보유 : <span class="margin-top-0 text-black">${position}</span></span>
                 </div>
             </div>
         `;
@@ -112,11 +113,13 @@ $(function () {
         return content;
     }
 
-    function makeAssetComponent() {
+    function makeProfitChartComponent() {
         let content = `
-             <div class="box">
-                <div class="box-body text-center">
-                    <h1 class="margin-top-0">Asset List</h1>
+            <div class="box">
+                <div class="box-body">
+                    <div class="chart">
+                        <div id="profitChart" style="height: 250px;"></div>
+                    </div>
                 </div>
             </div>
        `;
@@ -143,40 +146,40 @@ $(function () {
                 let result = '';
 
                 $.each(tradeHistory, function (index, historyElement) {
-                        let positionElement;
+                    let positionElement;
 
-                        if (historyElement.position === 'BUY')
-                            positionElement = `<td><span class="label label-success">${historyElement.position}</span></td>`;
-                        else if (historyElement.position === 'SELL')
-                            positionElement = `<td><span class="label label-danger">${historyElement.position}</span></td>`;
+                    if (historyElement.position === 'BUY')
+                        positionElement = `<td><span class="label label-success">${historyElement.position}</span></td>`;
+                    else if (historyElement.position === 'SELL')
+                        positionElement = `<td><span class="label label-danger">${historyElement.position}</span></td>`;
 
-                        result += `
+                    result += `
                                 <tr>
                                     <td>${historyElement['time']}</td>
                                     ${positionElement}
                                     <td>${addComma(historyElement['price'])}원</td>
-                                    <td>${addComma(historyElement['amount'])}</td>
+                                    <td>${historyElement['amount']}</td>
                                     <td>${addComma(Number(historyElement['asset']).toFixed())}원</td>
                                 </tr>
                                     `;
-                        /*
-                        let positionElement;
+                    /*
+                    let positionElement;
 
-                        if (key === 'BUY')
-                            positionElement = `<td><span class="label label-success">${key}</span></td>`;
-                        else if (key === 'SELL')
-                            positionElement = `<td><span class="label label-danger">${key}</span></td>`;
+                    if (key === 'BUY')
+                        positionElement = `<td><span class="label label-success">${key}</span></td>`;
+                    else if (key === 'SELL')
+                        positionElement = `<td><span class="label label-danger">${key}</span></td>`;
 
-                        result += `
-                                <tr>
-                                    <td>${value['time']}</td>
-                                    ${positionElement}
-                                    <td>${addComma(value['price'])}원</td>
-                                    <td>${addComma(value['amount'])}</td>
-                                    <td>${addComma(Number(value['asset']).toFixed())}원</td>
-                                </tr>
-                                    `;
-                        */
+                    result += `
+                            <tr>
+                                <td>${value['time']}</td>
+                                ${positionElement}
+                                <td>${addComma(value['price'])}원</td>
+                                <td>${addComma(value['amount'])}</td>
+                                <td>${addComma(Number(value['asset']).toFixed())}원</td>
+                            </tr>
+                                `;
+                    */
                 });
 
                 return result;
@@ -206,11 +209,11 @@ $(function () {
         return content;
     }
 
-    function makeTradeResultComponent(tradeResult, tradeHistory) {
-        let tradeBotProfitRateComponent = makeBotProfitComponent(tradeResult.result.profit * 100);
+    function makeTradeResultComponent(tradeHistory) {
+        let tradeBotProfitRateComponent = makeBotProfitComponent(0.15);
         let tradeHistoryComponent = makeTradeHistoryComponent(tradeHistory);
-        let tradeBotStatusComponent = makeBotStatusComponent(tradeResult.result.hold);
-        let currentAssetComponent = makeAssetComponent(tradeResult.result.currentAsset);
+        let tradeBotStatusComponent = makeBotStatusComponent('Coin');
+        let profitChartComponent = makeProfitChartComponent();
         let tradeChartComponent = makeTradeChartComponent();
 
         let content = `
@@ -219,7 +222,7 @@ $(function () {
                     <div class="tradeResult">
                         <div class="tradeInformation">
                             <div class="tradeDetail">
-                                <div class="tradeLeftResult">
+                                <div class="tradeTopResult">
                                     <div class="profitRate">
                                         ${tradeBotProfitRateComponent}
                                     </div>
@@ -227,8 +230,8 @@ $(function () {
                                         ${tradeBotStatusComponent}
                                     </div>
                                 </div>
-                                <div class="currentAsset">
-                                    ${currentAssetComponent}
+                                <div class="profitChart">
+                                    ${profitChartComponent}
                                 </div>
                             </div>
                             <div class="tradeHistory">
@@ -268,9 +271,9 @@ $(function () {
             },
 
             categoryAxesSettings: {
-                minPeriod: "10ss",
+                minPeriod: "1mm",
                 equalSpacing: true,
-                groupToPeriods: ['10ss']
+                groupToPeriods: ['1mm'],
             },
 
             mouseWheelZoomEnabled: true,
@@ -284,7 +287,7 @@ $(function () {
 
                 categoryAxis: {
                     parseDates: true,
-                    minPeriod: "10ss"
+                    minPeriod: "1mm"
                 },
 
                 stockGraphs: [{
@@ -302,7 +305,8 @@ $(function () {
                     negativeFillColors: "#0000ff",
                     fillAlphas: 1,
                     useDataSetColors: false,
-                    showBalloon: true
+                    showBalloon: true,
+                    columnWidth: 0.6,
                 }],
 
                 stockLegend: {
@@ -326,7 +330,8 @@ $(function () {
                     lineColor: "#2B4073",
                     balloonText: "Volume<br><b><span style='font-size:14px;'>Volume: [[value]]</span></b>",
                     showBalloon: true,
-                    fillAlphas: false
+                    fillAlphas: false,
+                    columnWidth: 0.6,
                 }],
 
                 stockLegend: {
@@ -337,24 +342,30 @@ $(function () {
             }],
 
             panelsSettings: {
-                usePrefixes: false
+                usePrefixes: false,
+                marginLeft: 70,
+                marginTop: 10,
+                marginBottom: 10,
+            },
+
+            valueAxesSettings: {
+                inside: false,
+                showLastLabel: true,
             },
 
             chartScrollbarSettings: {
                 enabled: false
-            }
+            },
+
+            chartCursorSettings: {
+                pan: true,
+                valueLineEnabled: true,
+                valueLineBalloonEnabled: true
+            },
         });
 
         // DataSet Period Object
         let dataSetPeriod = {
-            '10s': {
-                dataSetIndex: 0,
-                interval: 10
-            },
-            '30s': {
-                dataSetIndex: 1,
-                interval: 30
-            },
             '1m': {
                 dataSetIndex: 2,
                 interval: 60
@@ -468,22 +479,15 @@ $(function () {
 
         // Load initial data.
         //var stockDataUrl = 'https://api.upbit.com/v1/candles/minutes/1?market=KRW-BTC&count=200';
-        let stockDataUrl = 'http://crypstal.ap-northeast-2.elasticbeanstalk.com/v1/chart/candles/seconds/10?symbol=bithumbBTC&count=200';
+        const stockDataUrl = serverUrl + '/candle?exchange=bithumb&coin=btc&period=1m&count=100';
 
         $.getJSON(stockDataUrl, function () {
             console.log('Success Load Stock Data');
         }).done(function (data) {
             var stockData = [];
 
-            $.each(data['candles'], function (index) {
-                stockData.unshift({
-                    'time': data['candles'][index]['time'],
-                    'open': data['candles'][index]['open'],
-                    'close': data['candles'][index]['close'],
-                    'high': data['candles'][index]['high'],
-                    'low': data['candles'][index]['low'],
-                    'volume': data['candles'][index]['volume']
-                });
+            $.each(data, function (index) {
+                stockData.unshift(data[index]);
             });
 
             liveChart.dataSets[0].dataProvider = stockData;
@@ -493,16 +497,19 @@ $(function () {
         // Get new data and update chart periodically.
         let updateData = function (chart, index) {
             //get data
-            var updateDataUrl = 'http://crypstal.ap-northeast-2.elasticbeanstalk.com/v1/chart/candles/seconds/10?symbol=bithumbBTC&count=1';
+            //const updateDataUrl = serverUrl + '/candle?exchange=bithumb&coin=btc&period=1m&count=1';
+            const updateDataUrl = serverUrl + '/candle?exchange=bithumb&coin=btc&period=1m&count=1';
 
             $.getJSON(updateDataUrl, function () {
                 console.log('Success Load New Stock Data');
             }).done(function (data) {
-                var newData = data['candles'][0];
+                //var newData = data['candles'][0];
 
                 //add data
-                chart.dataSets[index].dataProvider.push(newData);
+                chart.dataSets[index].dataProvider.push(data);
                 chart.validateData();
+
+                console.log(chart);
             });
         };
 
@@ -510,23 +517,220 @@ $(function () {
 
         let liveInterval = setInterval(function () {
             updateData(liveChart, 0);
-        }, 10 * 1000);
+        }, 60 * 1000);
     }
 
-    function drawBotReportComponent(botData, tradeHistory) {
-        let $content = $('div.content');
-        $content.empty();
+    function setProfitChartComponent() {
+        var chart = AmCharts.makeChart("profitChart", {
+            "type": "serial",
+            "theme": "light",
+            "marginTop": 10,
+            "marginRight": 20,
+            "dataProvider": [{
+                "year": "1950",
+                "value": -0.307
+            }, {
+                "year": "1951",
+                "value": -0.168
+            }, {
+                "year": "1952",
+                "value": -0.073
+            }, {
+                "year": "1953",
+                "value": -0.027
+            }, {
+                "year": "1954",
+                "value": -0.251
+            }, {
+                "year": "1955",
+                "value": -0.281
+            }, {
+                "year": "1956",
+                "value": -0.348
+            }, {
+                "year": "1957",
+                "value": -0.074
+            }, {
+                "year": "1958",
+                "value": -0.011
+            }, {
+                "year": "1959",
+                "value": -0.074
+            }, {
+                "year": "1960",
+                "value": -0.124
+            }, {
+                "year": "1961",
+                "value": -0.024
+            }, {
+                "year": "1962",
+                "value": -0.022
+            }, {
+                "year": "1963",
+                "value": 0
+            }, {
+                "year": "1964",
+                "value": -0.296
+            }, {
+                "year": "1965",
+                "value": -0.217
+            }, {
+                "year": "1966",
+                "value": -0.147
+            }, {
+                "year": "1967",
+                "value": -0.15
+            }, {
+                "year": "1968",
+                "value": -0.16
+            }, {
+                "year": "1969",
+                "value": -0.011
+            }, {
+                "year": "1970",
+                "value": -0.068
+            }, {
+                "year": "1971",
+                "value": -0.19
+            }, {
+                "year": "1972",
+                "value": -0.056
+            }, {
+                "year": "1973",
+                "value": 0.077
+            }, {
+                "year": "1974",
+                "value": -0.213
+            }, {
+                "year": "1975",
+                "value": -0.17
+            }, {
+                "year": "1976",
+                "value": -0.254
+            }, {
+                "year": "1977",
+                "value": 0.019
+            }, {
+                "year": "1978",
+                "value": -0.063
+            }, {
+                "year": "1979",
+                "value": 0.05
+            }, {
+                "year": "1980",
+                "value": 0.077
+            }, {
+                "year": "1981",
+                "value": 0.12
+            }, {
+                "year": "1982",
+                "value": 0.011
+            }, {
+                "year": "1983",
+                "value": 0.177
+            }, {
+                "year": "1984",
+                "value": -0.021
+            }, {
+                "year": "1985",
+                "value": -0.037
+            }, {
+                "year": "1986",
+                "value": 0.03
+            }, {
+                "year": "1987",
+                "value": 0.179
+            }, {
+                "year": "1988",
+                "value": 0.18
+            }, {
+                "year": "1989",
+                "value": 0.104
+            }, {
+                "year": "1990",
+                "value": 0.255
+            }, {
+                "year": "1991",
+                "value": 0.21
+            }, {
+                "year": "1992",
+                "value": 0.065
+            }, {
+                "year": "1993",
+                "value": 0.11
+            }, {
+                "year": "1994",
+                "value": 0.172
+            }, {
+                "year": "1995",
+                "value": 0.269
+            }, {
+                "year": "1996",
+                "value": 0.141
+            }, {
+                "year": "1997",
+                "value": 0.353
+            }, {
+                "year": "1998",
+                "value": 0.548
+            }, {
+                "year": "1999",
+                "value": 0.298
+            }, {
+                "year": "2000",
+                "value": 0.267
+            }, {
+                "year": "2001",
+                "value": 0.411
+            }, {
+                "year": "2002",
+                "value": 0.462
+            }, {
+                "year": "2003",
+                "value": 0.47
+            }, {
+                "year": "2004",
+                "value": 0.445
+            }, {
+                "year": "2005",
+                "value": 0.47
+            }],
+            "valueAxes": [{
+                "axisAlpha": 0,
+                "position": "left"
+            }],
+            "graphs": [{
+                "id": "g1",
+                "lineColor": "#d1655d",
+                "lineThickness": 2,
+                "negativeLineColor": "#637bb6",
+                "type": "smoothedLine",
+                "valueField": "value"
+            }],
+            "chartCursor": {
+                "categoryBalloonDateFormat": "YYYY",
+                "cursorAlpha": 0,
+                "valueLineEnabled": true,
+                "valueLineBalloonEnabled": true,
+                "valueLineAlpha": 0.5,
+                "fullWidth": true
+            },
+            "dataDateFormat": "YYYY",
+            "categoryField": "year",
+            "categoryAxis": {
+                "minPeriod": "YYYY",
+                "parseDates": true,
+            },
+        });
+    }
 
-        /*
-        const tempUrl = 'http://crypstal.ap-northeast-2.elasticbeanstalk.com/v1/bots/1/backtest?from=2018-10-01&to=2018-11-01&asset=1000000&fee=0.001&slippage=0.004';
+    function drawBotReportComponent(selectedIndex, tradeHistory) {
+        //Load Bot Data.
+        const loadBotUrl = serverUrl + '/bot';
 
-        $.getJSON(tempUrl, function () {
-            console.log('Success Load Backtest Chart Data');
-        }).done(function (tempData) {
-            let botVerticalListComponent = makeBotVerticalListComponent();
-            let tradeResultComponent = makeTradeResultComponent(tempData);
-
-            console.log(tempData['result']);
+        $.getJSON(loadBotUrl, function (result) {
+            let botVerticalListComponent = makeBotVerticalListComponent(selectedIndex, result);
+            let tradeResultComponent = makeTradeResultComponent(tradeHistory);
 
             let tradeComponent = `
                 <div class="trade">
@@ -539,30 +743,14 @@ $(function () {
                 </div>
             `;
 
+            const $content = $('div.content');
+            $content.empty();
+
             $content.append(tradeComponent);
 
             setTradeChartComponent();
+            setProfitChartComponent();
         });
-        */
-
-
-        let botVerticalListComponent = makeBotVerticalListComponent(botData);
-        let tradeResultComponent = makeTradeResultComponent(tradeResultData, tradeHistory);
-
-        let tradeComponent = `
-                <div class="trade">
-                    <div class="vtabs customvtab">
-                        ${botVerticalListComponent}
-                        <div class="tab-content">
-                            ${tradeResultComponent}
-                        </div>
-                    </div>
-                </div>
-            `;
-
-        $content.append(tradeComponent);
-
-        setTradeChartComponent();
     }
 
     function addComma(value) {

@@ -15786,14 +15786,14 @@ input[type=number]::-webkit-outer-spin-button {
     flex: 1;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
-.tradeResult .tradeLeftResult {
+.tradeResult .tradeTopResult {
     flex: 1;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
 }
 
@@ -15809,8 +15809,8 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0rem 1rem 0rem 0rem;
 }
 
-.tradeResult .currentAsset {
-    flex: 1;
+.tradeResult .profitChart {
+    flex: 3;
 
     margin: 0rem 1rem 0rem 0rem;
 }
